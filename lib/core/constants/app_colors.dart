@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+
+abstract class AppColors {
+  static const Color base0 = Color(0xFFFFFFFF);
+  static const Color base5 = Color(0xFFF7F8F8);
+  static const Color base10 = Color(0xFFF0F1F2);
+  static const Color base20 = Color(0xFFD9DCDE);
+  static const Color base30 = Color(0xFFB8BDC1);
+  static const Color base40 = Color(0xFF919A9F);
+  static const Color base50 = Color(0xFF737D84);
+  static const Color base60 = Color(0xFF5D666C);
+  static const Color base70 = Color(0xFF4C5358);
+  static const Color base80 = Color(0xFF41464B);
+  static const Color base90 = Color(0xFF393D41);
+  static const Color base100 = Color(0xFF26292B);
+
+  static const Color artificialIntelligenceGrey = Color(0xFFA1A1A1);
+  static const Color astronomer = Color(0xFFE8F5EB);
+  static const Color blueGenie = Color(0xFF6666FF);
+  static const Color boysenberryShadow = Color(0xFFF2F2FA);
+  static const Color brilliantLiquorice = Color(0xFF545454);
+  static const Color brilliance = Color(0xFFFCFCFD);
+  static const Color carbonFiber = Color(0xFF2E2E2E);
+  static const Color cascadingWhite = Color(0xFFF6F6F6);
+  static const Color chorusOfElephants = Color(0xFF8C8A87);
+  static const Color coldLips = Color(0xFF9696EE);
+  static const Color crystalBell = Color(0xFFEFEFEF);
+  static const Color drWhite = Color(0xFFFAFAFA);
+  static const Color fairway = Color(0xFF4A7155);
+  static const Color flagstone = Color(0xFFACACAC);
+  static const Color formalGarden = Color(0xFF369551);
+  static const Color foundationWhite = Color(0xFFF0F0FF);
+  static const Color greenStain = Color(0xFF2B5240);
+  static const Color industrialRevolution = Color(0xFF737373);
+  static const Color kazakhstanYellow = Color(0xFFFFC709);
+  static const Color kettleman = Color(0xFF606060);
+  static const Color lacqueredLiquorice = Color(0xFF383838);
+  static const Color lavenderBlue = Color(0xFFCCCCFF);
+  static const Color lavenderBlueShadow = Color(0xFF8F8FFF);
+  static const Color lightPeriwinkle = Color(0xFFC2C2FF);
+  static const Color liteGreen = Color(0xFFE8F5EB);
+  static const Color mediumPurple = Color(0xA4AEA7B2);
+  static const Color navyBlazer = Color(0xFF28303F);
+  static const Color nostalgiaPerfume = Color(0xFFD7D7F9);
+  static const Color potBlack = Color(0xFF161616);
+  static const Color purpleIllusion = Color(0xFFBABAFB);
+  static const Color quartzite = Color(0xFF1E2E23);
+  static const Color seaGreen = Color(0xFFF2F2F2);
+  static const Color silverLeaf = Color(0xFF9BBAA2);
+  static const Color squant = Color(0xFF838383);
+  static const Color transparentBlue = Color(0xFFD9D9FF);
+  static const Color unicornSilver = Color(0xFFE8E8E8);
+  static const Color uniformGrey = Color(0xFFA8A8A8);
+  static const Color washMe = Color(0xFFFAFAFF);
+  static const Color whiteEdgar = Color(0xFFEDEDED);
+  static const Color windChill = Color(0xFFEEF2EF);
+  static const Color whitePerl = Color(0xFFFAFAFF);
+}

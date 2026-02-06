@@ -1,0 +1,1 @@
+enum ChatMemberType { i, companion }
