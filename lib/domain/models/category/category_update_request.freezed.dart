@@ -1,0 +1,251 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'category_update_request.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
+
+/// @nodoc
+mixin _$CategoryUpdateRequest {
+  String get name => throw _privateConstructorUsedError;
+  CategoryType get type => throw _privateConstructorUsedError;
+  String? get slug => throw _privateConstructorUsedError;
+  int? get parentId => throw _privateConstructorUsedError;
+  bool? get isActive => throw _privateConstructorUsedError;
+
+  /// Create a copy of CategoryUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CategoryUpdateRequestCopyWith<CategoryUpdateRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CategoryUpdateRequestCopyWith<$Res> {
+  factory $CategoryUpdateRequestCopyWith(
+    CategoryUpdateRequest value,
+    $Res Function(CategoryUpdateRequest) then,
+  ) = _$CategoryUpdateRequestCopyWithImpl<$Res, CategoryUpdateRequest>;
+  @useResult
+  $Res call({
+    String name,
+    CategoryType type,
+    String? slug,
+    int? parentId,
+    bool? isActive,
+  });
+}
+
+/// @nodoc
+class _$CategoryUpdateRequestCopyWithImpl<
+  $Res,
+  $Val extends CategoryUpdateRequest
+>
+    implements $CategoryUpdateRequestCopyWith<$Res> {
+  _$CategoryUpdateRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CategoryUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? type = null,
+    Object? slug = freezed,
+    Object? parentId = freezed,
+    Object? isActive = freezed,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as CategoryType,
+            slug: freezed == slug
+                ? _value.slug
+                : slug // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            parentId: freezed == parentId
+                ? _value.parentId
+                : parentId // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            isActive: freezed == isActive
+                ? _value.isActive
+                : isActive // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$CategoryUpdateRequestImplCopyWith<$Res>
+    implements $CategoryUpdateRequestCopyWith<$Res> {
+  factory _$$CategoryUpdateRequestImplCopyWith(
+    _$CategoryUpdateRequestImpl value,
+    $Res Function(_$CategoryUpdateRequestImpl) then,
+  ) = __$$CategoryUpdateRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String name,
+    CategoryType type,
+    String? slug,
+    int? parentId,
+    bool? isActive,
+  });
+}
+
+/// @nodoc
+class __$$CategoryUpdateRequestImplCopyWithImpl<$Res>
+    extends
+        _$CategoryUpdateRequestCopyWithImpl<$Res, _$CategoryUpdateRequestImpl>
+    implements _$$CategoryUpdateRequestImplCopyWith<$Res> {
+  __$$CategoryUpdateRequestImplCopyWithImpl(
+    _$CategoryUpdateRequestImpl _value,
+    $Res Function(_$CategoryUpdateRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of CategoryUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? type = null,
+    Object? slug = freezed,
+    Object? parentId = freezed,
+    Object? isActive = freezed,
+  }) {
+    return _then(
+      _$CategoryUpdateRequestImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as CategoryType,
+        slug: freezed == slug
+            ? _value.slug
+            : slug // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        parentId: freezed == parentId
+            ? _value.parentId
+            : parentId // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        isActive: freezed == isActive
+            ? _value.isActive
+            : isActive // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$CategoryUpdateRequestImpl implements _CategoryUpdateRequest {
+  const _$CategoryUpdateRequestImpl({
+    required this.name,
+    required this.type,
+    this.slug,
+    this.parentId,
+    this.isActive,
+  });
+
+  @override
+  final String name;
+  @override
+  final CategoryType type;
+  @override
+  final String? slug;
+  @override
+  final int? parentId;
+  @override
+  final bool? isActive;
+
+  @override
+  String toString() {
+    return 'CategoryUpdateRequest(name: $name, type: $type, slug: $slug, parentId: $parentId, isActive: $isActive)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CategoryUpdateRequestImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.slug, slug) || other.slug == slug) &&
+            (identical(other.parentId, parentId) ||
+                other.parentId == parentId) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, type, slug, parentId, isActive);
+
+  /// Create a copy of CategoryUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CategoryUpdateRequestImplCopyWith<_$CategoryUpdateRequestImpl>
+  get copyWith =>
+      __$$CategoryUpdateRequestImplCopyWithImpl<_$CategoryUpdateRequestImpl>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _CategoryUpdateRequest implements CategoryUpdateRequest {
+  const factory _CategoryUpdateRequest({
+    required final String name,
+    required final CategoryType type,
+    final String? slug,
+    final int? parentId,
+    final bool? isActive,
+  }) = _$CategoryUpdateRequestImpl;
+
+  @override
+  String get name;
+  @override
+  CategoryType get type;
+  @override
+  String? get slug;
+  @override
+  int? get parentId;
+  @override
+  bool? get isActive;
+
+  /// Create a copy of CategoryUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CategoryUpdateRequestImplCopyWith<_$CategoryUpdateRequestImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}

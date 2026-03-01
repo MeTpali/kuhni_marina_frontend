@@ -1,0 +1,40 @@
+import 'package:frontend/data/dto/product/product_response/product_response_dto.dart';
+import 'package:frontend/data/dto/product/product_type_dto.dart';
+import 'package:frontend/domain/models/product/product.dart';
+import 'package:frontend/domain/models/product_type/product_type.dart';
+import 'package:frontend/data/mappers/categories/category_mapper.dart';
+import 'package:frontend/data/mappers/i_mapper.dart';
+import 'package:frontend/data/mappers/products/product_attribute_mapper.dart';
+import 'package:frontend/data/mappers/products/product_image_mapper.dart';
+
+class ProductMapper implements IMapper<ProductResponseDto, Product> {
+  final CategoryMapper _categoryMapper = CategoryMapper();
+  final ProductAttributeMapper _attributeMapper = ProductAttributeMapper();
+  final ProductImageMapper _imageMapper = ProductImageMapper();
+
+  @override
+  Product map(ProductResponseDto from) {
+    final category = _categoryMapper.map(from.category);
+    return Product(
+      id: from.id,
+      name: from.name,
+      categoryId: from.categoryId,
+      type: _toDomainType(from.type),
+      category: category,
+      createdAt: from.createdAt,
+      slug: from.slug,
+      description: from.description,
+      price: from.price,
+      isNew: from.isNew,
+      isHit: from.isHit,
+      isActive: from.isActive,
+      attributes: from.attributes.map(_attributeMapper.map).toList(),
+      images: from.images.map(_imageMapper.map).toList(),
+      updatedAt: from.updatedAt,
+    );
+  }
+
+  static ProductType _toDomainType(ProductTypeDto dto) {
+    return ProductType.fromName(dto.name);
+  }
+}

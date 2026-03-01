@@ -1,1 +1,0 @@
-enum CategoryType { KITCHEN, FURNITURE }

@@ -1,0 +1,1 @@
+enum ProductTypeDto { KITCHEN, FURNITURE }

@@ -1,0 +1,1 @@
+enum CategoryTypeDto { KITCHEN, FURNITURE }
