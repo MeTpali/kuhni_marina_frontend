@@ -1,15 +1,15 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/data/dto/measure_request/measure_request_status_enum.dart';
-import 'package:frontend/data/mappers/measure_requests/measure_request_mapper.dart';
-import 'package:frontend/data/mappers/measure_requests/measure_request_request_mappers.dart';
-import 'package:frontend/data/services/measure_requests/measure_requests_remote_service.dart';
-import 'package:frontend/data/utils/response_error_mapper.dart';
-import 'package:frontend/domain/models/measure_request/measure_request.dart';
-import 'package:frontend/domain/models/measure_request/measure_request_create_request.dart';
-import 'package:frontend/domain/models/measure_request/measure_request_status_update_request.dart';
-import 'package:frontend/domain/models/measure_request/measure_request_update_request.dart';
-import 'package:frontend/domain/models/measure_request_status/measure_request_status.dart';
-import 'package:frontend/domain/repositories/i_measure_requests_repository.dart';
+import '../../../core/entities/result/result.dart';
+import '../../../domain/models/measure_request/measure_request.dart';
+import '../../../domain/models/measure_request/measure_request_create_request.dart';
+import '../../../domain/models/measure_request/measure_request_status_update_request.dart';
+import '../../../domain/models/measure_request/measure_request_update_request.dart';
+import '../../../domain/models/measure_request_status/measure_request_status.dart';
+import '../../../domain/repositories/i_measure_requests_repository.dart';
+import '../../dto/measure_request/measure_request_status_enum.dart';
+import '../../mappers/measure_requests/measure_request_mapper.dart';
+import '../../mappers/measure_requests/measure_request_request_mappers.dart';
+import '../../services/measure_requests/measure_requests_remote_service.dart';
+import '../../utils/response_error_mapper.dart';
 
 class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
   MeasureRequestsRemoteRepository({
@@ -99,7 +99,5 @@ class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
     );
   }
 
-  MeasureRequestStatusEnum _toDtoStatus(MeasureRequestStatus status) {
-    return MeasureRequestStatusEnum.values.byName(status.name);
-  }
+  MeasureRequestStatusEnum _toDtoStatus(MeasureRequestStatus status) => MeasureRequestStatusEnum.values.byName(status.name);
 }

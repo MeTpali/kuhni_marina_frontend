@@ -1,16 +1,16 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/data/dto/category/category_type_dto.dart';
-import 'package:frontend/data/mappers/categories/category_mapper.dart';
-import 'package:frontend/data/mappers/categories/category_request_mappers.dart';
-import 'package:frontend/data/mappers/categories/category_tree_node_mapper.dart';
-import 'package:frontend/data/services/categories/categories_test_service.dart';
-import 'package:frontend/data/utils/response_error_mapper.dart';
-import 'package:frontend/domain/models/category/category.dart';
-import 'package:frontend/domain/models/category/category_create_request.dart';
-import 'package:frontend/domain/models/category/category_tree_node.dart';
-import 'package:frontend/domain/models/category/category_update_request.dart';
-import 'package:frontend/domain/models/category_type/category_type.dart';
-import 'package:frontend/domain/repositories/i_categories_repository.dart';
+import '../../../core/entities/result/result.dart';
+import '../../../domain/models/category/category.dart';
+import '../../../domain/models/category/category_create_request.dart';
+import '../../../domain/models/category/category_tree_node.dart';
+import '../../../domain/models/category/category_update_request.dart';
+import '../../../domain/models/category_type/category_type.dart';
+import '../../../domain/repositories/i_categories_repository.dart';
+import '../../dto/category/category_type_dto.dart';
+import '../../mappers/categories/category_mapper.dart';
+import '../../mappers/categories/category_request_mappers.dart';
+import '../../mappers/categories/category_tree_node_mapper.dart';
+import '../../services/categories/categories_test_service.dart';
+import '../../utils/response_error_mapper.dart';
 
 /// Тестовый репозиторий категорий на основе [CategoriesTestService] с моковыми данными.
 class CategoriesTestRepository implements ICategoriesRepository {
@@ -98,7 +98,5 @@ class CategoriesTestRepository implements ICategoriesRepository {
     );
   }
 
-  CategoryTypeDto _toDtoType(CategoryType type) {
-    return CategoryTypeDto.values.byName(type.name);
-  }
+  CategoryTypeDto _toDtoType(CategoryType type) => CategoryTypeDto.values.byName(type.name);
 }

@@ -32,14 +32,14 @@ class BannersTestService {
     ),
   ];
 
-  static final _mockListResponse =
+  static const _mockListResponse =
       BannerListResponseDto(items: _mockItems, message: null);
 
   Future<ResponseResult<BannerListResponseDto>> getBanners({
     required String token,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
-    return ResponseResult.success(_mockListResponse);
+    return const ResponseResult.success(_mockListResponse);
   }
 
   Future<ResponseResult<BannerResponseDto>> createBanner({

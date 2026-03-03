@@ -1,14 +1,14 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/data/mappers/products/product_catalog_mapper.dart';
-import 'package:frontend/data/mappers/products/product_mapper.dart';
-import 'package:frontend/data/mappers/products/product_request_mappers.dart';
-import 'package:frontend/data/services/products/products_remote_service.dart';
-import 'package:frontend/data/utils/response_error_mapper.dart';
-import 'package:frontend/domain/models/product/product.dart';
-import 'package:frontend/domain/models/product/product_catalog.dart';
-import 'package:frontend/domain/models/product/product_create_request.dart';
-import 'package:frontend/domain/models/product/product_update_request.dart';
-import 'package:frontend/domain/repositories/i_products_repository.dart';
+import '../../../core/entities/result/result.dart';
+import '../../../domain/models/product/product.dart';
+import '../../../domain/models/product/product_catalog.dart';
+import '../../../domain/models/product/product_create_request.dart';
+import '../../../domain/models/product/product_update_request.dart';
+import '../../../domain/repositories/i_products_repository.dart';
+import '../../mappers/products/product_catalog_mapper.dart';
+import '../../mappers/products/product_mapper.dart';
+import '../../mappers/products/product_request_mappers.dart';
+import '../../services/products/products_remote_service.dart';
+import '../../utils/response_error_mapper.dart';
 
 class ProductsRemoteRepository implements IProductsRepository {
   ProductsRemoteRepository({required ProductsRemoteService service})

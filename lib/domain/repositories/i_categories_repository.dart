@@ -1,9 +1,9 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/domain/models/category/category.dart';
-import 'package:frontend/domain/models/category/category_create_request.dart';
-import 'package:frontend/domain/models/category/category_tree_node.dart';
-import 'package:frontend/domain/models/category/category_update_request.dart';
-import 'package:frontend/domain/models/category_type/category_type.dart';
+import '../../core/entities/result/result.dart';
+import '../models/category/category.dart';
+import '../models/category/category_create_request.dart';
+import '../models/category/category_tree_node.dart';
+import '../models/category/category_update_request.dart';
+import '../models/category_type/category_type.dart';
 
 /// Репозиторий категорий каталога (порт для data-слоя).
 abstract class ICategoriesRepository {

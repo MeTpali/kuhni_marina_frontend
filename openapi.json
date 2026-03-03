@@ -2931,6 +2931,439 @@
                     }
                 ]
             }
+        },
+        "/api/v1/discounts": {
+            "get": {
+                "tags": [
+                    "discounts"
+                ],
+                "summary": "Получить список скидок",
+                "description": "Возвращает список скидок с фильтрацией и сортировкой",
+                "operationId": "get_discounts_api_v1_discounts_get",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Номер страницы",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Номер страницы"
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Размер страницы",
+                            "default": 20,
+                            "title": "Page Size"
+                        },
+                        "description": "Размер страницы"
+                    },
+                    {
+                        "name": "include_inactive",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "description": "Включить неактивные скидки",
+                            "default": false,
+                            "title": "Include Inactive"
+                        },
+                        "description": "Включить неактивные скидки"
+                    },
+                    {
+                        "name": "scope",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/DiscountScope"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по области применения",
+                            "title": "Scope"
+                        },
+                        "description": "Фильтр по области применения"
+                    },
+                    {
+                        "name": "discount_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/DiscountType"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по типу скидки",
+                            "title": "Discount Type"
+                        },
+                        "description": "Фильтр по типу скидки"
+                    },
+                    {
+                        "name": "product_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по ID продукта",
+                            "title": "Product Id"
+                        },
+                        "description": "Фильтр по ID продукта"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по ID категории",
+                            "title": "Category Id"
+                        },
+                        "description": "Фильтр по ID категории"
+                    },
+                    {
+                        "name": "product_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ProductType"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по типу продукта",
+                            "title": "Product Type"
+                        },
+                        "description": "Фильтр по типу продукта"
+                    },
+                    {
+                        "name": "is_active",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по активности",
+                            "title": "Is Active"
+                        },
+                        "description": "Фильтр по активности"
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Поле для сортировки (name, created_at, priority, start_date, end_date)",
+                            "title": "Sort By"
+                        },
+                        "description": "Поле для сортировки (name, created_at, priority, start_date, end_date)"
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^(asc|desc)$",
+                            "description": "Порядок сортировки (asc/desc)",
+                            "default": "desc",
+                            "title": "Sort Order"
+                        },
+                        "description": "Порядок сортировки (asc/desc)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DiscountListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Discount not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "discounts"
+                ],
+                "summary": "Создать скидку",
+                "description": "Создает и возвращает новую скидку",
+                "operationId": "create_discount_api_v1_discounts_post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DiscountCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Скидка успешно создана",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DiscountResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Discount not found"
+                    },
+                    "400": {
+                        "description": "Некорректные данные для скидки"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/discounts/{discount_id}": {
+            "get": {
+                "tags": [
+                    "discounts"
+                ],
+                "summary": "Получить скидку по идентификатору",
+                "description": "Возвращает скидку с указанным идентификатором",
+                "operationId": "get_discount_by_id_api_v1_discounts__discount_id__get",
+                "parameters": [
+                    {
+                        "name": "discount_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Discount Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Скидка найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DiscountResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Скидка не найдена"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "discounts"
+                ],
+                "summary": "Обновить скидку",
+                "description": "Обновляет скидку по идентификатору",
+                "operationId": "update_discount_api_v1_discounts__discount_id__put",
+                "parameters": [
+                    {
+                        "name": "discount_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Discount Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DiscountUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Скидка успешно обновлена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DiscountResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Скидка не найдена"
+                    },
+                    "400": {
+                        "description": "Некорректные данные для скидки"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "discounts"
+                ],
+                "summary": "Удалить скидку",
+                "description": "Удаляет скидку по идентификатору (деактивирует)",
+                "operationId": "delete_discount_api_v1_discounts__discount_id__delete",
+                "parameters": [
+                    {
+                        "name": "discount_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Discount Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Скидка успешно удалена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DiscountDeleteResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Скидка не найдена"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -3547,6 +3980,425 @@
                 ],
                 "title": "CategoryUpdateRequest"
             },
+            "DiscountCreateRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "discount_type": {
+                        "$ref": "#/components/schemas/DiscountType"
+                    },
+                    "value": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "title": "Value"
+                    },
+                    "scope": {
+                        "$ref": "#/components/schemas/DiscountScope"
+                    },
+                    "product_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Product Id"
+                    },
+                    "category_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Category Id"
+                    },
+                    "product_type": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ProductType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Date"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "End Date"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "title": "Priority",
+                        "default": 0
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active",
+                        "default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "discount_type",
+                    "value",
+                    "scope",
+                    "start_date",
+                    "end_date"
+                ],
+                "title": "DiscountCreateRequest"
+            },
+            "DiscountDeleteResponse": {
+                "properties": {
+                    "discount_id": {
+                        "type": "integer",
+                        "title": "Discount Id"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "discount_id"
+                ],
+                "title": "DiscountDeleteResponse"
+            },
+            "DiscountListResponse": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/DiscountResponse"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "page": {
+                        "type": "integer",
+                        "title": "Page"
+                    },
+                    "page_size": {
+                        "type": "integer",
+                        "title": "Page Size"
+                    },
+                    "total_pages": {
+                        "type": "integer",
+                        "title": "Total Pages"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "items",
+                    "total",
+                    "page",
+                    "page_size",
+                    "total_pages"
+                ],
+                "title": "DiscountListResponse"
+            },
+            "DiscountResponse": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "discount_type": {
+                        "$ref": "#/components/schemas/DiscountType"
+                    },
+                    "value": {
+                        "type": "string",
+                        "title": "Value"
+                    },
+                    "scope": {
+                        "$ref": "#/components/schemas/DiscountScope"
+                    },
+                    "product_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Product Id"
+                    },
+                    "category_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Category Id"
+                    },
+                    "product_type": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ProductType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Date"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "End Date"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "title": "Priority",
+                        "default": 0
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "updated_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated At"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "discount_type",
+                    "value",
+                    "scope",
+                    "start_date",
+                    "end_date",
+                    "id",
+                    "is_active",
+                    "created_at"
+                ],
+                "title": "DiscountResponse"
+            },
+            "DiscountScope": {
+                "type": "string",
+                "enum": [
+                    "PRODUCT",
+                    "CATEGORY",
+                    "TYPE",
+                    "ALL"
+                ],
+                "title": "DiscountScope"
+            },
+            "DiscountType": {
+                "type": "string",
+                "enum": [
+                    "PERCENTAGE",
+                    "FIXED"
+                ],
+                "title": "DiscountType"
+            },
+            "DiscountUpdateRequest": {
+                "properties": {
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Name"
+                    },
+                    "discount_type": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/DiscountType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "value": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Value"
+                    },
+                    "scope": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/DiscountScope"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "product_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Product Id"
+                    },
+                    "category_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Category Id"
+                    },
+                    "product_type": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ProductType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "start_date": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Start Date"
+                    },
+                    "end_date": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "End Date"
+                    },
+                    "is_active": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Active"
+                    },
+                    "priority": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Priority"
+                    }
+                },
+                "type": "object",
+                "title": "DiscountUpdateRequest"
+            },
             "HTTPValidationError": {
                 "properties": {
                     "detail": {
@@ -4025,6 +4877,46 @@
                 ],
                 "title": "ProductDeleteResponse"
             },
+            "ProductDiscountInfo": {
+                "properties": {
+                    "discount_percent": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Discount Percent"
+                    },
+                    "discount_amount": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Discount Amount"
+                    },
+                    "final_price": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Final Price"
+                    }
+                },
+                "type": "object",
+                "title": "ProductDiscountInfo",
+                "description": "Информация о скидке на продукт"
+            },
             "ProductIdListResponse": {
                 "properties": {
                     "product_ids": {
@@ -4206,6 +5098,16 @@
                         "type": "boolean",
                         "title": "Is Active",
                         "default": true
+                    },
+                    "discount": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ProductDiscountInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
                     }
                 },
                 "type": "object",
@@ -4325,6 +5227,16 @@
                             }
                         ],
                         "title": "Message"
+                    },
+                    "discount": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ProductDiscountInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
                     }
                 },
                 "type": "object",

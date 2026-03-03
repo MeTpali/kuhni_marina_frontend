@@ -1,7 +1,7 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/domain/models/banner/banner.dart';
-import 'package:frontend/domain/models/banner/banner_create_request.dart';
-import 'package:frontend/domain/models/banner/banner_update_request.dart';
+import '../../core/entities/result/result.dart';
+import '../models/banner/banner.dart';
+import '../models/banner/banner_create_request.dart';
+import '../models/banner/banner_update_request.dart';
 
 /// Репозиторий баннеров.
 abstract class IBannersRepository {

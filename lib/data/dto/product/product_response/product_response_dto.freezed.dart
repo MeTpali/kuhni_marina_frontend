@@ -53,6 +53,8 @@ mixin _$ProductResponseDto {
       throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   String? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'discount')
+  ProductDiscountInfoDto? get discount => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
   String? get message => throw _privateConstructorUsedError;
 
@@ -89,10 +91,12 @@ abstract class $ProductResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'attributes') List<ProductAttributeResponseDto> attributes,
     @JsonKey(name: 'images') List<ProductImageResponseDto> images,
     @JsonKey(name: 'updated_at') String? updatedAt,
+    @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') String? message,
   });
 
   $CategoryResponseDtoCopyWith<$Res> get category;
+  $ProductDiscountInfoDtoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -125,6 +129,7 @@ class _$ProductResponseDtoCopyWithImpl<$Res, $Val extends ProductResponseDto>
     Object? attributes = null,
     Object? images = null,
     Object? updatedAt = freezed,
+    Object? discount = freezed,
     Object? message = freezed,
   }) {
     return _then(
@@ -189,6 +194,10 @@ class _$ProductResponseDtoCopyWithImpl<$Res, $Val extends ProductResponseDto>
                 ? _value.updatedAt
                 : updatedAt // ignore: cast_nullable_to_non_nullable
                       as String?,
+            discount: freezed == discount
+                ? _value.discount
+                : discount // ignore: cast_nullable_to_non_nullable
+                      as ProductDiscountInfoDto?,
             message: freezed == message
                 ? _value.message
                 : message // ignore: cast_nullable_to_non_nullable
@@ -205,6 +214,20 @@ class _$ProductResponseDtoCopyWithImpl<$Res, $Val extends ProductResponseDto>
   $CategoryResponseDtoCopyWith<$Res> get category {
     return $CategoryResponseDtoCopyWith<$Res>(_value.category, (value) {
       return _then(_value.copyWith(category: value) as $Val);
+    });
+  }
+
+  /// Create a copy of ProductResponseDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductDiscountInfoDtoCopyWith<$Res>? get discount {
+    if (_value.discount == null) {
+      return null;
+    }
+
+    return $ProductDiscountInfoDtoCopyWith<$Res>(_value.discount!, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
     });
   }
 }
@@ -234,11 +257,14 @@ abstract class _$$ProductResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'attributes') List<ProductAttributeResponseDto> attributes,
     @JsonKey(name: 'images') List<ProductImageResponseDto> images,
     @JsonKey(name: 'updated_at') String? updatedAt,
+    @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') String? message,
   });
 
   @override
   $CategoryResponseDtoCopyWith<$Res> get category;
+  @override
+  $ProductDiscountInfoDtoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -270,6 +296,7 @@ class __$$ProductResponseDtoImplCopyWithImpl<$Res>
     Object? attributes = null,
     Object? images = null,
     Object? updatedAt = freezed,
+    Object? discount = freezed,
     Object? message = freezed,
   }) {
     return _then(
@@ -334,6 +361,10 @@ class __$$ProductResponseDtoImplCopyWithImpl<$Res>
             ? _value.updatedAt
             : updatedAt // ignore: cast_nullable_to_non_nullable
                   as String?,
+        discount: freezed == discount
+            ? _value.discount
+            : discount // ignore: cast_nullable_to_non_nullable
+                  as ProductDiscountInfoDto?,
         message: freezed == message
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
@@ -364,6 +395,7 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
     @JsonKey(name: 'images')
     final List<ProductImageResponseDto> images = const [],
     @JsonKey(name: 'updated_at') this.updatedAt,
+    @JsonKey(name: 'discount') this.discount,
     @JsonKey(name: 'message') this.message,
   }) : _attributes = attributes,
        _images = images;
@@ -429,12 +461,15 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
   @JsonKey(name: 'updated_at')
   final String? updatedAt;
   @override
+  @JsonKey(name: 'discount')
+  final ProductDiscountInfoDto? discount;
+  @override
   @JsonKey(name: 'message')
   final String? message;
 
   @override
   String toString() {
-    return 'ProductResponseDto(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, message: $message)';
+    return 'ProductResponseDto(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount, message: $message)';
   }
 
   @override
@@ -466,6 +501,8 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
             const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -488,6 +525,7 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
     const DeepCollectionEquality().hash(_attributes),
     const DeepCollectionEquality().hash(_images),
     updatedAt,
+    discount,
     message,
   );
 
@@ -526,6 +564,7 @@ abstract class _ProductResponseDto implements ProductResponseDto {
     final List<ProductAttributeResponseDto> attributes,
     @JsonKey(name: 'images') final List<ProductImageResponseDto> images,
     @JsonKey(name: 'updated_at') final String? updatedAt,
+    @JsonKey(name: 'discount') final ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') final String? message,
   }) = _$ProductResponseDtoImpl;
 
@@ -577,6 +616,9 @@ abstract class _ProductResponseDto implements ProductResponseDto {
   @override
   @JsonKey(name: 'updated_at')
   String? get updatedAt;
+  @override
+  @JsonKey(name: 'discount')
+  ProductDiscountInfoDto? get discount;
   @override
   @JsonKey(name: 'message')
   String? get message;

@@ -39,6 +39,11 @@ _$ProductResponseDtoImpl _$$ProductResponseDtoImplFromJson(
           .toList() ??
       const [],
   updatedAt: json['updated_at'] as String?,
+  discount: json['discount'] == null
+      ? null
+      : ProductDiscountInfoDto.fromJson(
+          json['discount'] as Map<String, dynamic>,
+        ),
   message: json['message'] as String?,
 );
 
@@ -60,6 +65,7 @@ Map<String, dynamic> _$$ProductResponseDtoImplToJson(
   'attributes': instance.attributes,
   'images': instance.images,
   'updated_at': instance.updatedAt,
+  'discount': instance.discount,
   'message': instance.message,
 };
 

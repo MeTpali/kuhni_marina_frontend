@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../category/category_response/category_response_dto.dart';
 import '../product_attribute_response/product_attribute_response_dto.dart';
+import '../product_discount_info/product_discount_info_dto.dart';
 import '../product_image_response/product_image_response_dto.dart';
 import '../product_type_dto.dart';
 
@@ -28,6 +29,7 @@ class ProductResponseDto with _$ProductResponseDto {
     List<ProductAttributeResponseDto> attributes,
     @Default([]) @JsonKey(name: 'images') List<ProductImageResponseDto> images,
     @JsonKey(name: 'updated_at') String? updatedAt,
+    @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') String? message,
   }) = _ProductResponseDto;
 

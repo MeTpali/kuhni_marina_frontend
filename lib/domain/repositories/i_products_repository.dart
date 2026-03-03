@@ -1,8 +1,8 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/domain/models/product/product.dart';
-import 'package:frontend/domain/models/product/product_catalog.dart';
-import 'package:frontend/domain/models/product/product_create_request.dart';
-import 'package:frontend/domain/models/product/product_update_request.dart';
+import '../../core/entities/result/result.dart';
+import '../models/product/product.dart';
+import '../models/product/product_catalog.dart';
+import '../models/product/product_create_request.dart';
+import '../models/product/product_update_request.dart';
 
 /// Репозиторий товаров каталога.
 abstract class IProductsRepository {

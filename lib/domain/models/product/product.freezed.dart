@@ -32,6 +32,7 @@ mixin _$Product {
   List<ProductAttribute> get attributes => throw _privateConstructorUsedError;
   List<ProductImage> get images => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
+  ProductDiscountInfo? get discount => throw _privateConstructorUsedError;
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.
@@ -60,9 +61,11 @@ abstract class $ProductCopyWith<$Res> {
     List<ProductAttribute> attributes,
     List<ProductImage> images,
     String? updatedAt,
+    ProductDiscountInfo? discount,
   });
 
   $CategoryCopyWith<$Res> get category;
+  $ProductDiscountInfoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -95,6 +98,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? attributes = null,
     Object? images = null,
     Object? updatedAt = freezed,
+    Object? discount = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -158,6 +162,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
                 ? _value.updatedAt
                 : updatedAt // ignore: cast_nullable_to_non_nullable
                       as String?,
+            discount: freezed == discount
+                ? _value.discount
+                : discount // ignore: cast_nullable_to_non_nullable
+                      as ProductDiscountInfo?,
           )
           as $Val,
     );
@@ -170,6 +178,20 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   $CategoryCopyWith<$Res> get category {
     return $CategoryCopyWith<$Res>(_value.category, (value) {
       return _then(_value.copyWith(category: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Product
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductDiscountInfoCopyWith<$Res>? get discount {
+    if (_value.discount == null) {
+      return null;
+    }
+
+    return $ProductDiscountInfoCopyWith<$Res>(_value.discount!, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
     });
   }
 }
@@ -198,10 +220,13 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
     List<ProductAttribute> attributes,
     List<ProductImage> images,
     String? updatedAt,
+    ProductDiscountInfo? discount,
   });
 
   @override
   $CategoryCopyWith<$Res> get category;
+  @override
+  $ProductDiscountInfoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -233,6 +258,7 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? attributes = null,
     Object? images = null,
     Object? updatedAt = freezed,
+    Object? discount = freezed,
   }) {
     return _then(
       _$ProductImpl(
@@ -296,6 +322,10 @@ class __$$ProductImplCopyWithImpl<$Res>
             ? _value.updatedAt
             : updatedAt // ignore: cast_nullable_to_non_nullable
                   as String?,
+        discount: freezed == discount
+            ? _value.discount
+            : discount // ignore: cast_nullable_to_non_nullable
+                  as ProductDiscountInfo?,
       ),
     );
   }
@@ -320,6 +350,7 @@ class _$ProductImpl implements _Product {
     final List<ProductAttribute> attributes = const [],
     final List<ProductImage> images = const [],
     this.updatedAt,
+    this.discount,
   }) : _attributes = attributes,
        _images = images;
 
@@ -370,10 +401,12 @@ class _$ProductImpl implements _Product {
 
   @override
   final String? updatedAt;
+  @override
+  final ProductDiscountInfo? discount;
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt)';
+    return 'Product(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount)';
   }
 
   @override
@@ -404,7 +437,9 @@ class _$ProductImpl implements _Product {
             ) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount));
   }
 
   @override
@@ -425,6 +460,7 @@ class _$ProductImpl implements _Product {
     const DeepCollectionEquality().hash(_attributes),
     const DeepCollectionEquality().hash(_images),
     updatedAt,
+    discount,
   );
 
   /// Create a copy of Product
@@ -453,6 +489,7 @@ abstract class _Product implements Product {
     final List<ProductAttribute> attributes,
     final List<ProductImage> images,
     final String? updatedAt,
+    final ProductDiscountInfo? discount,
   }) = _$ProductImpl;
 
   @override
@@ -485,6 +522,8 @@ abstract class _Product implements Product {
   List<ProductImage> get images;
   @override
   String? get updatedAt;
+  @override
+  ProductDiscountInfo? get discount;
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.

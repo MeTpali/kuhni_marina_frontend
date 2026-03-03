@@ -53,14 +53,14 @@ class CategoriesTestService {
     ),
   ];
 
-  static final _mockListResponse =
+  static const _mockListResponse =
       CategoryListResponseDto(items: _mockTree, message: null);
 
   Future<ResponseResult<CategoryListResponseDto>> getCategories({
     required String token,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 400));
-    return ResponseResult.success(_mockListResponse);
+    return const ResponseResult.success(_mockListResponse);
   }
 
   Future<ResponseResult<CategoryListResponseDto>> getCategoriesByType({

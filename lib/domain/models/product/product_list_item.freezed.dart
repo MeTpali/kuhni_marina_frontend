@@ -28,6 +28,7 @@ mixin _$ProductListItem {
   bool get isHit => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
   String? get mainImage => throw _privateConstructorUsedError;
+  ProductDiscountInfo? get discount => throw _privateConstructorUsedError;
 
   /// Create a copy of ProductListItem
   /// with the given fields replaced by the non-null parameter values.
@@ -55,7 +56,10 @@ abstract class $ProductListItemCopyWith<$Res> {
     bool isHit,
     bool isActive,
     String? mainImage,
+    ProductDiscountInfo? discount,
   });
+
+  $ProductDiscountInfoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -84,6 +88,7 @@ class _$ProductListItemCopyWithImpl<$Res, $Val extends ProductListItem>
     Object? isHit = null,
     Object? isActive = null,
     Object? mainImage = freezed,
+    Object? discount = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -131,9 +136,27 @@ class _$ProductListItemCopyWithImpl<$Res, $Val extends ProductListItem>
                 ? _value.mainImage
                 : mainImage // ignore: cast_nullable_to_non_nullable
                       as String?,
+            discount: freezed == discount
+                ? _value.discount
+                : discount // ignore: cast_nullable_to_non_nullable
+                      as ProductDiscountInfo?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of ProductListItem
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductDiscountInfoCopyWith<$Res>? get discount {
+    if (_value.discount == null) {
+      return null;
+    }
+
+    return $ProductDiscountInfoCopyWith<$Res>(_value.discount!, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
+    });
   }
 }
 
@@ -158,7 +181,11 @@ abstract class _$$ProductListItemImplCopyWith<$Res>
     bool isHit,
     bool isActive,
     String? mainImage,
+    ProductDiscountInfo? discount,
   });
+
+  @override
+  $ProductDiscountInfoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -186,6 +213,7 @@ class __$$ProductListItemImplCopyWithImpl<$Res>
     Object? isHit = null,
     Object? isActive = null,
     Object? mainImage = freezed,
+    Object? discount = freezed,
   }) {
     return _then(
       _$ProductListItemImpl(
@@ -233,6 +261,10 @@ class __$$ProductListItemImplCopyWithImpl<$Res>
             ? _value.mainImage
             : mainImage // ignore: cast_nullable_to_non_nullable
                   as String?,
+        discount: freezed == discount
+            ? _value.discount
+            : discount // ignore: cast_nullable_to_non_nullable
+                  as ProductDiscountInfo?,
       ),
     );
   }
@@ -253,6 +285,7 @@ class _$ProductListItemImpl implements _ProductListItem {
     this.isHit = false,
     this.isActive = true,
     this.mainImage,
+    this.discount,
   });
 
   @override
@@ -280,10 +313,12 @@ class _$ProductListItemImpl implements _ProductListItem {
   final bool isActive;
   @override
   final String? mainImage;
+  @override
+  final ProductDiscountInfo? discount;
 
   @override
   String toString() {
-    return 'ProductListItem(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, mainImage: $mainImage)';
+    return 'ProductListItem(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, mainImage: $mainImage, discount: $discount)';
   }
 
   @override
@@ -305,7 +340,9 @@ class _$ProductListItemImpl implements _ProductListItem {
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             (identical(other.mainImage, mainImage) ||
-                other.mainImage == mainImage));
+                other.mainImage == mainImage) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount));
   }
 
   @override
@@ -322,6 +359,7 @@ class _$ProductListItemImpl implements _ProductListItem {
     isHit,
     isActive,
     mainImage,
+    discount,
   );
 
   /// Create a copy of ProductListItem
@@ -349,6 +387,7 @@ abstract class _ProductListItem implements ProductListItem {
     final bool isHit,
     final bool isActive,
     final String? mainImage,
+    final ProductDiscountInfo? discount,
   }) = _$ProductListItemImpl;
 
   @override
@@ -373,6 +412,8 @@ abstract class _ProductListItem implements ProductListItem {
   bool get isActive;
   @override
   String? get mainImage;
+  @override
+  ProductDiscountInfo? get discount;
 
   /// Create a copy of ProductListItem
   /// with the given fields replaced by the non-null parameter values.

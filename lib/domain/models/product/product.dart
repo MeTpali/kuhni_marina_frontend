@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../category/category.dart';
 import '../product_type/product_type.dart';
 import 'product_attribute.dart';
+import 'product_discount_info.dart';
 import 'product_image.dart';
 
 part 'product.freezed.dart';
@@ -26,5 +27,6 @@ class Product with _$Product {
     @Default([]) List<ProductAttribute> attributes,
     @Default([]) List<ProductImage> images,
     String? updatedAt,
+    ProductDiscountInfo? discount,
   }) = _Product;
 }

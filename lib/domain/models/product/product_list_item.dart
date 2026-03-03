@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../product_type/product_type.dart';
+import 'product_discount_info.dart';
 
 part 'product_list_item.freezed.dart';
 
@@ -19,5 +20,6 @@ class ProductListItem with _$ProductListItem {
     @Default(false) bool isHit,
     @Default(true) bool isActive,
     String? mainImage,
+    ProductDiscountInfo? discount,
   }) = _ProductListItem;
 }

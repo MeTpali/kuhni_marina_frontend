@@ -1,9 +1,8 @@
-import 'package:frontend/core/entities/response_result/response_result.dart';
-import 'package:frontend/core/utils/errors_texts.dart';
+import '../../core/entities/response_result/response_result.dart';
+import '../../core/utils/errors_texts.dart';
 
 /// Преобразование [ResponseError] в сообщение для пользователя.
-String responseErrorToMessage(ResponseError error) {
-  return switch (error) {
+String responseErrorToMessage(ResponseError error) => switch (error) {
     NetworkError(:final message) => message.isNotEmpty ? message : ErrorText.somethingWentWrongErrorText,
     ServerError(:final message, :final statusCode) => () {
         if (statusCode == 401) return ErrorText.unauthorizedErrorText;
@@ -12,4 +11,3 @@ String responseErrorToMessage(ResponseError error) {
     UnexpectedError(:final message) => message.isNotEmpty ? message : ErrorText.somethingWentWrongErrorText,
     _ => ErrorText.somethingWentWrongErrorText,
   };
-}

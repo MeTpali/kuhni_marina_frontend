@@ -1,9 +1,9 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/domain/models/measure_request/measure_request.dart';
-import 'package:frontend/domain/models/measure_request/measure_request_create_request.dart';
-import 'package:frontend/domain/models/measure_request/measure_request_status_update_request.dart';
-import 'package:frontend/domain/models/measure_request/measure_request_update_request.dart';
-import 'package:frontend/domain/models/measure_request_status/measure_request_status.dart';
+import '../../core/entities/result/result.dart';
+import '../models/measure_request/measure_request.dart';
+import '../models/measure_request/measure_request_create_request.dart';
+import '../models/measure_request/measure_request_status_update_request.dart';
+import '../models/measure_request/measure_request_update_request.dart';
+import '../models/measure_request_status/measure_request_status.dart';
 
 /// Репозиторий заявок на замер.
 abstract class IMeasureRequestsRepository {

@@ -1,12 +1,12 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/data/mappers/banners/banner_mapper.dart';
-import 'package:frontend/data/mappers/banners/banner_request_mappers.dart';
-import 'package:frontend/data/services/banners/banners_test_service.dart';
-import 'package:frontend/data/utils/response_error_mapper.dart';
-import 'package:frontend/domain/models/banner/banner.dart';
-import 'package:frontend/domain/models/banner/banner_create_request.dart';
-import 'package:frontend/domain/models/banner/banner_update_request.dart';
-import 'package:frontend/domain/repositories/i_banners_repository.dart';
+import '../../../core/entities/result/result.dart';
+import '../../../domain/models/banner/banner.dart';
+import '../../../domain/models/banner/banner_create_request.dart';
+import '../../../domain/models/banner/banner_update_request.dart';
+import '../../../domain/repositories/i_banners_repository.dart';
+import '../../mappers/banners/banner_mapper.dart';
+import '../../mappers/banners/banner_request_mappers.dart';
+import '../../services/banners/banners_test_service.dart';
+import '../../utils/response_error_mapper.dart';
 
 /// Тестовый репозиторий баннеров на основе [BannersTestService].
 class BannersTestRepository implements IBannersRepository {

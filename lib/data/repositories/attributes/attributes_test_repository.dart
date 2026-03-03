@@ -1,12 +1,12 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/data/mappers/attributes/attribute_mapper.dart';
-import 'package:frontend/data/mappers/attributes/attribute_request_mappers.dart';
-import 'package:frontend/data/services/attributes/attributes_test_service.dart';
-import 'package:frontend/data/utils/response_error_mapper.dart';
-import 'package:frontend/domain/models/attribute/attribute.dart';
-import 'package:frontend/domain/models/attribute/attribute_create_request.dart';
-import 'package:frontend/domain/models/attribute/attribute_update_request.dart';
-import 'package:frontend/domain/repositories/i_attributes_repository.dart';
+import '../../../core/entities/result/result.dart';
+import '../../../domain/models/attribute/attribute.dart';
+import '../../../domain/models/attribute/attribute_create_request.dart';
+import '../../../domain/models/attribute/attribute_update_request.dart';
+import '../../../domain/repositories/i_attributes_repository.dart';
+import '../../mappers/attributes/attribute_mapper.dart';
+import '../../mappers/attributes/attribute_request_mappers.dart';
+import '../../services/attributes/attributes_test_service.dart';
+import '../../utils/response_error_mapper.dart';
 
 /// Тестовый репозиторий атрибутов на основе [AttributesTestService].
 class AttributesTestRepository implements IAttributesRepository {

@@ -18,14 +18,14 @@ class AttributesTestService {
     AttributeResponseDto(id: 4, name: 'Материал', unit: null, message: null),
   ];
 
-  static final _mockListResponse =
+  static const _mockListResponse =
       AttributeListResponseDto(items: _mockItems, message: null);
 
   Future<ResponseResult<AttributeListResponseDto>> getAttributes({
     required String token,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
-    return ResponseResult.success(_mockListResponse);
+    return const ResponseResult.success(_mockListResponse);
   }
 
   Future<ResponseResult<AttributeResponseDto>> createAttribute({

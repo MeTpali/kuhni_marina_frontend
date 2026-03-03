@@ -3,16 +3,19 @@ import 'package:dio/dio.dart';
 import '../../data/repositories/attributes/attributes_remote_repository.dart';
 import '../../data/repositories/banners/banners_remote_repository.dart';
 import '../../data/repositories/categories/categories_remote_repository.dart';
+import '../../data/repositories/discounts/discounts_remote_repository.dart';
 import '../../data/repositories/measure_requests/measure_requests_remote_repository.dart';
 import '../../data/repositories/products/products_remote_repository.dart';
 import '../../data/services/attributes/attributes_remote_service.dart';
 import '../../data/services/banners/banners_remote_service.dart';
 import '../../data/services/categories/categories_remote_service.dart';
+import '../../data/services/discounts/discounts_remote_service.dart';
 import '../../data/services/measure_requests/measure_requests_remote_service.dart';
 import '../../data/services/products/products_remote_service.dart';
 import '../../domain/repositories/i_attributes_repository.dart';
 import '../../domain/repositories/i_banners_repository.dart';
 import '../../domain/repositories/i_categories_repository.dart';
+import '../../domain/repositories/i_discounts_repository.dart';
 import '../../domain/repositories/i_measure_requests_repository.dart';
 import '../../domain/repositories/i_products_repository.dart';
 import 'di.dart';
@@ -34,6 +37,9 @@ void setupProdRepos() {
   getIt.registerLazySingleton<MeasureRequestsRemoteService>(
     () => MeasureRequestsRemoteService(getIt<Dio>()),
   );
+  getIt.registerLazySingleton<DiscountsRemoteService>(
+    () => DiscountsRemoteService(getIt<Dio>()),
+  );
 
   getIt.registerSingleton<ICategoriesRepository>(
     CategoriesRemoteRepository(service: getIt<CategoriesRemoteService>()),
@@ -51,5 +57,8 @@ void setupProdRepos() {
     MeasureRequestsRemoteRepository(
       service: getIt<MeasureRequestsRemoteService>(),
     ),
+  );
+  getIt.registerSingleton<IDiscountsRepository>(
+    DiscountsRemoteRepository(service: getIt<DiscountsRemoteService>()),
   );
 }

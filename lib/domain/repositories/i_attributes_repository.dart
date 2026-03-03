@@ -1,7 +1,7 @@
-import 'package:frontend/core/entities/result/result.dart';
-import 'package:frontend/domain/models/attribute/attribute.dart';
-import 'package:frontend/domain/models/attribute/attribute_create_request.dart';
-import 'package:frontend/domain/models/attribute/attribute_update_request.dart';
+import '../../core/entities/result/result.dart';
+import '../models/attribute/attribute.dart';
+import '../models/attribute/attribute_create_request.dart';
+import '../models/attribute/attribute_update_request.dart';
 
 /// Репозиторий атрибутов (характеристик товаров).
 abstract class IAttributesRepository {

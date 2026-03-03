@@ -12,10 +12,8 @@ enum MeasureRequestStatus {
         MeasureRequestStatus.cancelled => 'CANCELLED',
       };
 
-  static MeasureRequestStatus fromName(String name) {
-    return MeasureRequestStatus.values.firstWhere(
+  static MeasureRequestStatus fromName(String name) => MeasureRequestStatus.values.firstWhere(
       (e) => e.name == name,
       orElse: () => MeasureRequestStatus.newStatus,
     );
-  }
 }

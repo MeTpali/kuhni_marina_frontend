@@ -45,6 +45,8 @@ mixin _$ProductListItemResponseDto {
   bool get isActive => throw _privateConstructorUsedError;
   @JsonKey(name: 'main_image')
   String? get mainImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'discount')
+  ProductDiscountInfoDto? get discount => throw _privateConstructorUsedError;
 
   /// Serializes this ProductListItemResponseDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -79,7 +81,10 @@ abstract class $ProductListItemResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'is_hit') bool isHit,
     @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'main_image') String? mainImage,
+    @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
   });
+
+  $ProductDiscountInfoDtoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -111,6 +116,7 @@ class _$ProductListItemResponseDtoCopyWithImpl<
     Object? isHit = null,
     Object? isActive = null,
     Object? mainImage = freezed,
+    Object? discount = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -158,9 +164,27 @@ class _$ProductListItemResponseDtoCopyWithImpl<
                 ? _value.mainImage
                 : mainImage // ignore: cast_nullable_to_non_nullable
                       as String?,
+            discount: freezed == discount
+                ? _value.discount
+                : discount // ignore: cast_nullable_to_non_nullable
+                      as ProductDiscountInfoDto?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of ProductListItemResponseDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductDiscountInfoDtoCopyWith<$Res>? get discount {
+    if (_value.discount == null) {
+      return null;
+    }
+
+    return $ProductDiscountInfoDtoCopyWith<$Res>(_value.discount!, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
+    });
   }
 }
 
@@ -185,7 +209,11 @@ abstract class _$$ProductListItemResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'is_hit') bool isHit,
     @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'main_image') String? mainImage,
+    @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
   });
+
+  @override
+  $ProductDiscountInfoDtoCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
@@ -217,6 +245,7 @@ class __$$ProductListItemResponseDtoImplCopyWithImpl<$Res>
     Object? isHit = null,
     Object? isActive = null,
     Object? mainImage = freezed,
+    Object? discount = freezed,
   }) {
     return _then(
       _$ProductListItemResponseDtoImpl(
@@ -264,6 +293,10 @@ class __$$ProductListItemResponseDtoImplCopyWithImpl<$Res>
             ? _value.mainImage
             : mainImage // ignore: cast_nullable_to_non_nullable
                   as String?,
+        discount: freezed == discount
+            ? _value.discount
+            : discount // ignore: cast_nullable_to_non_nullable
+                  as ProductDiscountInfoDto?,
       ),
     );
   }
@@ -284,6 +317,7 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
     @JsonKey(name: 'is_hit') this.isHit = false,
     @JsonKey(name: 'is_active') this.isActive = true,
     @JsonKey(name: 'main_image') this.mainImage,
+    @JsonKey(name: 'discount') this.discount,
   });
 
   factory _$ProductListItemResponseDtoImpl.fromJson(
@@ -323,10 +357,13 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
   @override
   @JsonKey(name: 'main_image')
   final String? mainImage;
+  @override
+  @JsonKey(name: 'discount')
+  final ProductDiscountInfoDto? discount;
 
   @override
   String toString() {
-    return 'ProductListItemResponseDto(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, mainImage: $mainImage)';
+    return 'ProductListItemResponseDto(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, mainImage: $mainImage, discount: $discount)';
   }
 
   @override
@@ -348,7 +385,9 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             (identical(other.mainImage, mainImage) ||
-                other.mainImage == mainImage));
+                other.mainImage == mainImage) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -366,6 +405,7 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
     isHit,
     isActive,
     mainImage,
+    discount,
   );
 
   /// Create a copy of ProductListItemResponseDto
@@ -399,6 +439,7 @@ abstract class _ProductListItemResponseDto
     @JsonKey(name: 'is_hit') final bool isHit,
     @JsonKey(name: 'is_active') final bool isActive,
     @JsonKey(name: 'main_image') final String? mainImage,
+    @JsonKey(name: 'discount') final ProductDiscountInfoDto? discount,
   }) = _$ProductListItemResponseDtoImpl;
 
   factory _ProductListItemResponseDto.fromJson(Map<String, dynamic> json) =
@@ -437,6 +478,9 @@ abstract class _ProductListItemResponseDto
   @override
   @JsonKey(name: 'main_image')
   String? get mainImage;
+  @override
+  @JsonKey(name: 'discount')
+  ProductDiscountInfoDto? get discount;
 
   /// Create a copy of ProductListItemResponseDto
   /// with the given fields replaced by the non-null parameter values.

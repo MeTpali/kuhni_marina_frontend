@@ -8,10 +8,8 @@ enum CategoryType {
         CategoryType.furniture => 'FURNITURE',
       };
 
-  static CategoryType fromName(String name) {
-    return CategoryType.values.firstWhere(
+  static CategoryType fromName(String name) => CategoryType.values.firstWhere(
       (e) => e.name == name,
       orElse: () => CategoryType.kitchen,
     );
-  }
 }

@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../product_discount_info/product_discount_info_dto.dart';
 import '../product_type_dto.dart';
 
 part 'product_list_item_response_dto.freezed.dart';
@@ -18,6 +20,7 @@ class ProductListItemResponseDto with _$ProductListItemResponseDto {
     @Default(false) @JsonKey(name: 'is_hit') bool isHit,
     @Default(true) @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'main_image') String? mainImage,
+    @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
   }) = _ProductListItemResponseDto;
 
   factory ProductListItemResponseDto.fromJson(Map<String, dynamic> json) =>

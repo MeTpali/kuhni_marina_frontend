@@ -20,6 +20,11 @@ _$ProductListItemResponseDtoImpl _$$ProductListItemResponseDtoImplFromJson(
   isHit: json['is_hit'] as bool? ?? false,
   isActive: json['is_active'] as bool? ?? true,
   mainImage: json['main_image'] as String?,
+  discount: json['discount'] == null
+      ? null
+      : ProductDiscountInfoDto.fromJson(
+          json['discount'] as Map<String, dynamic>,
+        ),
 );
 
 Map<String, dynamic> _$$ProductListItemResponseDtoImplToJson(
@@ -36,6 +41,7 @@ Map<String, dynamic> _$$ProductListItemResponseDtoImplToJson(
   'is_hit': instance.isHit,
   'is_active': instance.isActive,
   'main_image': instance.mainImage,
+  'discount': instance.discount,
 };
 
 const _$ProductTypeDtoEnumMap = {

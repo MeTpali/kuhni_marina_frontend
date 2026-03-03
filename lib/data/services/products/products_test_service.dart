@@ -55,7 +55,7 @@ class ProductsTestService {
     ),
   ];
 
-  static final _mockCatalog = ProductCatalogResponseDto(
+  static const _mockCatalog = ProductCatalogResponseDto(
     items: _mockListItems,
     total: 2,
     page: 1,
@@ -64,7 +64,7 @@ class ProductsTestService {
     message: null,
   );
 
-  static final _mockIdList = ProductIdListResponseDto(
+  static const _mockIdList = ProductIdListResponseDto(
     productIds: [1, 2],
     total: 2,
     message: null,
@@ -78,7 +78,7 @@ class ProductsTestService {
     String? attributeFilters,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 400));
-    return ResponseResult.success(_mockCatalog);
+    return const ResponseResult.success(_mockCatalog);
   }
 
   Future<ResponseResult<ProductIdListResponseDto>> getProductIds({
@@ -87,7 +87,7 @@ class ProductsTestService {
     String? attributeFilters,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
-    return ResponseResult.success(_mockIdList);
+    return const ResponseResult.success(_mockIdList);
   }
 
   Future<ResponseResult<ProductResponseDto>> getProductById({
