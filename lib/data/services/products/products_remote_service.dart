@@ -21,17 +21,20 @@ class ProductsRemoteService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    bool? isHit,
+    bool? isNew,
+    bool? hasDiscount,
   }) async {
     try {
-      final queryParams = <String, dynamic>{};
-      if (page != null) queryParams['page'] = page;
-      if (pageSize != null) queryParams['page_size'] = pageSize;
-      if (categoryIds != null && categoryIds.isNotEmpty) {
-        queryParams['category_ids'] = categoryIds;
-      }
-      if (attributeFilters != null) {
-        queryParams['attribute_filters'] = attributeFilters;
-      }
+      final queryParams = _catalogQueryParams(
+        page: page,
+        pageSize: pageSize,
+        categoryIds: categoryIds,
+        attributeFilters: attributeFilters,
+      );
+      if (isHit != null) queryParams['is_hit'] = isHit;
+      if (isNew != null) queryParams['is_new'] = isNew;
+      if (hasDiscount != null) queryParams['has_discount'] = hasDiscount;
 
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/catalog',
@@ -51,6 +54,51 @@ class ProductsRemoteService {
       return DioUtils.handleDioException<ProductCatalogResponseDto>(e);
     }
   }
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getProductHits({
+    required String token,
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async => _getProductCatalogPage(
+    token: token,
+    path: '$_path/hits',
+    page: page,
+    pageSize: pageSize,
+    categoryIds: categoryIds,
+    attributeFilters: attributeFilters,
+  );
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getProductNew({
+    required String token,
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async => _getProductCatalogPage(
+    token: token,
+    path: '$_path/new',
+    page: page,
+    pageSize: pageSize,
+    categoryIds: categoryIds,
+    attributeFilters: attributeFilters,
+  );
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getProductDiscounts({
+    required String token,
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async => _getProductCatalogPage(
+    token: token,
+    path: '$_path/discounts',
+    page: page,
+    pageSize: pageSize,
+    categoryIds: categoryIds,
+    attributeFilters: attributeFilters,
+  );
 
   Future<ResponseResult<ProductIdListResponseDto>> getProductIds({
     required String token,
@@ -96,7 +144,9 @@ class ProductsRemoteService {
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        return ResponseResult.success(ProductResponseDto.fromJson(response.data!));
+        return ResponseResult.success(
+          ProductResponseDto.fromJson(response.data!),
+        );
       }
       return ResponseResult.error(
         ResponseError.server('Server error', response.statusCode),
@@ -119,7 +169,9 @@ class ProductsRemoteService {
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
           response.data != null) {
-        return ResponseResult.success(ProductResponseDto.fromJson(response.data!));
+        return ResponseResult.success(
+          ProductResponseDto.fromJson(response.data!),
+        );
       }
       return ResponseResult.error(
         ResponseError.server('Server error', response.statusCode),
@@ -142,7 +194,9 @@ class ProductsRemoteService {
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        return ResponseResult.success(ProductResponseDto.fromJson(response.data!));
+        return ResponseResult.success(
+          ProductResponseDto.fromJson(response.data!),
+        );
       }
       return ResponseResult.error(
         ResponseError.server('Server error', response.statusCode),
@@ -172,6 +226,57 @@ class ProductsRemoteService {
       );
     } on DioException catch (e) {
       return DioUtils.handleDioException<ProductDeleteResponseDto>(e);
+    }
+  }
+
+  Map<String, dynamic> _catalogQueryParams({
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) {
+    final queryParams = <String, dynamic>{};
+    if (page != null) queryParams['page'] = page;
+    if (pageSize != null) queryParams['page_size'] = pageSize;
+    if (categoryIds != null && categoryIds.isNotEmpty) {
+      queryParams['category_ids'] = categoryIds;
+    }
+    if (attributeFilters != null) {
+      queryParams['attribute_filters'] = attributeFilters;
+    }
+    return queryParams;
+  }
+
+  Future<ResponseResult<ProductCatalogResponseDto>> _getProductCatalogPage({
+    required String token,
+    required String path,
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async {
+    try {
+      final queryParams = _catalogQueryParams(
+        page: page,
+        pageSize: pageSize,
+        categoryIds: categoryIds,
+        attributeFilters: attributeFilters,
+      );
+      final response = await _dio.get<Map<String, dynamic>>(
+        path,
+        queryParameters: queryParams.isEmpty ? null : queryParams,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          ProductCatalogResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProductCatalogResponseDto>(e);
     }
   }
 }

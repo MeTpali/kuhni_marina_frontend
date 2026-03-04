@@ -26,8 +26,77 @@ class ProductsTestRepository implements IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    bool? isHit,
+    bool? isNew,
+    bool? hasDiscount,
   }) async {
     final response = await _service.getProductCatalog(
+      token: token,
+      page: page,
+      pageSize: pageSize,
+      categoryIds: categoryIds,
+      attributeFilters: attributeFilters,
+      isHit: isHit,
+      isNew: isNew,
+      hasDiscount: hasDiscount,
+    );
+    return response.when(
+      success: (dto) => Result.success(_catalogMapper.map(dto)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<ProductCatalog>> getProductHits(
+    String token, {
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async {
+    final response = await _service.getProductHits(
+      token: token,
+      page: page,
+      pageSize: pageSize,
+      categoryIds: categoryIds,
+      attributeFilters: attributeFilters,
+    );
+    return response.when(
+      success: (dto) => Result.success(_catalogMapper.map(dto)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<ProductCatalog>> getProductNew(
+    String token, {
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async {
+    final response = await _service.getProductNew(
+      token: token,
+      page: page,
+      pageSize: pageSize,
+      categoryIds: categoryIds,
+      attributeFilters: attributeFilters,
+    );
+    return response.when(
+      success: (dto) => Result.success(_catalogMapper.map(dto)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<ProductCatalog>> getProductDiscounts(
+    String token, {
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async {
+    final response = await _service.getProductDiscounts(
       token: token,
       page: page,
       pageSize: pageSize,

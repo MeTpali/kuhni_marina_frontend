@@ -616,6 +616,60 @@
                             "title": "Attribute Filters"
                         },
                         "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]"
+                    },
+                    {
+                        "name": "is_hit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по хитам продаж",
+                            "title": "Is Hit"
+                        },
+                        "description": "Фильтр по хитам продаж"
+                    },
+                    {
+                        "name": "is_new",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по новинкам",
+                            "title": "Is New"
+                        },
+                        "description": "Фильтр по новинкам"
+                    },
+                    {
+                        "name": "has_discount",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по наличию скидки",
+                            "title": "Has Discount"
+                        },
+                        "description": "Фильтр по наличию скидки"
                     }
                 ],
                 "responses": {
@@ -706,6 +760,330 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ProductIdListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/hits": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Получить хиты продаж",
+                "description": "Возвращает продукты-хиты с пагинацией",
+                "operationId": "get_product_hits_api_v1_products_hits_get",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Номер страницы",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Номер страницы"
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Размер страницы",
+                            "default": 20,
+                            "title": "Page Size"
+                        },
+                        "description": "Размер страницы"
+                    },
+                    {
+                        "name": "category_ids",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer"
+                                    }
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по ID категорий",
+                            "title": "Category Ids"
+                        },
+                        "description": "Фильтр по ID категорий"
+                    },
+                    {
+                        "name": "attribute_filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]",
+                            "title": "Attribute Filters"
+                        },
+                        "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductCatalogResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/new": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Получить новинки",
+                "description": "Возвращает новинки с пагинацией",
+                "operationId": "get_product_new_api_v1_products_new_get",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Номер страницы",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Номер страницы"
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Размер страницы",
+                            "default": 20,
+                            "title": "Page Size"
+                        },
+                        "description": "Размер страницы"
+                    },
+                    {
+                        "name": "category_ids",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer"
+                                    }
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по ID категорий",
+                            "title": "Category Ids"
+                        },
+                        "description": "Фильтр по ID категорий"
+                    },
+                    {
+                        "name": "attribute_filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]",
+                            "title": "Attribute Filters"
+                        },
+                        "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductCatalogResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/discounts": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Получить продукты со скидкой",
+                "description": "Возвращает продукты с активной скидкой с пагинацией",
+                "operationId": "get_product_discounts_api_v1_products_discounts_get",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Номер страницы",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Номер страницы"
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Размер страницы",
+                            "default": 20,
+                            "title": "Page Size"
+                        },
+                        "description": "Размер страницы"
+                    },
+                    {
+                        "name": "category_ids",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer"
+                                    }
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по ID категорий",
+                            "title": "Category Ids"
+                        },
+                        "description": "Фильтр по ID категорий"
+                    },
+                    {
+                        "name": "attribute_filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]",
+                            "title": "Attribute Filters"
+                        },
+                        "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductCatalogResponse"
                                 }
                             }
                         }

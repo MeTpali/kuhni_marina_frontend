@@ -13,6 +13,36 @@ abstract class IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    bool? isHit,
+    bool? isNew,
+    bool? hasDiscount,
+  });
+
+  /// Хиты продаж (с пагинацией и фильтрами).
+  Future<Result<ProductCatalog>> getProductHits(
+    String token, {
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  });
+
+  /// Новинки (с пагинацией и фильтрами).
+  Future<Result<ProductCatalog>> getProductNew(
+    String token, {
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  });
+
+  /// Товары со скидкой (с пагинацией и фильтрами).
+  Future<Result<ProductCatalog>> getProductDiscounts(
+    String token, {
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
   });
 
   /// Список id товаров по фильтрам.

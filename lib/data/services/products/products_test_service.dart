@@ -76,8 +76,60 @@ class ProductsTestService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    bool? isHit,
+    bool? isNew,
+    bool? hasDiscount,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 400));
+    return const ResponseResult.success(_mockCatalog);
+  }
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getProductHits({
+    required String token,
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
+    final hitItems = _mockListItems.where((e) => e.isHit).toList();
+    return ResponseResult.success(ProductCatalogResponseDto(
+      items: hitItems,
+      total: hitItems.length,
+      page: page ?? 1,
+      pageSize: pageSize ?? 10,
+      totalPages: hitItems.isEmpty ? 1 : 1,
+      message: null,
+    ));
+  }
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getProductNew({
+    required String token,
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
+    final newItems = _mockListItems.where((e) => e.isNew).toList();
+    return ResponseResult.success(ProductCatalogResponseDto(
+      items: newItems,
+      total: newItems.length,
+      page: page ?? 1,
+      pageSize: pageSize ?? 10,
+      totalPages: newItems.isEmpty ? 1 : 1,
+      message: null,
+    ));
+  }
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getProductDiscounts({
+    required String token,
+    int? page,
+    int? pageSize,
+    List<int>? categoryIds,
+    String? attributeFilters,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
     return const ResponseResult.success(_mockCatalog);
   }
 
