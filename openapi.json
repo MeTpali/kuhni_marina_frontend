@@ -670,6 +670,42 @@
                             "title": "Has Discount"
                         },
                         "description": "Фильтр по наличию скидки"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ProductType"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)",
+                            "title": "Type"
+                        },
+                        "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Поиск по названию и описанию",
+                            "title": "Search"
+                        },
+                        "description": "Поиск по названию и описанию"
                     }
                 ],
                 "responses": {
@@ -1084,6 +1120,91 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ProductCatalogResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/search/suggestions": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Подсказки поиска",
+                "description": "Быстрые подсказки для автодополнения: id, картинка, описание до 150 символов, цена, скидка",
+                "operationId": "get_search_suggestions_api_v1_products_search_suggestions_get",
+                "parameters": [
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "Текст поиска",
+                            "title": "Text"
+                        },
+                        "description": "Текст поиска"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ProductType"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)",
+                            "title": "Type"
+                        },
+                        "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 50,
+                            "minimum": 1,
+                            "description": "Максимальное количество подсказок в выдаче",
+                            "default": 10,
+                            "title": "Limit"
+                        },
+                        "description": "Максимальное количество подсказок в выдаче"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductSearchSuggestionsResponse"
                                 }
                             }
                         }
@@ -5627,6 +5748,95 @@
                     "created_at"
                 ],
                 "title": "ProductResponse"
+            },
+            "ProductSearchSuggestionsResponse": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProductSuggestionItemResponse"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "items"
+                ],
+                "title": "ProductSearchSuggestionsResponse"
+            },
+            "ProductSuggestionItemResponse": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Image"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "price": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Price"
+                    },
+                    "discount": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ProductDiscountInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "title": "ProductSuggestionItemResponse",
+                "description": "Элемент подсказки поиска: id, наименование, картинка, описание до 150 символов, цена, скидка"
             },
             "ProductType": {
                 "type": "string",

@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'product_discount_info.freezed.dart';
 
-/// Информация о скидке на продукт.
+/// Информация о скидке на товар (доменная модель).
 @freezed
 class ProductDiscountInfo with _$ProductDiscountInfo {
   const factory ProductDiscountInfo({

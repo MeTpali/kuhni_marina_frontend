@@ -7,6 +7,8 @@ import '../../dto/product/product_delete_response/product_delete_response_dto.da
 import '../../dto/product/product_id_list_response/product_id_list_response_dto.dart';
 import '../../dto/product/product_list_item_response/product_list_item_response_dto.dart';
 import '../../dto/product/product_response/product_response_dto.dart';
+import '../../dto/product/product_search_suggestions_response/product_search_suggestions_response_dto.dart';
+import '../../dto/product/product_suggestion_item_response/product_suggestion_item_response_dto.dart';
 import '../../dto/product/product_type_dto.dart';
 import '../../dto/product/product_update_request/product_update_request_dto.dart';
 
@@ -70,6 +72,25 @@ class ProductsTestService {
     message: null,
   );
 
+  static const _mockSuggestionItems = [
+    ProductSuggestionItemResponseDto(
+      id: 1,
+      name: 'Кухня «Марина»',
+      image: 'https://example.com/img1.jpg',
+      description: 'Кухня в современном стиле',
+      price: '150000',
+      discount: null,
+    ),
+    ProductSuggestionItemResponseDto(
+      id: 2,
+      name: 'Угловая кухня «Комфорт»',
+      image: null,
+      description: 'Угловая кухня с островом',
+      price: '220000',
+      discount: null,
+    ),
+  ];
+
   Future<ResponseResult<ProductCatalogResponseDto>> getProductCatalog({
     required String token,
     int? page,
@@ -79,9 +100,25 @@ class ProductsTestService {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    String? type,
+    String? search,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 400));
     return const ResponseResult.success(_mockCatalog);
+  }
+
+  Future<ResponseResult<ProductSearchSuggestionsResponseDto>> getSearchSuggestions({
+    required String token,
+    required String text,
+    String? type,
+    int? limit,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
+    final count = (limit ?? 10).clamp(0, _mockSuggestionItems.length);
+    return ResponseResult.success(ProductSearchSuggestionsResponseDto(
+      items: _mockSuggestionItems.take(count).toList(),
+      message: null,
+    ));
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductHits({

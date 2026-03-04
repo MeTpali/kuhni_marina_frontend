@@ -2,11 +2,14 @@ import '../../../core/entities/result/result.dart';
 import '../../../domain/models/product/product.dart';
 import '../../../domain/models/product/product_catalog.dart';
 import '../../../domain/models/product/product_create_request.dart';
+import '../../../domain/models/product/product_search_suggestion.dart';
 import '../../../domain/models/product/product_update_request.dart';
+import '../../../domain/models/product_type/product_type.dart';
 import '../../../domain/repositories/i_products_repository.dart';
 import '../../mappers/products/product_catalog_mapper.dart';
 import '../../mappers/products/product_mapper.dart';
 import '../../mappers/products/product_request_mappers.dart';
+import '../../mappers/products/product_suggestion_item_mapper.dart';
 import '../../services/products/products_test_service.dart';
 import '../../utils/response_error_mapper.dart';
 
@@ -18,6 +21,8 @@ class ProductsTestRepository implements IProductsRepository {
   final ProductsTestService _service;
   final ProductMapper _productMapper = ProductMapper();
   final ProductCatalogMapper _catalogMapper = ProductCatalogMapper();
+  final ProductSuggestionItemMapper _suggestionMapper =
+      ProductSuggestionItemMapper();
 
   @override
   Future<Result<ProductCatalog>> getProductCatalog(
@@ -29,6 +34,8 @@ class ProductsTestRepository implements IProductsRepository {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    ProductType? type,
+    String? search,
   }) async {
     final response = await _service.getProductCatalog(
       token: token,
@@ -39,9 +46,32 @@ class ProductsTestRepository implements IProductsRepository {
       isHit: isHit,
       isNew: isNew,
       hasDiscount: hasDiscount,
+      type: type?.name,
+      search: search,
     );
     return response.when(
       success: (dto) => Result.success(_catalogMapper.map(dto)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<List<ProductSearchSuggestion>>> getSearchSuggestions(
+    String token,
+    String text, {
+    ProductType? type,
+    int? limit,
+  }) async {
+    final response = await _service.getSearchSuggestions(
+      token: token,
+      text: text,
+      type: type?.name,
+      limit: limit,
+    );
+    return response.when(
+      success: (dto) => Result.success(
+        dto.items.map(_suggestionMapper.map).toList(),
+      ),
       error: (e) => Result.error(responseErrorToMessage(e)),
     );
   }

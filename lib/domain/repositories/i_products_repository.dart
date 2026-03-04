@@ -2,7 +2,9 @@ import '../../core/entities/result/result.dart';
 import '../models/product/product.dart';
 import '../models/product/product_catalog.dart';
 import '../models/product/product_create_request.dart';
+import '../models/product/product_search_suggestion.dart';
 import '../models/product/product_update_request.dart';
+import '../models/product_type/product_type.dart';
 
 /// Репозиторий товаров каталога.
 abstract class IProductsRepository {
@@ -16,6 +18,16 @@ abstract class IProductsRepository {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    ProductType? type,
+    String? search,
+  });
+
+  /// Подсказки поиска по товарам.
+  Future<Result<List<ProductSearchSuggestion>>> getSearchSuggestions(
+    String token,
+    String text, {
+    ProductType? type,
+    int? limit,
   });
 
   /// Хиты продаж (с пагинацией и фильтрами).

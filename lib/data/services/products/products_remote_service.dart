@@ -7,6 +7,7 @@ import '../../dto/product/product_create_request/product_create_request_dto.dart
 import '../../dto/product/product_delete_response/product_delete_response_dto.dart';
 import '../../dto/product/product_id_list_response/product_id_list_response_dto.dart';
 import '../../dto/product/product_response/product_response_dto.dart';
+import '../../dto/product/product_search_suggestions_response/product_search_suggestions_response_dto.dart';
 import '../../dto/product/product_update_request/product_update_request_dto.dart';
 
 class ProductsRemoteService {
@@ -24,6 +25,8 @@ class ProductsRemoteService {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    String? type,
+    String? search,
   }) async {
     try {
       final queryParams = _catalogQueryParams(
@@ -35,6 +38,8 @@ class ProductsRemoteService {
       if (isHit != null) queryParams['is_hit'] = isHit;
       if (isNew != null) queryParams['is_new'] = isNew;
       if (hasDiscount != null) queryParams['has_discount'] = hasDiscount;
+      if (type != null) queryParams['type'] = type;
+      if (search != null && search.isNotEmpty) queryParams['search'] = search;
 
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/catalog',
@@ -99,6 +104,36 @@ class ProductsRemoteService {
     categoryIds: categoryIds,
     attributeFilters: attributeFilters,
   );
+
+  Future<ResponseResult<ProductSearchSuggestionsResponseDto>> getSearchSuggestions({
+    required String token,
+    required String text,
+    String? type,
+    int? limit,
+  }) async {
+    try {
+      final queryParams = <String, dynamic>{'text': text};
+      if (type != null) queryParams['type'] = type;
+      if (limit != null) queryParams['limit'] = limit;
+
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$_path/search/suggestions',
+        queryParameters: queryParams,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          ProductSearchSuggestionsResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProductSearchSuggestionsResponseDto>(e);
+    }
+  }
 
   Future<ResponseResult<ProductIdListResponseDto>> getProductIds({
     required String token,
