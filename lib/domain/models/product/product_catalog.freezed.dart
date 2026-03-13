@@ -22,6 +22,7 @@ mixin _$ProductCatalog {
   int get page => throw _privateConstructorUsedError;
   int get pageSize => throw _privateConstructorUsedError;
   int get totalPages => throw _privateConstructorUsedError;
+  CatalogFacets? get facets => throw _privateConstructorUsedError;
 
   /// Create a copy of ProductCatalog
   /// with the given fields replaced by the non-null parameter values.
@@ -43,7 +44,10 @@ abstract class $ProductCatalogCopyWith<$Res> {
     int page,
     int pageSize,
     int totalPages,
+    CatalogFacets? facets,
   });
+
+  $CatalogFacetsCopyWith<$Res>? get facets;
 }
 
 /// @nodoc
@@ -66,6 +70,7 @@ class _$ProductCatalogCopyWithImpl<$Res, $Val extends ProductCatalog>
     Object? page = null,
     Object? pageSize = null,
     Object? totalPages = null,
+    Object? facets = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -89,9 +94,27 @@ class _$ProductCatalogCopyWithImpl<$Res, $Val extends ProductCatalog>
                 ? _value.totalPages
                 : totalPages // ignore: cast_nullable_to_non_nullable
                       as int,
+            facets: freezed == facets
+                ? _value.facets
+                : facets // ignore: cast_nullable_to_non_nullable
+                      as CatalogFacets?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of ProductCatalog
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogFacetsCopyWith<$Res>? get facets {
+    if (_value.facets == null) {
+      return null;
+    }
+
+    return $CatalogFacetsCopyWith<$Res>(_value.facets!, (value) {
+      return _then(_value.copyWith(facets: value) as $Val);
+    });
   }
 }
 
@@ -110,7 +133,11 @@ abstract class _$$ProductCatalogImplCopyWith<$Res>
     int page,
     int pageSize,
     int totalPages,
+    CatalogFacets? facets,
   });
+
+  @override
+  $CatalogFacetsCopyWith<$Res>? get facets;
 }
 
 /// @nodoc
@@ -132,6 +159,7 @@ class __$$ProductCatalogImplCopyWithImpl<$Res>
     Object? page = null,
     Object? pageSize = null,
     Object? totalPages = null,
+    Object? facets = freezed,
   }) {
     return _then(
       _$ProductCatalogImpl(
@@ -155,6 +183,10 @@ class __$$ProductCatalogImplCopyWithImpl<$Res>
             ? _value.totalPages
             : totalPages // ignore: cast_nullable_to_non_nullable
                   as int,
+        facets: freezed == facets
+            ? _value.facets
+            : facets // ignore: cast_nullable_to_non_nullable
+                  as CatalogFacets?,
       ),
     );
   }
@@ -169,6 +201,7 @@ class _$ProductCatalogImpl implements _ProductCatalog {
     required this.page,
     required this.pageSize,
     required this.totalPages,
+    this.facets,
   }) : _items = items;
 
   final List<ProductListItem> _items;
@@ -187,10 +220,12 @@ class _$ProductCatalogImpl implements _ProductCatalog {
   final int pageSize;
   @override
   final int totalPages;
+  @override
+  final CatalogFacets? facets;
 
   @override
   String toString() {
-    return 'ProductCatalog(items: $items, total: $total, page: $page, pageSize: $pageSize, totalPages: $totalPages)';
+    return 'ProductCatalog(items: $items, total: $total, page: $page, pageSize: $pageSize, totalPages: $totalPages, facets: $facets)';
   }
 
   @override
@@ -204,7 +239,8 @@ class _$ProductCatalogImpl implements _ProductCatalog {
             (identical(other.pageSize, pageSize) ||
                 other.pageSize == pageSize) &&
             (identical(other.totalPages, totalPages) ||
-                other.totalPages == totalPages));
+                other.totalPages == totalPages) &&
+            (identical(other.facets, facets) || other.facets == facets));
   }
 
   @override
@@ -215,6 +251,7 @@ class _$ProductCatalogImpl implements _ProductCatalog {
     page,
     pageSize,
     totalPages,
+    facets,
   );
 
   /// Create a copy of ProductCatalog
@@ -236,6 +273,7 @@ abstract class _ProductCatalog implements ProductCatalog {
     required final int page,
     required final int pageSize,
     required final int totalPages,
+    final CatalogFacets? facets,
   }) = _$ProductCatalogImpl;
 
   @override
@@ -248,6 +286,8 @@ abstract class _ProductCatalog implements ProductCatalog {
   int get pageSize;
   @override
   int get totalPages;
+  @override
+  CatalogFacets? get facets;
 
   /// Create a copy of ProductCatalog
   /// with the given fields replaced by the non-null parameter values.

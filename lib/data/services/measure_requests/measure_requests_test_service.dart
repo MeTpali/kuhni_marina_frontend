@@ -111,8 +111,7 @@ class MeasureRequestsTestService {
     ));
   }
 
-  Future<ResponseResult<MeasureRequestResponseDto>>
-      updateMeasureRequestStatusDto({
+  Future<ResponseResult<MeasureRequestResponseDto>> updateMeasureRequestStatus({
     required String token,
     required int measureRequestId,
     required MeasureRequestStatusUpdateRequestDto request,

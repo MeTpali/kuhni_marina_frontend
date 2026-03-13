@@ -9,7 +9,7 @@ class BannerCreateRequestDto with _$BannerCreateRequestDto {
     @JsonKey(name: 'title') required String title,
     @JsonKey(name: 'image_url') required String imageUrl,
     @JsonKey(name: 'link_url') String? linkUrl,
-    @Default(0) @JsonKey(name: 'position') int position,
+    @Default(0) @Default(0) @JsonKey(name: 'priority') int priority,
     @Default(true) @JsonKey(name: 'is_active') bool? isActive,
   }) = _BannerCreateRequestDto;
 

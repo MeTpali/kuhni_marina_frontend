@@ -17,10 +17,17 @@ class ProjectsRemoteService {
 
   Future<ResponseResult<ProjectListResponseDto>> getProjects({
     required String token,
+    int? page,
+    int? pageSize,
   }) async {
     try {
+      final queryParams = <String, dynamic>{};
+      if (page != null) queryParams['page'] = page;
+      if (pageSize != null) queryParams['page_size'] = pageSize;
+
       final response = await _dio.get<Map<String, dynamic>>(
         _path,
+        queryParameters: queryParams.isEmpty ? null : queryParams,
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
@@ -34,52 +41,6 @@ class ProjectsRemoteService {
       );
     } on DioException catch (e) {
       return DioUtils.handleDioException<ProjectListResponseDto>(e);
-    }
-  }
-
-  Future<ResponseResult<ProjectResponseDto>> createProject({
-    required String token,
-    required ProjectCreateRequestDto request,
-  }) async {
-    try {
-      final response = await _dio.post<Map<String, dynamic>>(
-        _path,
-        data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-
-      if ((response.statusCode == 201 || response.statusCode == 200) &&
-          response.data != null) {
-        return ResponseResult.success(ProjectResponseDto.fromJson(response.data!));
-      }
-      return ResponseResult.error(
-        ResponseError.server('Server error', response.statusCode),
-      );
-    } on DioException catch (e) {
-      return DioUtils.handleDioException<ProjectResponseDto>(e);
-    }
-  }
-
-  Future<ResponseResult<ProjectDetailResponseDto>> getProjectById({
-    required String token,
-    required int projectId,
-  }) async {
-    try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        '$_path/$projectId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-
-      if (response.statusCode == 200 && response.data != null) {
-        return ResponseResult.success(
-          ProjectDetailResponseDto.fromJson(response.data!),
-        );
-      }
-      return ResponseResult.error(
-        ResponseError.server('Server error', response.statusCode),
-      );
-    } on DioException catch (e) {
-      return DioUtils.handleDioException<ProjectDetailResponseDto>(e);
     }
   }
 
@@ -106,6 +67,54 @@ class ProjectsRemoteService {
     }
   }
 
+  Future<ResponseResult<ProjectDetailResponseDto>> getProjectById({
+    required String token,
+    required int projectId,
+  }) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$_path/$projectId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          ProjectDetailResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProjectDetailResponseDto>(e);
+    }
+  }
+
+  Future<ResponseResult<ProjectResponseDto>> createProject({
+    required String token,
+    required ProjectCreateRequestDto request,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        _path,
+        data: request.toJson(),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      if ((response.statusCode == 201 || response.statusCode == 200) &&
+          response.data != null) {
+        return ResponseResult.success(
+          ProjectResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProjectResponseDto>(e);
+    }
+  }
+
   Future<ResponseResult<ProjectResponseDto>> updateProject({
     required String token,
     required int projectId,
@@ -119,7 +128,9 @@ class ProjectsRemoteService {
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        return ResponseResult.success(ProjectResponseDto.fromJson(response.data!));
+        return ResponseResult.success(
+          ProjectResponseDto.fromJson(response.data!),
+        );
       }
       return ResponseResult.error(
         ResponseError.server('Server error', response.statusCode),

@@ -8,6 +8,10 @@ part 'project_list_response_dto.g.dart';
 class ProjectListResponseDto with _$ProjectListResponseDto {
   const factory ProjectListResponseDto({
     @JsonKey(name: 'items') required List<ProjectResponseDto> items,
+    @JsonKey(name: 'total') int? total,
+    @JsonKey(name: 'page') int? page,
+    @JsonKey(name: 'page_size') int? pageSize,
+    @JsonKey(name: 'total_pages') int? totalPages,
     @JsonKey(name: 'message') String? message,
   }) = _ProjectListResponseDto;
 

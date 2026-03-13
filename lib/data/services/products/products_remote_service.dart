@@ -25,6 +25,7 @@ class ProductsRemoteService {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    int? campaignId,
     String? type,
     String? search,
   }) async {
@@ -38,6 +39,7 @@ class ProductsRemoteService {
       if (isHit != null) queryParams['is_hit'] = isHit;
       if (isNew != null) queryParams['is_new'] = isNew;
       if (hasDiscount != null) queryParams['has_discount'] = hasDiscount;
+      if (campaignId != null) queryParams['campaign_id'] = campaignId;
       if (type != null) queryParams['type'] = type;
       if (search != null && search.isNotEmpty) queryParams['search'] = search;
 

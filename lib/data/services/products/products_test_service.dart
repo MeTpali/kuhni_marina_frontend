@@ -100,6 +100,7 @@ class ProductsTestService {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    int? campaignId,
     String? type,
     String? search,
   }) async {

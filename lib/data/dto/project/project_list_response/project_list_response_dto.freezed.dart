@@ -25,6 +25,14 @@ ProjectListResponseDto _$ProjectListResponseDtoFromJson(
 mixin _$ProjectListResponseDto {
   @JsonKey(name: 'items')
   List<ProjectResponseDto> get items => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total')
+  int? get total => throw _privateConstructorUsedError;
+  @JsonKey(name: 'page')
+  int? get page => throw _privateConstructorUsedError;
+  @JsonKey(name: 'page_size')
+  int? get pageSize => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total_pages')
+  int? get totalPages => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
   String? get message => throw _privateConstructorUsedError;
 
@@ -47,6 +55,10 @@ abstract class $ProjectListResponseDtoCopyWith<$Res> {
   @useResult
   $Res call({
     @JsonKey(name: 'items') List<ProjectResponseDto> items,
+    @JsonKey(name: 'total') int? total,
+    @JsonKey(name: 'page') int? page,
+    @JsonKey(name: 'page_size') int? pageSize,
+    @JsonKey(name: 'total_pages') int? totalPages,
     @JsonKey(name: 'message') String? message,
   });
 }
@@ -68,13 +80,36 @@ class _$ProjectListResponseDtoCopyWithImpl<
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? items = null, Object? message = freezed}) {
+  $Res call({
+    Object? items = null,
+    Object? total = freezed,
+    Object? page = freezed,
+    Object? pageSize = freezed,
+    Object? totalPages = freezed,
+    Object? message = freezed,
+  }) {
     return _then(
       _value.copyWith(
             items: null == items
                 ? _value.items
                 : items // ignore: cast_nullable_to_non_nullable
                       as List<ProjectResponseDto>,
+            total: freezed == total
+                ? _value.total
+                : total // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            page: freezed == page
+                ? _value.page
+                : page // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            pageSize: freezed == pageSize
+                ? _value.pageSize
+                : pageSize // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            totalPages: freezed == totalPages
+                ? _value.totalPages
+                : totalPages // ignore: cast_nullable_to_non_nullable
+                      as int?,
             message: freezed == message
                 ? _value.message
                 : message // ignore: cast_nullable_to_non_nullable
@@ -96,6 +131,10 @@ abstract class _$$ProjectListResponseDtoImplCopyWith<$Res>
   @useResult
   $Res call({
     @JsonKey(name: 'items') List<ProjectResponseDto> items,
+    @JsonKey(name: 'total') int? total,
+    @JsonKey(name: 'page') int? page,
+    @JsonKey(name: 'page_size') int? pageSize,
+    @JsonKey(name: 'total_pages') int? totalPages,
     @JsonKey(name: 'message') String? message,
   });
 }
@@ -114,13 +153,36 @@ class __$$ProjectListResponseDtoImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? items = null, Object? message = freezed}) {
+  $Res call({
+    Object? items = null,
+    Object? total = freezed,
+    Object? page = freezed,
+    Object? pageSize = freezed,
+    Object? totalPages = freezed,
+    Object? message = freezed,
+  }) {
     return _then(
       _$ProjectListResponseDtoImpl(
         items: null == items
             ? _value._items
             : items // ignore: cast_nullable_to_non_nullable
                   as List<ProjectResponseDto>,
+        total: freezed == total
+            ? _value.total
+            : total // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        page: freezed == page
+            ? _value.page
+            : page // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        pageSize: freezed == pageSize
+            ? _value.pageSize
+            : pageSize // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        totalPages: freezed == totalPages
+            ? _value.totalPages
+            : totalPages // ignore: cast_nullable_to_non_nullable
+                  as int?,
         message: freezed == message
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
@@ -135,6 +197,10 @@ class __$$ProjectListResponseDtoImplCopyWithImpl<$Res>
 class _$ProjectListResponseDtoImpl implements _ProjectListResponseDto {
   const _$ProjectListResponseDtoImpl({
     @JsonKey(name: 'items') required final List<ProjectResponseDto> items,
+    @JsonKey(name: 'total') this.total,
+    @JsonKey(name: 'page') this.page,
+    @JsonKey(name: 'page_size') this.pageSize,
+    @JsonKey(name: 'total_pages') this.totalPages,
     @JsonKey(name: 'message') this.message,
   }) : _items = items;
 
@@ -151,12 +217,24 @@ class _$ProjectListResponseDtoImpl implements _ProjectListResponseDto {
   }
 
   @override
+  @JsonKey(name: 'total')
+  final int? total;
+  @override
+  @JsonKey(name: 'page')
+  final int? page;
+  @override
+  @JsonKey(name: 'page_size')
+  final int? pageSize;
+  @override
+  @JsonKey(name: 'total_pages')
+  final int? totalPages;
+  @override
   @JsonKey(name: 'message')
   final String? message;
 
   @override
   String toString() {
-    return 'ProjectListResponseDto(items: $items, message: $message)';
+    return 'ProjectListResponseDto(items: $items, total: $total, page: $page, pageSize: $pageSize, totalPages: $totalPages, message: $message)';
   }
 
   @override
@@ -165,6 +243,12 @@ class _$ProjectListResponseDtoImpl implements _ProjectListResponseDto {
         (other.runtimeType == runtimeType &&
             other is _$ProjectListResponseDtoImpl &&
             const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.total, total) || other.total == total) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.pageSize, pageSize) ||
+                other.pageSize == pageSize) &&
+            (identical(other.totalPages, totalPages) ||
+                other.totalPages == totalPages) &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -173,6 +257,10 @@ class _$ProjectListResponseDtoImpl implements _ProjectListResponseDto {
   int get hashCode => Object.hash(
     runtimeType,
     const DeepCollectionEquality().hash(_items),
+    total,
+    page,
+    pageSize,
+    totalPages,
     message,
   );
 
@@ -197,6 +285,10 @@ class _$ProjectListResponseDtoImpl implements _ProjectListResponseDto {
 abstract class _ProjectListResponseDto implements ProjectListResponseDto {
   const factory _ProjectListResponseDto({
     @JsonKey(name: 'items') required final List<ProjectResponseDto> items,
+    @JsonKey(name: 'total') final int? total,
+    @JsonKey(name: 'page') final int? page,
+    @JsonKey(name: 'page_size') final int? pageSize,
+    @JsonKey(name: 'total_pages') final int? totalPages,
     @JsonKey(name: 'message') final String? message,
   }) = _$ProjectListResponseDtoImpl;
 
@@ -206,6 +298,18 @@ abstract class _ProjectListResponseDto implements ProjectListResponseDto {
   @override
   @JsonKey(name: 'items')
   List<ProjectResponseDto> get items;
+  @override
+  @JsonKey(name: 'total')
+  int? get total;
+  @override
+  @JsonKey(name: 'page')
+  int? get page;
+  @override
+  @JsonKey(name: 'page_size')
+  int? get pageSize;
+  @override
+  @JsonKey(name: 'total_pages')
+  int? get totalPages;
   @override
   @JsonKey(name: 'message')
   String? get message;

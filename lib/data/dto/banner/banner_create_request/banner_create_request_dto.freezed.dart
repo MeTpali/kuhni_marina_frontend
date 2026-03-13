@@ -29,8 +29,8 @@ mixin _$BannerCreateRequestDto {
   String get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'link_url')
   String? get linkUrl => throw _privateConstructorUsedError;
-  @JsonKey(name: 'position')
-  int get position => throw _privateConstructorUsedError;
+  @JsonKey(name: 'priority')
+  int get priority => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool? get isActive => throw _privateConstructorUsedError;
 
@@ -55,7 +55,7 @@ abstract class $BannerCreateRequestDtoCopyWith<$Res> {
     @JsonKey(name: 'title') String title,
     @JsonKey(name: 'image_url') String imageUrl,
     @JsonKey(name: 'link_url') String? linkUrl,
-    @JsonKey(name: 'position') int position,
+    @JsonKey(name: 'priority') int priority,
     @JsonKey(name: 'is_active') bool? isActive,
   });
 }
@@ -81,7 +81,7 @@ class _$BannerCreateRequestDtoCopyWithImpl<
     Object? title = null,
     Object? imageUrl = null,
     Object? linkUrl = freezed,
-    Object? position = null,
+    Object? priority = null,
     Object? isActive = freezed,
   }) {
     return _then(
@@ -98,9 +98,9 @@ class _$BannerCreateRequestDtoCopyWithImpl<
                 ? _value.linkUrl
                 : linkUrl // ignore: cast_nullable_to_non_nullable
                       as String?,
-            position: null == position
-                ? _value.position
-                : position // ignore: cast_nullable_to_non_nullable
+            priority: null == priority
+                ? _value.priority
+                : priority // ignore: cast_nullable_to_non_nullable
                       as int,
             isActive: freezed == isActive
                 ? _value.isActive
@@ -125,7 +125,7 @@ abstract class _$$BannerCreateRequestDtoImplCopyWith<$Res>
     @JsonKey(name: 'title') String title,
     @JsonKey(name: 'image_url') String imageUrl,
     @JsonKey(name: 'link_url') String? linkUrl,
-    @JsonKey(name: 'position') int position,
+    @JsonKey(name: 'priority') int priority,
     @JsonKey(name: 'is_active') bool? isActive,
   });
 }
@@ -148,7 +148,7 @@ class __$$BannerCreateRequestDtoImplCopyWithImpl<$Res>
     Object? title = null,
     Object? imageUrl = null,
     Object? linkUrl = freezed,
-    Object? position = null,
+    Object? priority = null,
     Object? isActive = freezed,
   }) {
     return _then(
@@ -165,9 +165,9 @@ class __$$BannerCreateRequestDtoImplCopyWithImpl<$Res>
             ? _value.linkUrl
             : linkUrl // ignore: cast_nullable_to_non_nullable
                   as String?,
-        position: null == position
-            ? _value.position
-            : position // ignore: cast_nullable_to_non_nullable
+        priority: null == priority
+            ? _value.priority
+            : priority // ignore: cast_nullable_to_non_nullable
                   as int,
         isActive: freezed == isActive
             ? _value.isActive
@@ -185,7 +185,7 @@ class _$BannerCreateRequestDtoImpl implements _BannerCreateRequestDto {
     @JsonKey(name: 'title') required this.title,
     @JsonKey(name: 'image_url') required this.imageUrl,
     @JsonKey(name: 'link_url') this.linkUrl,
-    @JsonKey(name: 'position') this.position = 0,
+    @JsonKey(name: 'priority') this.priority = 0,
     @JsonKey(name: 'is_active') this.isActive = true,
   });
 
@@ -202,15 +202,15 @@ class _$BannerCreateRequestDtoImpl implements _BannerCreateRequestDto {
   @JsonKey(name: 'link_url')
   final String? linkUrl;
   @override
-  @JsonKey(name: 'position')
-  final int position;
+  @JsonKey(name: 'priority')
+  final int priority;
   @override
   @JsonKey(name: 'is_active')
   final bool? isActive;
 
   @override
   String toString() {
-    return 'BannerCreateRequestDto(title: $title, imageUrl: $imageUrl, linkUrl: $linkUrl, position: $position, isActive: $isActive)';
+    return 'BannerCreateRequestDto(title: $title, imageUrl: $imageUrl, linkUrl: $linkUrl, priority: $priority, isActive: $isActive)';
   }
 
   @override
@@ -222,8 +222,8 @@ class _$BannerCreateRequestDtoImpl implements _BannerCreateRequestDto {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.linkUrl, linkUrl) || other.linkUrl == linkUrl) &&
-            (identical(other.position, position) ||
-                other.position == position) &&
+            (identical(other.priority, priority) ||
+                other.priority == priority) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive));
   }
@@ -231,7 +231,7 @@ class _$BannerCreateRequestDtoImpl implements _BannerCreateRequestDto {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, title, imageUrl, linkUrl, position, isActive);
+      Object.hash(runtimeType, title, imageUrl, linkUrl, priority, isActive);
 
   /// Create a copy of BannerCreateRequestDto
   /// with the given fields replaced by the non-null parameter values.
@@ -256,7 +256,7 @@ abstract class _BannerCreateRequestDto implements BannerCreateRequestDto {
     @JsonKey(name: 'title') required final String title,
     @JsonKey(name: 'image_url') required final String imageUrl,
     @JsonKey(name: 'link_url') final String? linkUrl,
-    @JsonKey(name: 'position') final int position,
+    @JsonKey(name: 'priority') final int priority,
     @JsonKey(name: 'is_active') final bool? isActive,
   }) = _$BannerCreateRequestDtoImpl;
 
@@ -273,8 +273,8 @@ abstract class _BannerCreateRequestDto implements BannerCreateRequestDto {
   @JsonKey(name: 'link_url')
   String? get linkUrl;
   @override
-  @JsonKey(name: 'position')
-  int get position;
+  @JsonKey(name: 'priority')
+  int get priority;
   @override
   @JsonKey(name: 'is_active')
   bool? get isActive;

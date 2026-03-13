@@ -13,9 +13,8 @@ import '../../utils/response_error_mapper.dart';
 
 /// Тестовый репозиторий заявок на замер на основе [MeasureRequestsTestService].
 class MeasureRequestsTestRepository implements IMeasureRequestsRepository {
-  MeasureRequestsTestRepository({
-    required MeasureRequestsTestService service,
-  }) : _service = service;
+  MeasureRequestsTestRepository({required MeasureRequestsTestService service})
+    : _service = service;
 
   final MeasureRequestsTestService _service;
   final MeasureRequestMapper _mapper = MeasureRequestMapper();
@@ -41,8 +40,10 @@ class MeasureRequestsTestRepository implements IMeasureRequestsRepository {
     MeasureRequestCreateRequest request,
   ) async {
     final dto = MeasureRequestRequestMappers.toCreateDto(request);
-    final response =
-        await _service.createMeasureRequest(token: token, request: dto);
+    final response = await _service.createMeasureRequest(
+      token: token,
+      request: dto,
+    );
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -89,7 +90,7 @@ class MeasureRequestsTestRepository implements IMeasureRequestsRepository {
     MeasureRequestStatusUpdateRequest request,
   ) async {
     final dto = MeasureRequestRequestMappers.toStatusUpdateDto(request);
-    final response = await _service.updateMeasureRequestStatusDto(
+    final response = await _service.updateMeasureRequestStatus(
       token: token,
       measureRequestId: measureRequestId,
       request: dto,
@@ -100,5 +101,6 @@ class MeasureRequestsTestRepository implements IMeasureRequestsRepository {
     );
   }
 
-  MeasureRequestStatusEnum _toDtoStatus(MeasureRequestStatus status) => MeasureRequestStatusEnum.values.byName(status.name);
+  MeasureRequestStatusEnum _toDtoStatus(MeasureRequestStatus status) =>
+      MeasureRequestStatusEnum.values.byName(status.name);
 }

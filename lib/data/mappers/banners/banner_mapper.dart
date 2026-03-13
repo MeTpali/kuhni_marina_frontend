@@ -9,7 +9,7 @@ class BannerMapper implements IMapper<BannerResponseDto, Banner> {
       title: from.title,
       imageUrl: from.imageUrl,
       linkUrl: from.linkUrl,
-      position: from.position,
+      position: from.priority,
       isActive: from.isActive ?? true,
     );
 }

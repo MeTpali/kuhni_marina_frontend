@@ -88,7 +88,7 @@ class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
     MeasureRequestStatusUpdateRequest request,
   ) async {
     final dto = MeasureRequestRequestMappers.toStatusUpdateDto(request);
-    final response = await _service.updateMeasureRequestStatusDto(
+    final response = await _service.updateMeasureRequestStatus(
       token: token,
       measureRequestId: measureRequestId,
       request: dto,

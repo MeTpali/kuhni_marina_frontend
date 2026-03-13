@@ -17,7 +17,7 @@ class BannersTestService {
       title: 'Акция на кухни',
       imageUrl: 'https://example.com/banner1.jpg',
       linkUrl: '/catalog?type=kitchen',
-      position: 0,
+      priority: 0,
       isActive: true,
       message: null,
     ),
@@ -26,14 +26,16 @@ class BannersTestService {
       title: 'Новая коллекция',
       imageUrl: 'https://example.com/banner2.jpg',
       linkUrl: null,
-      position: 1,
+      priority: 1,
       isActive: true,
       message: null,
     ),
   ];
 
-  static const _mockListResponse =
-      BannerListResponseDto(items: _mockItems, message: null);
+  static const _mockListResponse = BannerListResponseDto(
+    items: _mockItems,
+    message: null,
+  );
 
   Future<ResponseResult<BannerListResponseDto>> getBanners({
     required String token,
@@ -47,15 +49,17 @@ class BannersTestService {
     required BannerCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
-    return ResponseResult.success(BannerResponseDto(
-      id: 99,
-      title: request.title,
-      imageUrl: request.imageUrl,
-      linkUrl: request.linkUrl,
-      position: request.position,
-      isActive: request.isActive ?? true,
-      message: null,
-    ));
+    return ResponseResult.success(
+      BannerResponseDto(
+        id: 99,
+        title: request.title,
+        imageUrl: request.imageUrl,
+        linkUrl: request.linkUrl,
+        priority: request.priority,
+        isActive: request.isActive ?? true,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<BannerResponseDto>> getBannerById({
@@ -67,15 +71,15 @@ class BannersTestService {
     final found = list.isNotEmpty ? list.first : null;
     return ResponseResult.success(
       found ??
-        BannerResponseDto(
-          id: bannerId,
-          title: 'Баннер $bannerId',
-          imageUrl: 'https://example.com/banner.jpg',
-          linkUrl: null,
-          position: 0,
-          isActive: true,
-          message: null,
-        ),
+          BannerResponseDto(
+            id: bannerId,
+            title: 'Баннер $bannerId',
+            imageUrl: 'https://example.com/banner.jpg',
+            linkUrl: null,
+            priority: 0,
+            isActive: true,
+            message: null,
+          ),
     );
   }
 
@@ -85,15 +89,17 @@ class BannersTestService {
     required BannerUpdateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
-    return ResponseResult.success(BannerResponseDto(
-      id: bannerId,
-      title: request.title,
-      imageUrl: request.imageUrl,
-      linkUrl: request.linkUrl,
-      position: request.position,
-      isActive: request.isActive ?? true,
-      message: null,
-    ));
+    return ResponseResult.success(
+      BannerResponseDto(
+        id: bannerId,
+        title: request.title,
+        imageUrl: request.imageUrl,
+        linkUrl: request.linkUrl,
+        priority: request.priority,
+        isActive: request.isActive ?? true,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<BannerDeleteResponseDto>> deleteBanner({

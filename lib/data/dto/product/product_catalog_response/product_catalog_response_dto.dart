@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../catalog_facets/catalog_facets_dto.dart';
 import '../product_list_item_response/product_list_item_response_dto.dart';
 
 part 'product_catalog_response_dto.freezed.dart';
@@ -12,6 +13,7 @@ class ProductCatalogResponseDto with _$ProductCatalogResponseDto {
     @JsonKey(name: 'page') required int page,
     @JsonKey(name: 'page_size') required int pageSize,
     @JsonKey(name: 'total_pages') required int totalPages,
+    @JsonKey(name: 'facets') CatalogFacetsDto? facets,
     @JsonKey(name: 'message') String? message,
   }) = _ProductCatalogResponseDto;
 

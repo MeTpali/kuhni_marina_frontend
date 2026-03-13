@@ -8,7 +8,7 @@ class BannerRequestMappers {
       title: from.title,
       imageUrl: from.imageUrl,
       linkUrl: from.linkUrl,
-      position: from.position,
+      priority: from.position,
       isActive: from.isActive,
     );
 
@@ -16,7 +16,7 @@ class BannerRequestMappers {
       title: from.title,
       imageUrl: from.imageUrl,
       linkUrl: from.linkUrl,
-      position: from.position,
+      priority: from.position,
       isActive: from.isActive,
     );
 }

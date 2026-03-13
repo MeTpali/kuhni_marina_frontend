@@ -29,8 +29,8 @@ mixin _$BannerResponseDto {
   String get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'link_url')
   String? get linkUrl => throw _privateConstructorUsedError;
-  @JsonKey(name: 'position')
-  int get position => throw _privateConstructorUsedError;
+  @JsonKey(name: 'priority')
+  int get priority => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool? get isActive => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
@@ -58,7 +58,7 @@ abstract class $BannerResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'title') String title,
     @JsonKey(name: 'image_url') String imageUrl,
     @JsonKey(name: 'link_url') String? linkUrl,
-    @JsonKey(name: 'position') int position,
+    @JsonKey(name: 'priority') int priority,
     @JsonKey(name: 'is_active') bool? isActive,
     @JsonKey(name: 'message') String? message,
   });
@@ -83,7 +83,7 @@ class _$BannerResponseDtoCopyWithImpl<$Res, $Val extends BannerResponseDto>
     Object? title = null,
     Object? imageUrl = null,
     Object? linkUrl = freezed,
-    Object? position = null,
+    Object? priority = null,
     Object? isActive = freezed,
     Object? message = freezed,
   }) {
@@ -105,9 +105,9 @@ class _$BannerResponseDtoCopyWithImpl<$Res, $Val extends BannerResponseDto>
                 ? _value.linkUrl
                 : linkUrl // ignore: cast_nullable_to_non_nullable
                       as String?,
-            position: null == position
-                ? _value.position
-                : position // ignore: cast_nullable_to_non_nullable
+            priority: null == priority
+                ? _value.priority
+                : priority // ignore: cast_nullable_to_non_nullable
                       as int,
             isActive: freezed == isActive
                 ? _value.isActive
@@ -137,7 +137,7 @@ abstract class _$$BannerResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'title') String title,
     @JsonKey(name: 'image_url') String imageUrl,
     @JsonKey(name: 'link_url') String? linkUrl,
-    @JsonKey(name: 'position') int position,
+    @JsonKey(name: 'priority') int priority,
     @JsonKey(name: 'is_active') bool? isActive,
     @JsonKey(name: 'message') String? message,
   });
@@ -161,7 +161,7 @@ class __$$BannerResponseDtoImplCopyWithImpl<$Res>
     Object? title = null,
     Object? imageUrl = null,
     Object? linkUrl = freezed,
-    Object? position = null,
+    Object? priority = null,
     Object? isActive = freezed,
     Object? message = freezed,
   }) {
@@ -183,9 +183,9 @@ class __$$BannerResponseDtoImplCopyWithImpl<$Res>
             ? _value.linkUrl
             : linkUrl // ignore: cast_nullable_to_non_nullable
                   as String?,
-        position: null == position
-            ? _value.position
-            : position // ignore: cast_nullable_to_non_nullable
+        priority: null == priority
+            ? _value.priority
+            : priority // ignore: cast_nullable_to_non_nullable
                   as int,
         isActive: freezed == isActive
             ? _value.isActive
@@ -208,7 +208,7 @@ class _$BannerResponseDtoImpl implements _BannerResponseDto {
     @JsonKey(name: 'title') required this.title,
     @JsonKey(name: 'image_url') required this.imageUrl,
     @JsonKey(name: 'link_url') this.linkUrl,
-    @JsonKey(name: 'position') this.position = 0,
+    @JsonKey(name: 'priority') this.priority = 0,
     @JsonKey(name: 'is_active') this.isActive = true,
     @JsonKey(name: 'message') this.message,
   });
@@ -229,8 +229,8 @@ class _$BannerResponseDtoImpl implements _BannerResponseDto {
   @JsonKey(name: 'link_url')
   final String? linkUrl;
   @override
-  @JsonKey(name: 'position')
-  final int position;
+  @JsonKey(name: 'priority')
+  final int priority;
   @override
   @JsonKey(name: 'is_active')
   final bool? isActive;
@@ -240,7 +240,7 @@ class _$BannerResponseDtoImpl implements _BannerResponseDto {
 
   @override
   String toString() {
-    return 'BannerResponseDto(id: $id, title: $title, imageUrl: $imageUrl, linkUrl: $linkUrl, position: $position, isActive: $isActive, message: $message)';
+    return 'BannerResponseDto(id: $id, title: $title, imageUrl: $imageUrl, linkUrl: $linkUrl, priority: $priority, isActive: $isActive, message: $message)';
   }
 
   @override
@@ -253,8 +253,8 @@ class _$BannerResponseDtoImpl implements _BannerResponseDto {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.linkUrl, linkUrl) || other.linkUrl == linkUrl) &&
-            (identical(other.position, position) ||
-                other.position == position) &&
+            (identical(other.priority, priority) ||
+                other.priority == priority) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             (identical(other.message, message) || other.message == message));
@@ -268,7 +268,7 @@ class _$BannerResponseDtoImpl implements _BannerResponseDto {
     title,
     imageUrl,
     linkUrl,
-    position,
+    priority,
     isActive,
     message,
   );
@@ -296,7 +296,7 @@ abstract class _BannerResponseDto implements BannerResponseDto {
     @JsonKey(name: 'title') required final String title,
     @JsonKey(name: 'image_url') required final String imageUrl,
     @JsonKey(name: 'link_url') final String? linkUrl,
-    @JsonKey(name: 'position') final int position,
+    @JsonKey(name: 'priority') final int priority,
     @JsonKey(name: 'is_active') final bool? isActive,
     @JsonKey(name: 'message') final String? message,
   }) = _$BannerResponseDtoImpl;
@@ -317,8 +317,8 @@ abstract class _BannerResponseDto implements BannerResponseDto {
   @JsonKey(name: 'link_url')
   String? get linkUrl;
   @override
-  @JsonKey(name: 'position')
-  int get position;
+  @JsonKey(name: 'priority')
+  int get priority;
   @override
   @JsonKey(name: 'is_active')
   bool? get isActive;

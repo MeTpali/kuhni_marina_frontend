@@ -18,6 +18,7 @@ abstract class IProductsRepository {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    int? campaignId,
     ProductType? type,
     String? search,
   });

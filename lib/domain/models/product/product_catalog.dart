@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'catalog_facets.dart';
 import 'product_list_item.dart';
 
 part 'product_catalog.freezed.dart';
@@ -13,5 +14,6 @@ class ProductCatalog with _$ProductCatalog {
     required int page,
     required int pageSize,
     required int totalPages,
+    CatalogFacets? facets,
   }) = _ProductCatalog;
 }

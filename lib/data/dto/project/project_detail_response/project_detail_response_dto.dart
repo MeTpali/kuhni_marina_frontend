@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../project_image/project_image_response/project_image_response_dto.dart';
 
 part 'project_detail_response_dto.freezed.dart';

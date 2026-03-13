@@ -18,6 +18,9 @@ _$ProductCatalogResponseDtoImpl _$$ProductCatalogResponseDtoImplFromJson(
   page: (json['page'] as num).toInt(),
   pageSize: (json['page_size'] as num).toInt(),
   totalPages: (json['total_pages'] as num).toInt(),
+  facets: json['facets'] == null
+      ? null
+      : CatalogFacetsDto.fromJson(json['facets'] as Map<String, dynamic>),
   message: json['message'] as String?,
 );
 
@@ -29,5 +32,6 @@ Map<String, dynamic> _$$ProductCatalogResponseDtoImplToJson(
   'page': instance.page,
   'page_size': instance.pageSize,
   'total_pages': instance.totalPages,
+  'facets': instance.facets,
   'message': instance.message,
 };

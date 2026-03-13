@@ -33,6 +33,7 @@ class ProductsRemoteRepository implements IProductsRepository {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    int? campaignId,
     ProductType? type,
     String? search,
   }) async {
@@ -45,6 +46,7 @@ class ProductsRemoteRepository implements IProductsRepository {
       isHit: isHit,
       isNew: isNew,
       hasDiscount: hasDiscount,
+      campaignId: campaignId,
       type: type?.name,
       search: search,
     );

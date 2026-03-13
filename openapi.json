@@ -2266,6 +2266,112 @@
                 ]
             }
         },
+        "/api/v1/product-images/set": {
+            "post": {
+                "tags": [
+                    "product-images"
+                ],
+                "summary": "Установить список изображений продукта",
+                "description": "Заменяет все изображения продукта на переданный список ссылок. main_index — порядковый номер (1-based) главного; не задан или некорректен — главным первое.",
+                "operationId": "set_product_images_api_v1_product_images_set_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductImagesSetRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Список изображений продукта обновлён",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductImageListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product image not found"
+                    },
+                    "400": {
+                        "description": "Некорректные данные"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/product-images/upload": {
+            "post": {
+                "tags": [
+                    "product-images"
+                ],
+                "summary": "Загрузить изображение продукта",
+                "description": "Загружает файл в Yandex Object Storage и создаёт запись изображения продукта. Структура в бакете: products/{product_id}/{uuid}.{ext}",
+                "operationId": "upload_product_image_api_v1_product_images_upload_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_product_image_api_v1_product_images_upload_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Изображение загружено и создано",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/core__schemas__product_images__ProductImageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Продукт не найден"
+                    },
+                    "400": {
+                        "description": "Некорректный файл или данные"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/product-images/{product_image_id}": {
             "get": {
                 "tags": [
@@ -2620,6 +2726,112 @@
                     },
                     "400": {
                         "description": "Некорректные данные для изображения проекта"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/project-images/set": {
+            "post": {
+                "tags": [
+                    "project-images"
+                ],
+                "summary": "Установить список изображений проекта",
+                "description": "Заменяет все изображения проекта на переданный список ссылок. main_index — порядковый номер (1-based) главного; не задан или некорректен — главным первое.",
+                "operationId": "set_project_images_api_v1_project_images_set_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectImagesSetRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Список изображений проекта обновлён",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectImageListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Project image not found"
+                    },
+                    "400": {
+                        "description": "Некорректные данные"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/project-images/upload": {
+            "post": {
+                "tags": [
+                    "project-images"
+                ],
+                "summary": "Загрузить изображение проекта",
+                "description": "Загружает файл в Yandex Object Storage и создаёт запись изображения проекта. Структура в бакете: projects/{project_id}/{uuid}.{ext}",
+                "operationId": "upload_project_image_api_v1_project_images_upload_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_project_image_api_v1_project_images_upload_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Изображение загружено и создано",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectImageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Проект не найден"
+                    },
+                    "400": {
+                        "description": "Некорректный файл или данные"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -3915,6 +4127,60 @@
                 ],
                 "title": "AttributeDeleteResponse"
             },
+            "AttributeFacetItem": {
+                "properties": {
+                    "attribute_id": {
+                        "type": "integer",
+                        "title": "Attribute Id"
+                    },
+                    "attribute_name": {
+                        "type": "string",
+                        "title": "Attribute Name"
+                    },
+                    "unit": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Unit"
+                    },
+                    "values": {
+                        "items": {
+                            "$ref": "#/components/schemas/AttributeFacetValue"
+                        },
+                        "type": "array",
+                        "title": "Values"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "attribute_id",
+                    "attribute_name"
+                ],
+                "title": "AttributeFacetItem"
+            },
+            "AttributeFacetValue": {
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "title": "Value"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "title": "Count"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "value",
+                    "count"
+                ],
+                "title": "AttributeFacetValue"
+            },
             "AttributeListResponse": {
                 "properties": {
                     "items": {
@@ -4211,6 +4477,80 @@
                 ],
                 "title": "BannerUpdateRequest"
             },
+            "Body_upload_product_image_api_v1_product_images_upload_post": {
+                "properties": {
+                    "product_id": {
+                        "type": "integer",
+                        "title": "Product Id",
+                        "description": "ID продукта"
+                    },
+                    "is_main": {
+                        "type": "boolean",
+                        "title": "Is Main",
+                        "description": "Сделать изображение главным",
+                        "default": false
+                    },
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File",
+                        "description": "Файл изображения (JPEG, PNG, GIF, WebP; макс. 10 МБ)"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product_id",
+                    "file"
+                ],
+                "title": "Body_upload_product_image_api_v1_product_images_upload_post"
+            },
+            "Body_upload_project_image_api_v1_project_images_upload_post": {
+                "properties": {
+                    "project_id": {
+                        "type": "integer",
+                        "title": "Project Id",
+                        "description": "ID проекта"
+                    },
+                    "is_main": {
+                        "type": "boolean",
+                        "title": "Is Main",
+                        "description": "Сделать изображение главным",
+                        "default": false
+                    },
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File",
+                        "description": "Файл изображения (JPEG, PNG, GIF, WebP; макс. 10 МБ)"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "project_id",
+                    "file"
+                ],
+                "title": "Body_upload_project_image_api_v1_project_images_upload_post"
+            },
+            "CatalogFacets": {
+                "properties": {
+                    "categories": {
+                        "items": {
+                            "$ref": "#/components/schemas/CategoryFacetTreeNode"
+                        },
+                        "type": "array",
+                        "title": "Categories"
+                    },
+                    "attributes": {
+                        "items": {
+                            "$ref": "#/components/schemas/AttributeFacetItem"
+                        },
+                        "type": "array",
+                        "title": "Attributes"
+                    }
+                },
+                "type": "object",
+                "title": "CatalogFacets"
+            },
             "CategoryCreateRequest": {
                 "properties": {
                     "name": {
@@ -4278,6 +4618,42 @@
                     "category_id"
                 ],
                 "title": "CategoryDeleteResponse"
+            },
+            "CategoryFacetTreeNode": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "title": "Slug"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "title": "Count",
+                        "default": 0
+                    },
+                    "children": {
+                        "items": {
+                            "$ref": "#/components/schemas/CategoryFacetTreeNode"
+                        },
+                        "type": "array",
+                        "title": "Children"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "slug"
+                ],
+                "title": "CategoryFacetTreeNode",
+                "description": "Узел дерева категорий в фасете: count у родителя = сумма по себе и всем потомкам."
             },
             "CategoryListResponse": {
                 "properties": {
@@ -5248,6 +5624,16 @@
                         "type": "integer",
                         "title": "Total Pages"
                     },
+                    "facets": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/CatalogFacets"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
                     "message": {
                         "anyOf": [
                             {
@@ -5528,6 +5914,39 @@
                     "items"
                 ],
                 "title": "ProductImageListResponse"
+            },
+            "ProductImagesSetRequest": {
+                "properties": {
+                    "product_id": {
+                        "type": "integer",
+                        "title": "Product Id"
+                    },
+                    "image_urls": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Image Urls"
+                    },
+                    "main_index": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Main Index"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product_id",
+                    "image_urls"
+                ],
+                "title": "ProductImagesSetRequest",
+                "description": "Запрос на установку списка изображений продукта (замена существующих)."
             },
             "ProductListItemResponse": {
                 "properties": {
@@ -6276,6 +6695,39 @@
                     "id"
                 ],
                 "title": "ProjectImageResponse"
+            },
+            "ProjectImagesSetRequest": {
+                "properties": {
+                    "project_id": {
+                        "type": "integer",
+                        "title": "Project Id"
+                    },
+                    "image_urls": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Image Urls"
+                    },
+                    "main_index": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Main Index"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "project_id",
+                    "image_urls"
+                ],
+                "title": "ProjectImagesSetRequest",
+                "description": "Запрос на установку списка изображений проекта (замена существующих)."
             },
             "ProjectListResponse": {
                 "properties": {

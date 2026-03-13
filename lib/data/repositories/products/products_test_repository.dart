@@ -16,7 +16,7 @@ import '../../utils/response_error_mapper.dart';
 /// Тестовый репозиторий товаров на основе [ProductsTestService].
 class ProductsTestRepository implements IProductsRepository {
   ProductsTestRepository({required ProductsTestService service})
-      : _service = service;
+    : _service = service;
 
   final ProductsTestService _service;
   final ProductMapper _productMapper = ProductMapper();
@@ -34,6 +34,7 @@ class ProductsTestRepository implements IProductsRepository {
     bool? isHit,
     bool? isNew,
     bool? hasDiscount,
+    int? campaignId,
     ProductType? type,
     String? search,
   }) async {
@@ -46,6 +47,7 @@ class ProductsTestRepository implements IProductsRepository {
       isHit: isHit,
       isNew: isNew,
       hasDiscount: hasDiscount,
+      campaignId: campaignId,
       type: type?.name,
       search: search,
     );
@@ -69,9 +71,8 @@ class ProductsTestRepository implements IProductsRepository {
       limit: limit,
     );
     return response.when(
-      success: (dto) => Result.success(
-        dto.items.map(_suggestionMapper.map).toList(),
-      ),
+      success: (dto) =>
+          Result.success(dto.items.map(_suggestionMapper.map).toList()),
       error: (e) => Result.error(responseErrorToMessage(e)),
     );
   }
@@ -158,8 +159,10 @@ class ProductsTestRepository implements IProductsRepository {
 
   @override
   Future<Result<Product>> getProductById(String token, int productId) async {
-    final response =
-        await _service.getProductById(token: token, productId: productId);
+    final response = await _service.getProductById(
+      token: token,
+      productId: productId,
+    );
     return response.when(
       success: (data) => Result.success(_productMapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -199,8 +202,10 @@ class ProductsTestRepository implements IProductsRepository {
 
   @override
   Future<Result<bool>> deleteProduct(String token, int productId) async {
-    final response =
-        await _service.deleteProduct(token: token, productId: productId);
+    final response = await _service.deleteProduct(
+      token: token,
+      productId: productId,
+    );
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

@@ -34,6 +34,8 @@ mixin _$ProductCatalogResponseDto {
   int get pageSize => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_pages')
   int get totalPages => throw _privateConstructorUsedError;
+  @JsonKey(name: 'facets')
+  CatalogFacetsDto? get facets => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
   String? get message => throw _privateConstructorUsedError;
 
@@ -60,8 +62,11 @@ abstract class $ProductCatalogResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'page') int page,
     @JsonKey(name: 'page_size') int pageSize,
     @JsonKey(name: 'total_pages') int totalPages,
+    @JsonKey(name: 'facets') CatalogFacetsDto? facets,
     @JsonKey(name: 'message') String? message,
   });
+
+  $CatalogFacetsDtoCopyWith<$Res>? get facets;
 }
 
 /// @nodoc
@@ -87,6 +92,7 @@ class _$ProductCatalogResponseDtoCopyWithImpl<
     Object? page = null,
     Object? pageSize = null,
     Object? totalPages = null,
+    Object? facets = freezed,
     Object? message = freezed,
   }) {
     return _then(
@@ -111,6 +117,10 @@ class _$ProductCatalogResponseDtoCopyWithImpl<
                 ? _value.totalPages
                 : totalPages // ignore: cast_nullable_to_non_nullable
                       as int,
+            facets: freezed == facets
+                ? _value.facets
+                : facets // ignore: cast_nullable_to_non_nullable
+                      as CatalogFacetsDto?,
             message: freezed == message
                 ? _value.message
                 : message // ignore: cast_nullable_to_non_nullable
@@ -118,6 +128,20 @@ class _$ProductCatalogResponseDtoCopyWithImpl<
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of ProductCatalogResponseDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogFacetsDtoCopyWith<$Res>? get facets {
+    if (_value.facets == null) {
+      return null;
+    }
+
+    return $CatalogFacetsDtoCopyWith<$Res>(_value.facets!, (value) {
+      return _then(_value.copyWith(facets: value) as $Val);
+    });
   }
 }
 
@@ -136,8 +160,12 @@ abstract class _$$ProductCatalogResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'page') int page,
     @JsonKey(name: 'page_size') int pageSize,
     @JsonKey(name: 'total_pages') int totalPages,
+    @JsonKey(name: 'facets') CatalogFacetsDto? facets,
     @JsonKey(name: 'message') String? message,
   });
+
+  @override
+  $CatalogFacetsDtoCopyWith<$Res>? get facets;
 }
 
 /// @nodoc
@@ -163,6 +191,7 @@ class __$$ProductCatalogResponseDtoImplCopyWithImpl<$Res>
     Object? page = null,
     Object? pageSize = null,
     Object? totalPages = null,
+    Object? facets = freezed,
     Object? message = freezed,
   }) {
     return _then(
@@ -187,6 +216,10 @@ class __$$ProductCatalogResponseDtoImplCopyWithImpl<$Res>
             ? _value.totalPages
             : totalPages // ignore: cast_nullable_to_non_nullable
                   as int,
+        facets: freezed == facets
+            ? _value.facets
+            : facets // ignore: cast_nullable_to_non_nullable
+                  as CatalogFacetsDto?,
         message: freezed == message
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
@@ -206,6 +239,7 @@ class _$ProductCatalogResponseDtoImpl implements _ProductCatalogResponseDto {
     @JsonKey(name: 'page') required this.page,
     @JsonKey(name: 'page_size') required this.pageSize,
     @JsonKey(name: 'total_pages') required this.totalPages,
+    @JsonKey(name: 'facets') this.facets,
     @JsonKey(name: 'message') this.message,
   }) : _items = items;
 
@@ -234,12 +268,15 @@ class _$ProductCatalogResponseDtoImpl implements _ProductCatalogResponseDto {
   @JsonKey(name: 'total_pages')
   final int totalPages;
   @override
+  @JsonKey(name: 'facets')
+  final CatalogFacetsDto? facets;
+  @override
   @JsonKey(name: 'message')
   final String? message;
 
   @override
   String toString() {
-    return 'ProductCatalogResponseDto(items: $items, total: $total, page: $page, pageSize: $pageSize, totalPages: $totalPages, message: $message)';
+    return 'ProductCatalogResponseDto(items: $items, total: $total, page: $page, pageSize: $pageSize, totalPages: $totalPages, facets: $facets, message: $message)';
   }
 
   @override
@@ -254,6 +291,7 @@ class _$ProductCatalogResponseDtoImpl implements _ProductCatalogResponseDto {
                 other.pageSize == pageSize) &&
             (identical(other.totalPages, totalPages) ||
                 other.totalPages == totalPages) &&
+            (identical(other.facets, facets) || other.facets == facets) &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -266,6 +304,7 @@ class _$ProductCatalogResponseDtoImpl implements _ProductCatalogResponseDto {
     page,
     pageSize,
     totalPages,
+    facets,
     message,
   );
 
@@ -294,6 +333,7 @@ abstract class _ProductCatalogResponseDto implements ProductCatalogResponseDto {
     @JsonKey(name: 'page') required final int page,
     @JsonKey(name: 'page_size') required final int pageSize,
     @JsonKey(name: 'total_pages') required final int totalPages,
+    @JsonKey(name: 'facets') final CatalogFacetsDto? facets,
     @JsonKey(name: 'message') final String? message,
   }) = _$ProductCatalogResponseDtoImpl;
 
@@ -315,6 +355,9 @@ abstract class _ProductCatalogResponseDto implements ProductCatalogResponseDto {
   @override
   @JsonKey(name: 'total_pages')
   int get totalPages;
+  @override
+  @JsonKey(name: 'facets')
+  CatalogFacetsDto? get facets;
   @override
   @JsonKey(name: 'message')
   String? get message;
