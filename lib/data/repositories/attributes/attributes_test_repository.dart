@@ -17,8 +17,8 @@ class AttributesTestRepository implements IAttributesRepository {
   final AttributeMapper _mapper = AttributeMapper();
 
   @override
-  Future<Result<List<Attribute>>> getAttributes(String token) async {
-    final response = await _service.getAttributes(token: token);
+  Future<Result<List<Attribute>>> getAttributes() async {
+    final response = await _service.getAttributes();
     return response.when(
       success: (dto) => Result.success(dto.items.map(_mapper.map).toList()),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -26,12 +26,9 @@ class AttributesTestRepository implements IAttributesRepository {
   }
 
   @override
-  Future<Result<Attribute>> createAttribute(
-    String token,
-    AttributeCreateRequest request,
-  ) async {
+  Future<Result<Attribute>> createAttribute(AttributeCreateRequest request) async {
     final dto = AttributeRequestMappers.toCreateDto(request);
-    final response = await _service.createAttribute(token: token, request: dto);
+    final response = await _service.createAttribute(request: dto);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -39,9 +36,8 @@ class AttributesTestRepository implements IAttributesRepository {
   }
 
   @override
-  Future<Result<Attribute>> getAttributeById(String token, int attributeId) async {
-    final response =
-        await _service.getAttributeById(token: token, attributeId: attributeId);
+  Future<Result<Attribute>> getAttributeById(int attributeId) async {
+    final response = await _service.getAttributeById(attributeId: attributeId);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -50,13 +46,11 @@ class AttributesTestRepository implements IAttributesRepository {
 
   @override
   Future<Result<Attribute>> updateAttribute(
-    String token,
     int attributeId,
     AttributeUpdateRequest request,
   ) async {
     final dto = AttributeRequestMappers.toUpdateDto(request);
     final response = await _service.updateAttribute(
-      token: token,
       attributeId: attributeId,
       request: dto,
     );
@@ -67,9 +61,8 @@ class AttributesTestRepository implements IAttributesRepository {
   }
 
   @override
-  Future<Result<bool>> deleteAttribute(String token, int attributeId) async {
-    final response =
-        await _service.deleteAttribute(token: token, attributeId: attributeId);
+  Future<Result<bool>> deleteAttribute(int attributeId) async {
+    final response = await _service.deleteAttribute(attributeId: attributeId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

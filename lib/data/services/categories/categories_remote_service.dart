@@ -15,13 +15,10 @@ class CategoriesRemoteService {
 
   static const String _path = '/api/v1/categories';
 
-  Future<ResponseResult<CategoryListResponseDto>> getCategories({
-    required String token,
-  }) async {
+  Future<ResponseResult<CategoryListResponseDto>> getCategories() async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         _path,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -38,13 +35,11 @@ class CategoriesRemoteService {
   }
 
   Future<ResponseResult<CategoryListResponseDto>> getCategoriesByType({
-    required String token,
     required CategoryTypeDto categoryType,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/type/${categoryType.name}',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -61,14 +56,12 @@ class CategoriesRemoteService {
   }
 
   Future<ResponseResult<CategoryResponseDto>> createCategory({
-    required String token,
     required CategoryCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -86,13 +79,11 @@ class CategoriesRemoteService {
   }
 
   Future<ResponseResult<CategoryResponseDto>> getCategoryById({
-    required String token,
     required int categoryId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/$categoryId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -109,7 +100,6 @@ class CategoriesRemoteService {
   }
 
   Future<ResponseResult<CategoryResponseDto>> updateCategory({
-    required String token,
     required int categoryId,
     required CategoryUpdateRequestDto request,
   }) async {
@@ -117,7 +107,6 @@ class CategoriesRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$categoryId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -134,13 +123,11 @@ class CategoriesRemoteService {
   }
 
   Future<ResponseResult<CategoryDeleteResponseDto>> deleteCategory({
-    required String token,
     required int categoryId,
   }) async {
     try {
       final response = await _dio.delete<Map<String, dynamic>>(
         '$_path/$categoryId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {

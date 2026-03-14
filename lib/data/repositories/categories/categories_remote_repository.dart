@@ -21,8 +21,8 @@ class CategoriesRemoteRepository implements ICategoriesRepository {
   final CategoryTreeNodeMapper _treeNodeMapper = CategoryTreeNodeMapper();
 
   @override
-  Future<Result<List<CategoryTreeNode>>> getCategories(String token) async {
-    final response = await _service.getCategories(token: token);
+  Future<Result<List<CategoryTreeNode>>> getCategories() async {
+    final response = await _service.getCategories();
     return response.when(
       success: (dto) =>
           Result.success(dto.items.map(_treeNodeMapper.map).toList()),
@@ -31,12 +31,8 @@ class CategoriesRemoteRepository implements ICategoriesRepository {
   }
 
   @override
-  Future<Result<List<CategoryTreeNode>>> getCategoriesByType(
-    String token,
-    CategoryType type,
-  ) async {
+  Future<Result<List<CategoryTreeNode>>> getCategoriesByType(CategoryType type) async {
     final response = await _service.getCategoriesByType(
-      token: token,
       categoryType: _toDtoType(type),
     );
     return response.when(
@@ -47,12 +43,9 @@ class CategoriesRemoteRepository implements ICategoriesRepository {
   }
 
   @override
-  Future<Result<Category>> createCategory(
-    String token,
-    CategoryCreateRequest request,
-  ) async {
+  Future<Result<Category>> createCategory(CategoryCreateRequest request) async {
     final dto = CategoryRequestMappers.toCreateDto(request);
-    final response = await _service.createCategory(token: token, request: dto);
+    final response = await _service.createCategory(request: dto);
     return response.when(
       success: (data) => Result.success(_categoryMapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -60,9 +53,8 @@ class CategoriesRemoteRepository implements ICategoriesRepository {
   }
 
   @override
-  Future<Result<Category>> getCategoryById(String token, int categoryId) async {
-    final response =
-        await _service.getCategoryById(token: token, categoryId: categoryId);
+  Future<Result<Category>> getCategoryById(int categoryId) async {
+    final response = await _service.getCategoryById(categoryId: categoryId);
     return response.when(
       success: (data) => Result.success(_categoryMapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -71,13 +63,11 @@ class CategoriesRemoteRepository implements ICategoriesRepository {
 
   @override
   Future<Result<Category>> updateCategory(
-    String token,
     int categoryId,
     CategoryUpdateRequest request,
   ) async {
     final dto = CategoryRequestMappers.toUpdateDto(request);
     final response = await _service.updateCategory(
-      token: token,
       categoryId: categoryId,
       request: dto,
     );
@@ -88,9 +78,8 @@ class CategoriesRemoteRepository implements ICategoriesRepository {
   }
 
   @override
-  Future<Result<bool>> deleteCategory(String token, int categoryId) async {
-    final response =
-        await _service.deleteCategory(token: token, categoryId: categoryId);
+  Future<Result<bool>> deleteCategory(int categoryId) async {
+    final response = await _service.deleteCategory(categoryId: categoryId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

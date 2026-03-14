@@ -21,15 +21,12 @@ class AttributesTestService {
   static const _mockListResponse =
       AttributeListResponseDto(items: _mockItems, message: null);
 
-  Future<ResponseResult<AttributeListResponseDto>> getAttributes({
-    required String token,
-  }) async {
+  Future<ResponseResult<AttributeListResponseDto>> getAttributes() async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
     return const ResponseResult.success(_mockListResponse);
   }
 
   Future<ResponseResult<AttributeResponseDto>> createAttribute({
-    required String token,
     required AttributeCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -42,7 +39,6 @@ class AttributesTestService {
   }
 
   Future<ResponseResult<AttributeResponseDto>> getAttributeById({
-    required String token,
     required int attributeId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
@@ -60,7 +56,6 @@ class AttributesTestService {
   }
 
   Future<ResponseResult<AttributeResponseDto>> updateAttribute({
-    required String token,
     required int attributeId,
     required AttributeUpdateRequestDto request,
   }) async {
@@ -74,7 +69,6 @@ class AttributesTestService {
   }
 
   Future<ResponseResult<AttributeDeleteResponseDto>> deleteAttribute({
-    required String token,
     required int attributeId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));

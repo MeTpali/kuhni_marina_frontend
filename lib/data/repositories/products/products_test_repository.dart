@@ -25,8 +25,7 @@ class ProductsTestRepository implements IProductsRepository {
       ProductSuggestionItemMapper();
 
   @override
-  Future<Result<ProductCatalog>> getProductCatalog(
-    String token, {
+  Future<Result<ProductCatalog>> getProductCatalog({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -39,7 +38,6 @@ class ProductsTestRepository implements IProductsRepository {
     String? search,
   }) async {
     final response = await _service.getProductCatalog(
-      token: token,
       page: page,
       pageSize: pageSize,
       categoryIds: categoryIds,
@@ -59,13 +57,11 @@ class ProductsTestRepository implements IProductsRepository {
 
   @override
   Future<Result<List<ProductSearchSuggestion>>> getSearchSuggestions(
-    String token,
     String text, {
     ProductType? type,
     int? limit,
   }) async {
     final response = await _service.getSearchSuggestions(
-      token: token,
       text: text,
       type: type?.name,
       limit: limit,
@@ -78,15 +74,13 @@ class ProductsTestRepository implements IProductsRepository {
   }
 
   @override
-  Future<Result<ProductCatalog>> getProductHits(
-    String token, {
+  Future<Result<ProductCatalog>> getProductHits({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async {
     final response = await _service.getProductHits(
-      token: token,
       page: page,
       pageSize: pageSize,
       categoryIds: categoryIds,
@@ -99,15 +93,13 @@ class ProductsTestRepository implements IProductsRepository {
   }
 
   @override
-  Future<Result<ProductCatalog>> getProductNew(
-    String token, {
+  Future<Result<ProductCatalog>> getProductNew({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async {
     final response = await _service.getProductNew(
-      token: token,
       page: page,
       pageSize: pageSize,
       categoryIds: categoryIds,
@@ -120,15 +112,13 @@ class ProductsTestRepository implements IProductsRepository {
   }
 
   @override
-  Future<Result<ProductCatalog>> getProductDiscounts(
-    String token, {
+  Future<Result<ProductCatalog>> getProductDiscounts({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async {
     final response = await _service.getProductDiscounts(
-      token: token,
       page: page,
       pageSize: pageSize,
       categoryIds: categoryIds,
@@ -141,13 +131,11 @@ class ProductsTestRepository implements IProductsRepository {
   }
 
   @override
-  Future<Result<List<int>>> getProductIds(
-    String token, {
+  Future<Result<List<int>>> getProductIds({
     List<int>? categoryIds,
     String? attributeFilters,
   }) async {
     final response = await _service.getProductIds(
-      token: token,
       categoryIds: categoryIds,
       attributeFilters: attributeFilters,
     );
@@ -158,11 +146,8 @@ class ProductsTestRepository implements IProductsRepository {
   }
 
   @override
-  Future<Result<Product>> getProductById(String token, int productId) async {
-    final response = await _service.getProductById(
-      token: token,
-      productId: productId,
-    );
+  Future<Result<Product>> getProductById(int productId) async {
+    final response = await _service.getProductById(productId: productId);
     return response.when(
       success: (data) => Result.success(_productMapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -170,12 +155,9 @@ class ProductsTestRepository implements IProductsRepository {
   }
 
   @override
-  Future<Result<Product>> createProduct(
-    String token,
-    ProductCreateRequest request,
-  ) async {
+  Future<Result<Product>> createProduct(ProductCreateRequest request) async {
     final dto = ProductRequestMappers.toCreateDto(request);
-    final response = await _service.createProduct(token: token, request: dto);
+    final response = await _service.createProduct(request: dto);
     return response.when(
       success: (data) => Result.success(_productMapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -184,13 +166,11 @@ class ProductsTestRepository implements IProductsRepository {
 
   @override
   Future<Result<Product>> updateProduct(
-    String token,
     int productId,
     ProductUpdateRequest request,
   ) async {
     final dto = ProductRequestMappers.toUpdateDto(request);
     final response = await _service.updateProduct(
-      token: token,
       productId: productId,
       request: dto,
     );
@@ -201,11 +181,8 @@ class ProductsTestRepository implements IProductsRepository {
   }
 
   @override
-  Future<Result<bool>> deleteProduct(String token, int productId) async {
-    final response = await _service.deleteProduct(
-      token: token,
-      productId: productId,
-    );
+  Future<Result<bool>> deleteProduct(int productId) async {
+    final response = await _service.deleteProduct(productId: productId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

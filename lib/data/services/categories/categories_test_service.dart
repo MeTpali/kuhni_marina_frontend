@@ -56,15 +56,12 @@ class CategoriesTestService {
   static const _mockListResponse =
       CategoryListResponseDto(items: _mockTree, message: null);
 
-  Future<ResponseResult<CategoryListResponseDto>> getCategories({
-    required String token,
-  }) async {
+  Future<ResponseResult<CategoryListResponseDto>> getCategories() async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 400));
     return const ResponseResult.success(_mockListResponse);
   }
 
   Future<ResponseResult<CategoryListResponseDto>> getCategoriesByType({
-    required String token,
     required CategoryTypeDto categoryType,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -77,7 +74,6 @@ class CategoriesTestService {
   }
 
   Future<ResponseResult<CategoryResponseDto>> createCategory({
-    required String token,
     required CategoryCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
@@ -93,7 +89,6 @@ class CategoriesTestService {
   }
 
   Future<ResponseResult<CategoryResponseDto>> getCategoryById({
-    required String token,
     required int categoryId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
@@ -109,7 +104,6 @@ class CategoriesTestService {
   }
 
   Future<ResponseResult<CategoryResponseDto>> updateCategory({
-    required String token,
     required int categoryId,
     required CategoryUpdateRequestDto request,
   }) async {
@@ -126,7 +120,6 @@ class CategoriesTestService {
   }
 
   Future<ResponseResult<CategoryDeleteResponseDto>> deleteCategory({
-    required String token,
     required int categoryId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));

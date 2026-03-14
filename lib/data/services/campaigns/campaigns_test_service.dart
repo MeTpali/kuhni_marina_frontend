@@ -56,7 +56,6 @@ class CampaignsTestService {
   );
 
   Future<ResponseResult<CampaignListResponseDto>> getCampaigns({
-    required String token,
     int? page,
     int? pageSize,
     bool? includeInactive,
@@ -66,7 +65,6 @@ class CampaignsTestService {
   }
 
   Future<ResponseResult<CampaignResponseDto>> createCampaign({
-    required String token,
     required CampaignCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -91,7 +89,6 @@ class CampaignsTestService {
   }
 
   Future<ResponseResult<CampaignResponseDto>> getCampaignById({
-    required String token,
     required int campaignId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
@@ -119,7 +116,6 @@ class CampaignsTestService {
   }
 
   Future<ResponseResult<CampaignResponseDto>> updateCampaign({
-    required String token,
     required int campaignId,
     required CampaignUpdateRequestDto request,
   }) async {
@@ -148,7 +144,6 @@ class CampaignsTestService {
   }
 
   Future<ResponseResult<CampaignDeleteResponseDto>> deleteCampaign({
-    required String token,
     required int campaignId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));

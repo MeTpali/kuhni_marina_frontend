@@ -7,29 +7,22 @@ import '../models/measure_request_status/measure_request_status.dart';
 
 /// Репозиторий заявок на замер.
 abstract class IMeasureRequestsRepository {
-  Future<Result<List<MeasureRequest>>> getMeasureRequests(
-    String token, {
+  Future<Result<List<MeasureRequest>>> getMeasureRequests({
     MeasureRequestStatus? status,
   });
 
   Future<Result<MeasureRequest>> createMeasureRequest(
-    String token,
     MeasureRequestCreateRequest request,
   );
 
-  Future<Result<MeasureRequest>> getMeasureRequestById(
-    String token,
-    int measureRequestId,
-  );
+  Future<Result<MeasureRequest>> getMeasureRequestById(int measureRequestId);
 
   Future<Result<MeasureRequest>> updateMeasureRequest(
-    String token,
     int measureRequestId,
     MeasureRequestUpdateRequest request,
   );
 
   Future<Result<MeasureRequest>> updateMeasureRequestStatus(
-    String token,
     int measureRequestId,
     MeasureRequestStatusUpdateRequest request,
   );

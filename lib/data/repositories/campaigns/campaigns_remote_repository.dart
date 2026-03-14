@@ -19,14 +19,12 @@ class CampaignsRemoteRepository implements ICampaignsRepository {
   final CampaignCatalogMapper _catalogMapper = CampaignCatalogMapper();
 
   @override
-  Future<Result<CampaignCatalog>> getCampaigns(
-    String token, {
+  Future<Result<CampaignCatalog>> getCampaigns({
     int? page,
     int? pageSize,
     bool? includeInactive,
   }) async {
     final response = await _service.getCampaigns(
-      token: token,
       page: page,
       pageSize: pageSize,
       includeInactive: includeInactive,
@@ -38,12 +36,9 @@ class CampaignsRemoteRepository implements ICampaignsRepository {
   }
 
   @override
-  Future<Result<Campaign>> createCampaign(
-    String token,
-    CampaignCreateRequest request,
-  ) async {
+  Future<Result<Campaign>> createCampaign(CampaignCreateRequest request) async {
     final dto = CampaignRequestMappers.toCreateDto(request);
-    final response = await _service.createCampaign(token: token, request: dto);
+    final response = await _service.createCampaign(request: dto);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -51,9 +46,8 @@ class CampaignsRemoteRepository implements ICampaignsRepository {
   }
 
   @override
-  Future<Result<Campaign>> getCampaignById(String token, int campaignId) async {
-    final response =
-        await _service.getCampaignById(token: token, campaignId: campaignId);
+  Future<Result<Campaign>> getCampaignById(int campaignId) async {
+    final response = await _service.getCampaignById(campaignId: campaignId);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -62,13 +56,11 @@ class CampaignsRemoteRepository implements ICampaignsRepository {
 
   @override
   Future<Result<Campaign>> updateCampaign(
-    String token,
     int campaignId,
     CampaignUpdateRequest request,
   ) async {
     final dto = CampaignRequestMappers.toUpdateDto(request);
     final response = await _service.updateCampaign(
-      token: token,
       campaignId: campaignId,
       request: dto,
     );
@@ -79,9 +71,8 @@ class CampaignsRemoteRepository implements ICampaignsRepository {
   }
 
   @override
-  Future<Result<bool>> deleteCampaign(String token, int campaignId) async {
-    final response =
-        await _service.deleteCampaign(token: token, campaignId: campaignId);
+  Future<Result<bool>> deleteCampaign(int campaignId) async {
+    final response = await _service.deleteCampaign(campaignId: campaignId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

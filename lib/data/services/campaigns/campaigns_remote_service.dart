@@ -15,7 +15,6 @@ class CampaignsRemoteService {
   static const String _path = '/api/v1/campaigns';
 
   Future<ResponseResult<CampaignListResponseDto>> getCampaigns({
-    required String token,
     int? page,
     int? pageSize,
     bool? includeInactive,
@@ -29,7 +28,6 @@ class CampaignsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         _path,
         queryParameters: queryParams.isNotEmpty ? queryParams : null,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -46,14 +44,12 @@ class CampaignsRemoteService {
   }
 
   Future<ResponseResult<CampaignResponseDto>> createCampaign({
-    required String token,
     required CampaignCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -71,14 +67,10 @@ class CampaignsRemoteService {
   }
 
   Future<ResponseResult<CampaignResponseDto>> getCampaignById({
-    required String token,
     required int campaignId,
   }) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        '$_path/$campaignId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.get<Map<String, dynamic>>('$_path/$campaignId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(
@@ -94,7 +86,6 @@ class CampaignsRemoteService {
   }
 
   Future<ResponseResult<CampaignResponseDto>> updateCampaign({
-    required String token,
     required int campaignId,
     required CampaignUpdateRequestDto request,
   }) async {
@@ -102,7 +93,6 @@ class CampaignsRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$campaignId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -119,14 +109,10 @@ class CampaignsRemoteService {
   }
 
   Future<ResponseResult<CampaignDeleteResponseDto>> deleteCampaign({
-    required String token,
     required int campaignId,
   }) async {
     try {
-      final response = await _dio.delete<Map<String, dynamic>>(
-        '$_path/$campaignId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.delete<Map<String, dynamic>>('$_path/$campaignId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(

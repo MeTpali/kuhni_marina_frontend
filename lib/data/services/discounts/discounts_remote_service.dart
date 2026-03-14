@@ -18,7 +18,6 @@ class DiscountsRemoteService {
   static const String _path = '/api/v1/discounts';
 
   Future<ResponseResult<DiscountListResponseDto>> getDiscounts({
-    required String token,
     int? page,
     int? pageSize,
     bool? includeInactive,
@@ -48,7 +47,6 @@ class DiscountsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         _path,
         queryParameters: queryParams.isNotEmpty ? queryParams : null,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -65,14 +63,12 @@ class DiscountsRemoteService {
   }
 
   Future<ResponseResult<DiscountResponseDto>> createDiscount({
-    required String token,
     required DiscountCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -90,13 +86,11 @@ class DiscountsRemoteService {
   }
 
   Future<ResponseResult<DiscountResponseDto>> getDiscountById({
-    required String token,
     required int discountId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/$discountId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -113,7 +107,6 @@ class DiscountsRemoteService {
   }
 
   Future<ResponseResult<DiscountResponseDto>> updateDiscount({
-    required String token,
     required int discountId,
     required DiscountUpdateRequestDto request,
   }) async {
@@ -121,7 +114,6 @@ class DiscountsRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$discountId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -138,13 +130,11 @@ class DiscountsRemoteService {
   }
 
   Future<ResponseResult<DiscountDeleteResponseDto>> deleteDiscount({
-    required String token,
     required int discountId,
   }) async {
     try {
       final response = await _dio.delete<Map<String, dynamic>>(
         '$_path/$discountId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {

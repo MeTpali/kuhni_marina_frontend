@@ -61,7 +61,6 @@ class DiscountsTestService {
   );
 
   Future<ResponseResult<DiscountListResponseDto>> getDiscounts({
-    required String token,
     int? page,
     int? pageSize,
     bool? includeInactive,
@@ -79,7 +78,6 @@ class DiscountsTestService {
   }
 
   Future<ResponseResult<DiscountResponseDto>> createDiscount({
-    required String token,
     required DiscountCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -105,7 +103,6 @@ class DiscountsTestService {
   }
 
   Future<ResponseResult<DiscountResponseDto>> getDiscountById({
-    required String token,
     required int discountId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
@@ -134,7 +131,6 @@ class DiscountsTestService {
   }
 
   Future<ResponseResult<DiscountResponseDto>> updateDiscount({
-    required String token,
     required int discountId,
     required DiscountUpdateRequestDto request,
   }) async {
@@ -166,7 +162,6 @@ class DiscountsTestService {
   }
 
   Future<ResponseResult<DiscountDeleteResponseDto>> deleteDiscount({
-    required String token,
     required int discountId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));

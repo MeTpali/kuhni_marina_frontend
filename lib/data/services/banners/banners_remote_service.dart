@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 
 import '../../../../core/entities/response_result/response_result.dart';
@@ -14,14 +15,9 @@ class BannersRemoteService {
 
   static const String _path = '/api/v1/banners';
 
-  Future<ResponseResult<BannerListResponseDto>> getBanners({
-    required String token,
-  }) async {
+  Future<ResponseResult<BannerListResponseDto>> getBanners() async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        _path,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.get<Map<String, dynamic>>(_path);
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(
@@ -37,14 +33,12 @@ class BannersRemoteService {
   }
 
   Future<ResponseResult<BannerResponseDto>> createBanner({
-    required String token,
     required BannerCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -60,14 +54,10 @@ class BannersRemoteService {
   }
 
   Future<ResponseResult<BannerResponseDto>> getBannerById({
-    required String token,
     required int bannerId,
   }) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        '$_path/$bannerId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.get<Map<String, dynamic>>('$_path/$bannerId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(BannerResponseDto.fromJson(response.data!));
@@ -81,7 +71,6 @@ class BannersRemoteService {
   }
 
   Future<ResponseResult<BannerResponseDto>> updateBanner({
-    required String token,
     required int bannerId,
     required BannerUpdateRequestDto request,
   }) async {
@@ -89,7 +78,6 @@ class BannersRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$bannerId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -104,14 +92,10 @@ class BannersRemoteService {
   }
 
   Future<ResponseResult<BannerDeleteResponseDto>> deleteBanner({
-    required String token,
     required int bannerId,
   }) async {
     try {
-      final response = await _dio.delete<Map<String, dynamic>>(
-        '$_path/$bannerId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.delete<Map<String, dynamic>>('$_path/$bannerId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(

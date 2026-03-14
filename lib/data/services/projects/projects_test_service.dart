@@ -41,7 +41,6 @@ class ProjectsTestService {
   );
 
   Future<ResponseResult<ProjectListResponseDto>> getProjects({
-    required String token,
     int? page,
     int? pageSize,
   }) async {
@@ -50,7 +49,6 @@ class ProjectsTestService {
   }
 
   Future<ResponseResult<ProjectListResponseDto>> getProjectsByProductId({
-    required String token,
     required int productId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -67,7 +65,6 @@ class ProjectsTestService {
   }
 
   Future<ResponseResult<ProjectDetailResponseDto>> getProjectById({
-    required String token,
     required int projectId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));
@@ -99,7 +96,6 @@ class ProjectsTestService {
   }
 
   Future<ResponseResult<ProjectResponseDto>> createProject({
-    required String token,
     required ProjectCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
@@ -114,7 +110,6 @@ class ProjectsTestService {
   }
 
   Future<ResponseResult<ProjectResponseDto>> updateProject({
-    required String token,
     required int projectId,
     required ProjectUpdateRequestDto request,
   }) async {
@@ -130,7 +125,6 @@ class ProjectsTestService {
   }
 
   Future<ResponseResult<ProjectDeleteResponseDto>> deleteProject({
-    required String token,
     required int projectId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));

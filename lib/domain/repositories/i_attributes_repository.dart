@@ -5,20 +5,16 @@ import '../models/attribute/attribute_update_request.dart';
 
 /// Репозиторий атрибутов (характеристик товаров).
 abstract class IAttributesRepository {
-  Future<Result<List<Attribute>>> getAttributes(String token);
+  Future<Result<List<Attribute>>> getAttributes();
 
-  Future<Result<Attribute>> createAttribute(
-    String token,
-    AttributeCreateRequest request,
-  );
+  Future<Result<Attribute>> createAttribute(AttributeCreateRequest request);
 
-  Future<Result<Attribute>> getAttributeById(String token, int attributeId);
+  Future<Result<Attribute>> getAttributeById(int attributeId);
 
   Future<Result<Attribute>> updateAttribute(
-    String token,
     int attributeId,
     AttributeUpdateRequest request,
   );
 
-  Future<Result<bool>> deleteAttribute(String token, int attributeId);
+  Future<Result<bool>> deleteAttribute(int attributeId);
 }

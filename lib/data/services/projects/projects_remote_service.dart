@@ -16,7 +16,6 @@ class ProjectsRemoteService {
   static const String _path = '/api/v1/projects';
 
   Future<ResponseResult<ProjectListResponseDto>> getProjects({
-    required String token,
     int? page,
     int? pageSize,
   }) async {
@@ -28,7 +27,6 @@ class ProjectsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         _path,
         queryParameters: queryParams.isEmpty ? null : queryParams,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -45,13 +43,11 @@ class ProjectsRemoteService {
   }
 
   Future<ResponseResult<ProjectListResponseDto>> getProjectsByProductId({
-    required String token,
     required int productId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/product/$productId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -68,13 +64,11 @@ class ProjectsRemoteService {
   }
 
   Future<ResponseResult<ProjectDetailResponseDto>> getProjectById({
-    required String token,
     required int projectId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/$projectId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -91,14 +85,12 @@ class ProjectsRemoteService {
   }
 
   Future<ResponseResult<ProjectResponseDto>> createProject({
-    required String token,
     required ProjectCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -116,7 +108,6 @@ class ProjectsRemoteService {
   }
 
   Future<ResponseResult<ProjectResponseDto>> updateProject({
-    required String token,
     required int projectId,
     required ProjectUpdateRequestDto request,
   }) async {
@@ -124,7 +115,6 @@ class ProjectsRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$projectId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -141,13 +131,11 @@ class ProjectsRemoteService {
   }
 
   Future<ResponseResult<ProjectDeleteResponseDto>> deleteProject({
-    required String token,
     required int projectId,
   }) async {
     try {
       final response = await _dio.delete<Map<String, dynamic>>(
         '$_path/$projectId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {

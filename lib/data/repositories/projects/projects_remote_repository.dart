@@ -21,13 +21,11 @@ class ProjectsRemoteRepository implements IProjectsRepository {
   final ProjectCatalogMapper _catalogMapper = ProjectCatalogMapper();
 
   @override
-  Future<Result<ProjectCatalog>> getProjects(
-    String token, {
+  Future<Result<ProjectCatalog>> getProjects({
     int? page,
     int? pageSize,
   }) async {
     final response = await _service.getProjects(
-      token: token,
       page: page,
       pageSize: pageSize,
     );
@@ -38,14 +36,8 @@ class ProjectsRemoteRepository implements IProjectsRepository {
   }
 
   @override
-  Future<Result<ProjectCatalog>> getProjectsByProductId(
-    String token,
-    int productId,
-  ) async {
-    final response = await _service.getProjectsByProductId(
-      token: token,
-      productId: productId,
-    );
+  Future<Result<ProjectCatalog>> getProjectsByProductId(int productId) async {
+    final response = await _service.getProjectsByProductId(productId: productId);
     return response.when(
       success: (dto) => Result.success(_catalogMapper.map(dto)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -53,9 +45,8 @@ class ProjectsRemoteRepository implements IProjectsRepository {
   }
 
   @override
-  Future<Result<Project>> getProjectById(String token, int projectId) async {
-    final response =
-        await _service.getProjectById(token: token, projectId: projectId);
+  Future<Result<Project>> getProjectById(int projectId) async {
+    final response = await _service.getProjectById(projectId: projectId);
     return response.when(
       success: (dto) => Result.success(_projectDetailMapper.map(dto)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -63,12 +54,8 @@ class ProjectsRemoteRepository implements IProjectsRepository {
   }
 
   @override
-  Future<Result<Project>> createProject(
-    String token,
-    ProjectCreateRequest request,
-  ) async {
+  Future<Result<Project>> createProject(ProjectCreateRequest request) async {
     final response = await _service.createProject(
-      token: token,
       request: ProjectRequestMappers.toCreateDto(request),
     );
     return response.when(
@@ -79,12 +66,10 @@ class ProjectsRemoteRepository implements IProjectsRepository {
 
   @override
   Future<Result<Project>> updateProject(
-    String token,
     int projectId,
     ProjectUpdateRequest request,
   ) async {
     final response = await _service.updateProject(
-      token: token,
       projectId: projectId,
       request: ProjectRequestMappers.toUpdateDto(request),
     );
@@ -95,9 +80,8 @@ class ProjectsRemoteRepository implements IProjectsRepository {
   }
 
   @override
-  Future<Result<bool>> deleteProject(String token, int projectId) async {
-    final response =
-        await _service.deleteProject(token: token, projectId: projectId);
+  Future<Result<bool>> deleteProject(int projectId) async {
+    final response = await _service.deleteProject(projectId: projectId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

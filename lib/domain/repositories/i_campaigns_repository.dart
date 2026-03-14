@@ -7,29 +7,24 @@ import '../models/campaign/campaign_update_request.dart';
 /// Репозиторий акций (маркетинговых кампаний).
 abstract class ICampaignsRepository {
   /// Список акций с пагинацией.
-  Future<Result<CampaignCatalog>> getCampaigns(
-    String token, {
+  Future<Result<CampaignCatalog>> getCampaigns({
     int? page,
     int? pageSize,
     bool? includeInactive,
   });
 
   /// Создать акцию.
-  Future<Result<Campaign>> createCampaign(
-    String token,
-    CampaignCreateRequest request,
-  );
+  Future<Result<Campaign>> createCampaign(CampaignCreateRequest request);
 
   /// Акция по id.
-  Future<Result<Campaign>> getCampaignById(String token, int campaignId);
+  Future<Result<Campaign>> getCampaignById(int campaignId);
 
   /// Обновить акцию.
   Future<Result<Campaign>> updateCampaign(
-    String token,
     int campaignId,
     CampaignUpdateRequest request,
   );
 
   /// Удалить акцию (деактивировать).
-  Future<Result<bool>> deleteCampaign(String token, int campaignId);
+  Future<Result<bool>> deleteCampaign(int campaignId);
 }

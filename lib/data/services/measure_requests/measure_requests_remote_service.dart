@@ -16,7 +16,6 @@ class MeasureRequestsRemoteService {
   static const String _path = '/api/v1/measure-requests';
 
   Future<ResponseResult<MeasureRequestListResponseDto>> getMeasureRequests({
-    required String token,
     MeasureRequestStatusEnum? status,
   }) async {
     try {
@@ -28,7 +27,6 @@ class MeasureRequestsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         _path,
         queryParameters: queryParams.isEmpty ? null : queryParams,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -45,14 +43,12 @@ class MeasureRequestsRemoteService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> createMeasureRequest({
-    required String token,
     required MeasureRequestCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -70,13 +66,11 @@ class MeasureRequestsRemoteService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> getMeasureRequestById({
-    required String token,
     required int measureRequestId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/$measureRequestId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -93,7 +87,6 @@ class MeasureRequestsRemoteService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> updateMeasureRequest({
-    required String token,
     required int measureRequestId,
     required MeasureRequestUpdateRequestDto request,
   }) async {
@@ -101,7 +94,6 @@ class MeasureRequestsRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$measureRequestId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -118,7 +110,6 @@ class MeasureRequestsRemoteService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> updateMeasureRequestStatus({
-    required String token,
     required int measureRequestId,
     required MeasureRequestStatusUpdateRequestDto request,
   }) async {
@@ -126,7 +117,6 @@ class MeasureRequestsRemoteService {
       final response = await _dio.patch<Map<String, dynamic>>(
         '$_path/$measureRequestId/status',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {

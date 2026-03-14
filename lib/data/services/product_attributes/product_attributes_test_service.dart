@@ -24,9 +24,7 @@ class ProductAttributesTestService {
     ),
   ];
 
-  Future<ResponseResult<ProductAttributeListResponseDto>> getProductAttributes({
-    required String token,
-  }) async {
+  Future<ResponseResult<ProductAttributeListResponseDto>> getProductAttributes() async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 260));
     return const ResponseResult.success(
       ProductAttributeListResponseDto(items: _mockItems, message: null),
@@ -34,7 +32,6 @@ class ProductAttributesTestService {
   }
 
   Future<ResponseResult<ProductAttributeResponseDto>> getProductAttributeById({
-    required String token,
     required int productId,
     required int attributeId,
   }) async {
@@ -52,7 +49,6 @@ class ProductAttributesTestService {
   }
 
   Future<ResponseResult<ProductAttributeResponseDto>> createProductAttribute({
-    required String token,
     required ProductAttributeCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 260));
@@ -67,7 +63,6 @@ class ProductAttributesTestService {
   }
 
   Future<ResponseResult<ProductAttributeResponseDto>> updateProductAttribute({
-    required String token,
     required int productId,
     required int attributeId,
     required ProductAttributeUpdateRequestDto request,

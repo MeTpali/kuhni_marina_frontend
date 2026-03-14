@@ -10,8 +10,7 @@ import '../models/product_type/product_type.dart';
 /// Репозиторий скидок.
 abstract class IDiscountsRepository {
   /// Список скидок с пагинацией и фильтрами.
-  Future<Result<DiscountCatalog>> getDiscounts(
-    String token, {
+  Future<Result<DiscountCatalog>> getDiscounts({
     int? page,
     int? pageSize,
     bool? includeInactive,
@@ -26,21 +25,17 @@ abstract class IDiscountsRepository {
   });
 
   /// Создать скидку.
-  Future<Result<Discount>> createDiscount(
-    String token,
-    DiscountCreateRequest request,
-  );
+  Future<Result<Discount>> createDiscount(DiscountCreateRequest request);
 
   /// Скидка по id.
-  Future<Result<Discount>> getDiscountById(String token, int discountId);
+  Future<Result<Discount>> getDiscountById(int discountId);
 
   /// Обновить скидку.
   Future<Result<Discount>> updateDiscount(
-    String token,
     int discountId,
     DiscountUpdateRequest request,
   );
 
   /// Удалить скидку.
-  Future<Result<bool>> deleteDiscount(String token, int discountId);
+  Future<Result<bool>> deleteDiscount(int discountId);
 }

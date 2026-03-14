@@ -8,7 +8,8 @@ import '../../mappers/product_attributes/product_attribute_request_mappers.dart'
 import '../../services/product_attributes/product_attributes_remote_service.dart';
 import '../../utils/response_error_mapper.dart';
 
-class ProductAttributesRemoteRepository implements IProductAttributesRepository {
+class ProductAttributesRemoteRepository
+    implements IProductAttributesRepository {
   ProductAttributesRemoteRepository({
     required ProductAttributesRemoteService service,
   }) : _service = service;
@@ -17,10 +18,8 @@ class ProductAttributesRemoteRepository implements IProductAttributesRepository 
   final ProductAttributeItemMapper _mapper = ProductAttributeItemMapper();
 
   @override
-  Future<Result<List<ProductAttributeItem>>> getProductAttributes(
-    String token,
-  ) async {
-    final response = await _service.getProductAttributes(token: token);
+  Future<Result<List<ProductAttributeItem>>> getProductAttributes() async {
+    final response = await _service.getProductAttributes();
     return response.when(
       success: (dto) => Result.success(dto.items.map(_mapper.map).toList()),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -29,12 +28,10 @@ class ProductAttributesRemoteRepository implements IProductAttributesRepository 
 
   @override
   Future<Result<ProductAttributeItem>> getProductAttributeById(
-    String token,
     int productId,
     int attributeId,
   ) async {
     final response = await _service.getProductAttributeById(
-      token: token,
       productId: productId,
       attributeId: attributeId,
     );
@@ -46,11 +43,9 @@ class ProductAttributesRemoteRepository implements IProductAttributesRepository 
 
   @override
   Future<Result<ProductAttributeItem>> createProductAttribute(
-    String token,
     ProductAttributeCreateRequest request,
   ) async {
     final response = await _service.createProductAttribute(
-      token: token,
       request: ProductAttributeRequestMappers.toCreateDto(request),
     );
     return response.when(
@@ -61,13 +56,11 @@ class ProductAttributesRemoteRepository implements IProductAttributesRepository 
 
   @override
   Future<Result<ProductAttributeItem>> updateProductAttribute(
-    String token,
     int productId,
     int attributeId,
     ProductAttributeUpdateRequest request,
   ) async {
     final response = await _service.updateProductAttribute(
-      token: token,
       productId: productId,
       attributeId: attributeId,
       request: ProductAttributeRequestMappers.toUpdateDto(request),

@@ -20,12 +20,10 @@ class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
   final MeasureRequestMapper _mapper = MeasureRequestMapper();
 
   @override
-  Future<Result<List<MeasureRequest>>> getMeasureRequests(
-    String token, {
+  Future<Result<List<MeasureRequest>>> getMeasureRequests({
     MeasureRequestStatus? status,
   }) async {
     final response = await _service.getMeasureRequests(
-      token: token,
       status: status != null ? _toDtoStatus(status) : null,
     );
     return response.when(
@@ -36,12 +34,10 @@ class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
 
   @override
   Future<Result<MeasureRequest>> createMeasureRequest(
-    String token,
     MeasureRequestCreateRequest request,
   ) async {
     final dto = MeasureRequestRequestMappers.toCreateDto(request);
-    final response =
-        await _service.createMeasureRequest(token: token, request: dto);
+    final response = await _service.createMeasureRequest(request: dto);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -49,12 +45,8 @@ class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
   }
 
   @override
-  Future<Result<MeasureRequest>> getMeasureRequestById(
-    String token,
-    int measureRequestId,
-  ) async {
+  Future<Result<MeasureRequest>> getMeasureRequestById(int measureRequestId) async {
     final response = await _service.getMeasureRequestById(
-      token: token,
       measureRequestId: measureRequestId,
     );
     return response.when(
@@ -65,13 +57,11 @@ class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
 
   @override
   Future<Result<MeasureRequest>> updateMeasureRequest(
-    String token,
     int measureRequestId,
     MeasureRequestUpdateRequest request,
   ) async {
     final dto = MeasureRequestRequestMappers.toUpdateDto(request);
     final response = await _service.updateMeasureRequest(
-      token: token,
       measureRequestId: measureRequestId,
       request: dto,
     );
@@ -83,13 +73,11 @@ class MeasureRequestsRemoteRepository implements IMeasureRequestsRepository {
 
   @override
   Future<Result<MeasureRequest>> updateMeasureRequestStatus(
-    String token,
     int measureRequestId,
     MeasureRequestStatusUpdateRequest request,
   ) async {
     final dto = MeasureRequestRequestMappers.toStatusUpdateDto(request);
     final response = await _service.updateMeasureRequestStatus(
-      token: token,
       measureRequestId: measureRequestId,
       request: dto,
     );

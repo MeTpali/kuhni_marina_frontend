@@ -13,14 +13,10 @@ class ProductAttributesRemoteService {
 
   static const String _path = '/api/v1/product-attributes';
 
-  Future<ResponseResult<ProductAttributeListResponseDto>> getProductAttributes({
-    required String token,
-  }) async {
+  Future<ResponseResult<ProductAttributeListResponseDto>>
+  getProductAttributes() async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        _path,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.get<Map<String, dynamic>>(_path);
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(
@@ -36,14 +32,12 @@ class ProductAttributesRemoteService {
   }
 
   Future<ResponseResult<ProductAttributeResponseDto>> createProductAttribute({
-    required String token,
     required ProductAttributeCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -61,14 +55,12 @@ class ProductAttributesRemoteService {
   }
 
   Future<ResponseResult<ProductAttributeResponseDto>> getProductAttributeById({
-    required String token,
     required int productId,
     required int attributeId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/$productId/$attributeId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -85,7 +77,6 @@ class ProductAttributesRemoteService {
   }
 
   Future<ResponseResult<ProductAttributeResponseDto>> updateProductAttribute({
-    required String token,
     required int productId,
     required int attributeId,
     required ProductAttributeUpdateRequestDto request,
@@ -94,7 +85,6 @@ class ProductAttributesRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$productId/$attributeId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {

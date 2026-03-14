@@ -25,8 +25,7 @@ class DiscountsRemoteRepository implements IDiscountsRepository {
   final DiscountCatalogMapper _catalogMapper = DiscountCatalogMapper();
 
   @override
-  Future<Result<DiscountCatalog>> getDiscounts(
-    String token, {
+  Future<Result<DiscountCatalog>> getDiscounts({
     int? page,
     int? pageSize,
     bool? includeInactive,
@@ -40,7 +39,6 @@ class DiscountsRemoteRepository implements IDiscountsRepository {
     String? sortOrder,
   }) async {
     final response = await _service.getDiscounts(
-      token: token,
       page: page,
       pageSize: pageSize,
       includeInactive: includeInactive,
@@ -64,12 +62,9 @@ class DiscountsRemoteRepository implements IDiscountsRepository {
   }
 
   @override
-  Future<Result<Discount>> createDiscount(
-    String token,
-    DiscountCreateRequest request,
-  ) async {
+  Future<Result<Discount>> createDiscount(DiscountCreateRequest request) async {
     final dto = DiscountRequestMappers.toCreateDto(request);
-    final response = await _service.createDiscount(token: token, request: dto);
+    final response = await _service.createDiscount(request: dto);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -77,9 +72,8 @@ class DiscountsRemoteRepository implements IDiscountsRepository {
   }
 
   @override
-  Future<Result<Discount>> getDiscountById(String token, int discountId) async {
-    final response =
-        await _service.getDiscountById(token: token, discountId: discountId);
+  Future<Result<Discount>> getDiscountById(int discountId) async {
+    final response = await _service.getDiscountById(discountId: discountId);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -88,13 +82,11 @@ class DiscountsRemoteRepository implements IDiscountsRepository {
 
   @override
   Future<Result<Discount>> updateDiscount(
-    String token,
     int discountId,
     DiscountUpdateRequest request,
   ) async {
     final dto = DiscountRequestMappers.toUpdateDto(request);
     final response = await _service.updateDiscount(
-      token: token,
       discountId: discountId,
       request: dto,
     );
@@ -105,9 +97,8 @@ class DiscountsRemoteRepository implements IDiscountsRepository {
   }
 
   @override
-  Future<Result<bool>> deleteDiscount(String token, int discountId) async {
-    final response =
-        await _service.deleteDiscount(token: token, discountId: discountId);
+  Future<Result<bool>> deleteDiscount(int discountId) async {
+    final response = await _service.deleteDiscount(discountId: discountId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

@@ -14,13 +14,10 @@ class ReviewsRemoteService {
 
   static const String _path = '/api/v1/reviews';
 
-  Future<ResponseResult<ReviewListResponseDto>> getReviews({
-    required String token,
-  }) async {
+  Future<ResponseResult<ReviewListResponseDto>> getReviews() async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         _path,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -37,13 +34,11 @@ class ReviewsRemoteService {
   }
 
   Future<ResponseResult<ReviewListResponseDto>> getReviewsByProductId({
-    required String token,
     required int productId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/product/$productId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -60,14 +55,12 @@ class ReviewsRemoteService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> createReview({
-    required String token,
     required ReviewCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -83,13 +76,11 @@ class ReviewsRemoteService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> getReviewById({
-    required String token,
     required int reviewId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/$reviewId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -104,7 +95,6 @@ class ReviewsRemoteService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> updateReview({
-    required String token,
     required int reviewId,
     required ReviewUpdateRequestDto request,
   }) async {
@@ -112,7 +102,6 @@ class ReviewsRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$reviewId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -127,13 +116,11 @@ class ReviewsRemoteService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> approveReview({
-    required String token,
     required int reviewId,
   }) async {
     try {
       final response = await _dio.patch<Map<String, dynamic>>(
         '$_path/$reviewId/approve',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -148,13 +135,11 @@ class ReviewsRemoteService {
   }
 
   Future<ResponseResult<ReviewDeleteResponseDto>> deleteReview({
-    required String token,
     required int reviewId,
   }) async {
     try {
       final response = await _dio.delete<Map<String, dynamic>>(
         '$_path/$reviewId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {

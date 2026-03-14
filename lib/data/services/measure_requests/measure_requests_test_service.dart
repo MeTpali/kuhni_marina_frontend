@@ -38,7 +38,6 @@ class MeasureRequestsTestService {
   ];
 
   Future<ResponseResult<MeasureRequestListResponseDto>> getMeasureRequests({
-    required String token,
     MeasureRequestStatusEnum? status,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 400));
@@ -51,7 +50,6 @@ class MeasureRequestsTestService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> createMeasureRequest({
-    required String token,
     required MeasureRequestCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
@@ -69,7 +67,6 @@ class MeasureRequestsTestService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> getMeasureRequestById({
-    required String token,
     required int measureRequestId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));
@@ -93,7 +90,6 @@ class MeasureRequestsTestService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> updateMeasureRequest({
-    required String token,
     required int measureRequestId,
     required MeasureRequestUpdateRequestDto request,
   }) async {
@@ -112,7 +108,6 @@ class MeasureRequestsTestService {
   }
 
   Future<ResponseResult<MeasureRequestResponseDto>> updateMeasureRequestStatus({
-    required String token,
     required int measureRequestId,
     required MeasureRequestStatusUpdateRequestDto request,
   }) async {

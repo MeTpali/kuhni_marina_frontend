@@ -14,14 +14,9 @@ class AttributesRemoteService {
 
   static const String _path = '/api/v1/attributes';
 
-  Future<ResponseResult<AttributeListResponseDto>> getAttributes({
-    required String token,
-  }) async {
+  Future<ResponseResult<AttributeListResponseDto>> getAttributes() async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        _path,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.get<Map<String, dynamic>>(_path);
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(
@@ -37,14 +32,12 @@ class AttributesRemoteService {
   }
 
   Future<ResponseResult<AttributeResponseDto>> createAttribute({
-    required String token,
     required AttributeCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -62,14 +55,10 @@ class AttributesRemoteService {
   }
 
   Future<ResponseResult<AttributeResponseDto>> getAttributeById({
-    required String token,
     required int attributeId,
   }) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        '$_path/$attributeId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.get<Map<String, dynamic>>('$_path/$attributeId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(
@@ -85,7 +74,6 @@ class AttributesRemoteService {
   }
 
   Future<ResponseResult<AttributeResponseDto>> updateAttribute({
-    required String token,
     required int attributeId,
     required AttributeUpdateRequestDto request,
   }) async {
@@ -93,7 +81,6 @@ class AttributesRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$attributeId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -110,14 +97,10 @@ class AttributesRemoteService {
   }
 
   Future<ResponseResult<AttributeDeleteResponseDto>> deleteAttribute({
-    required String token,
     required int attributeId,
   }) async {
     try {
-      final response = await _dio.delete<Map<String, dynamic>>(
-        '$_path/$attributeId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.delete<Map<String, dynamic>>('$_path/$attributeId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(

@@ -92,7 +92,6 @@ class ProductsTestService {
   ];
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductCatalog({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -109,7 +108,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductSearchSuggestionsResponseDto>> getSearchSuggestions({
-    required String token,
     required String text,
     String? type,
     int? limit,
@@ -123,7 +121,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductHits({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -142,7 +139,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductNew({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -161,7 +157,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductDiscounts({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -172,7 +167,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductIdListResponseDto>> getProductIds({
-    required String token,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async {
@@ -181,7 +175,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductResponseDto>> getProductById({
-    required String token,
     required int productId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));
@@ -206,7 +199,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductResponseDto>> createProduct({
-    required String token,
     required ProductCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
@@ -231,7 +223,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductResponseDto>> updateProduct({
-    required String token,
     required int productId,
     required ProductUpdateRequestDto request,
   }) async {
@@ -257,7 +248,6 @@ class ProductsTestService {
   }
 
   Future<ResponseResult<ProductDeleteResponseDto>> deleteProduct({
-    required String token,
     required int productId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));

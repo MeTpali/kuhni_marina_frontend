@@ -16,8 +16,8 @@ class BannersRemoteRepository implements IBannersRepository {
   final BannerMapper _mapper = BannerMapper();
 
   @override
-  Future<Result<List<Banner>>> getBanners(String token) async {
-    final response = await _service.getBanners(token: token);
+  Future<Result<List<Banner>>> getBanners() async {
+    final response = await _service.getBanners();
     return response.when(
       success: (dto) => Result.success(dto.items.map(_mapper.map).toList()),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -25,12 +25,9 @@ class BannersRemoteRepository implements IBannersRepository {
   }
 
   @override
-  Future<Result<Banner>> createBanner(
-    String token,
-    BannerCreateRequest request,
-  ) async {
+  Future<Result<Banner>> createBanner(BannerCreateRequest request) async {
     final dto = BannerRequestMappers.toCreateDto(request);
-    final response = await _service.createBanner(token: token, request: dto);
+    final response = await _service.createBanner(request: dto);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -38,9 +35,8 @@ class BannersRemoteRepository implements IBannersRepository {
   }
 
   @override
-  Future<Result<Banner>> getBannerById(String token, int bannerId) async {
-    final response =
-        await _service.getBannerById(token: token, bannerId: bannerId);
+  Future<Result<Banner>> getBannerById(int bannerId) async {
+    final response = await _service.getBannerById(bannerId: bannerId);
     return response.when(
       success: (data) => Result.success(_mapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -49,13 +45,11 @@ class BannersRemoteRepository implements IBannersRepository {
 
   @override
   Future<Result<Banner>> updateBanner(
-    String token,
     int bannerId,
     BannerUpdateRequest request,
   ) async {
     final dto = BannerRequestMappers.toUpdateDto(request);
     final response = await _service.updateBanner(
-      token: token,
       bannerId: bannerId,
       request: dto,
     );
@@ -66,9 +60,8 @@ class BannersRemoteRepository implements IBannersRepository {
   }
 
   @override
-  Future<Result<bool>> deleteBanner(String token, int bannerId) async {
-    final response =
-        await _service.deleteBanner(token: token, bannerId: bannerId);
+  Future<Result<bool>> deleteBanner(int bannerId) async {
+    final response = await _service.deleteBanner(bannerId: bannerId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

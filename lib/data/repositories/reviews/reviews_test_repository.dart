@@ -16,8 +16,8 @@ class ReviewsTestRepository implements IReviewsRepository {
   final ReviewMapper _mapper = ReviewMapper();
 
   @override
-  Future<Result<List<Review>>> getReviews(String token) async {
-    final response = await _service.getReviews(token: token);
+  Future<Result<List<Review>>> getReviews() async {
+    final response = await _service.getReviews();
     return response.when(
       success: (dto) => Result.success(dto.items.map(_mapper.map).toList()),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -25,12 +25,8 @@ class ReviewsTestRepository implements IReviewsRepository {
   }
 
   @override
-  Future<Result<List<Review>>> getReviewsByProductId(
-    String token,
-    int productId,
-  ) async {
-    final response =
-        await _service.getReviewsByProductId(token: token, productId: productId);
+  Future<Result<List<Review>>> getReviewsByProductId(int productId) async {
+    final response = await _service.getReviewsByProductId(productId: productId);
     return response.when(
       success: (dto) => Result.success(dto.items.map(_mapper.map).toList()),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -38,8 +34,8 @@ class ReviewsTestRepository implements IReviewsRepository {
   }
 
   @override
-  Future<Result<Review>> getReviewById(String token, int reviewId) async {
-    final response = await _service.getReviewById(token: token, reviewId: reviewId);
+  Future<Result<Review>> getReviewById(int reviewId) async {
+    final response = await _service.getReviewById(reviewId: reviewId);
     return response.when(
       success: (dto) => Result.success(_mapper.map(dto)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -47,12 +43,8 @@ class ReviewsTestRepository implements IReviewsRepository {
   }
 
   @override
-  Future<Result<Review>> createReview(
-    String token,
-    ReviewCreateRequest request,
-  ) async {
+  Future<Result<Review>> createReview(ReviewCreateRequest request) async {
     final response = await _service.createReview(
-      token: token,
       request: ReviewRequestMappers.toCreateDto(request),
     );
     return response.when(
@@ -63,12 +55,10 @@ class ReviewsTestRepository implements IReviewsRepository {
 
   @override
   Future<Result<Review>> updateReview(
-    String token,
     int reviewId,
     ReviewUpdateRequest request,
   ) async {
     final response = await _service.updateReview(
-      token: token,
       reviewId: reviewId,
       request: ReviewRequestMappers.toUpdateDto(request),
     );
@@ -79,8 +69,8 @@ class ReviewsTestRepository implements IReviewsRepository {
   }
 
   @override
-  Future<Result<Review>> approveReview(String token, int reviewId) async {
-    final response = await _service.approveReview(token: token, reviewId: reviewId);
+  Future<Result<Review>> approveReview(int reviewId) async {
+    final response = await _service.approveReview(reviewId: reviewId);
     return response.when(
       success: (dto) => Result.success(_mapper.map(dto)),
       error: (e) => Result.error(responseErrorToMessage(e)),
@@ -88,8 +78,8 @@ class ReviewsTestRepository implements IReviewsRepository {
   }
 
   @override
-  Future<Result<bool>> deleteReview(String token, int reviewId) async {
-    final response = await _service.deleteReview(token: token, reviewId: reviewId);
+  Future<Result<bool>> deleteReview(int reviewId) async {
+    final response = await _service.deleteReview(reviewId: reviewId);
     return response.when(
       success: (_) => const Result.success(true),
       error: (e) => Result.error(responseErrorToMessage(e)),

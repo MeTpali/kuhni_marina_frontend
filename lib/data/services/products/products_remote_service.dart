@@ -17,7 +17,6 @@ class ProductsRemoteService {
   static const String _path = '/api/v1/products';
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductCatalog({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -46,7 +45,6 @@ class ProductsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/catalog',
         queryParameters: queryParams.isEmpty ? null : queryParams,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -63,13 +61,11 @@ class ProductsRemoteService {
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductHits({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async => _getProductCatalogPage(
-    token: token,
     path: '$_path/hits',
     page: page,
     pageSize: pageSize,
@@ -78,13 +74,11 @@ class ProductsRemoteService {
   );
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductNew({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async => _getProductCatalogPage(
-    token: token,
     path: '$_path/new',
     page: page,
     pageSize: pageSize,
@@ -93,13 +87,11 @@ class ProductsRemoteService {
   );
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductDiscounts({
-    required String token,
     int? page,
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async => _getProductCatalogPage(
-    token: token,
     path: '$_path/discounts',
     page: page,
     pageSize: pageSize,
@@ -108,7 +100,6 @@ class ProductsRemoteService {
   );
 
   Future<ResponseResult<ProductSearchSuggestionsResponseDto>> getSearchSuggestions({
-    required String token,
     required String text,
     String? type,
     int? limit,
@@ -121,7 +112,6 @@ class ProductsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/search/suggestions',
         queryParameters: queryParams,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -138,7 +128,6 @@ class ProductsRemoteService {
   }
 
   Future<ResponseResult<ProductIdListResponseDto>> getProductIds({
-    required String token,
     List<int>? categoryIds,
     String? attributeFilters,
   }) async {
@@ -154,7 +143,6 @@ class ProductsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         '$_path/ids',
         queryParameters: queryParams.isEmpty ? null : queryParams,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -171,14 +159,10 @@ class ProductsRemoteService {
   }
 
   Future<ResponseResult<ProductResponseDto>> getProductById({
-    required String token,
     required int productId,
   }) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        '$_path/$productId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.get<Map<String, dynamic>>('$_path/$productId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(
@@ -194,14 +178,12 @@ class ProductsRemoteService {
   }
 
   Future<ResponseResult<ProductResponseDto>> createProduct({
-    required String token,
     required ProductCreateRequestDto request,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         _path,
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if ((response.statusCode == 201 || response.statusCode == 200) &&
@@ -219,7 +201,6 @@ class ProductsRemoteService {
   }
 
   Future<ResponseResult<ProductResponseDto>> updateProduct({
-    required String token,
     required int productId,
     required ProductUpdateRequestDto request,
   }) async {
@@ -227,7 +208,6 @@ class ProductsRemoteService {
       final response = await _dio.put<Map<String, dynamic>>(
         '$_path/$productId',
         data: request.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -244,14 +224,10 @@ class ProductsRemoteService {
   }
 
   Future<ResponseResult<ProductDeleteResponseDto>> deleteProduct({
-    required String token,
     required int productId,
   }) async {
     try {
-      final response = await _dio.delete<Map<String, dynamic>>(
-        '$_path/$productId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await _dio.delete<Map<String, dynamic>>('$_path/$productId');
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(
@@ -285,7 +261,6 @@ class ProductsRemoteService {
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> _getProductCatalogPage({
-    required String token,
     required String path,
     int? page,
     int? pageSize,
@@ -302,7 +277,6 @@ class ProductsRemoteService {
       final response = await _dio.get<Map<String, dynamic>>(
         path,
         queryParameters: queryParams.isEmpty ? null : queryParams,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(

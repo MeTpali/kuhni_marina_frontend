@@ -37,15 +37,12 @@ class BannersTestService {
     message: null,
   );
 
-  Future<ResponseResult<BannerListResponseDto>> getBanners({
-    required String token,
-  }) async {
+  Future<ResponseResult<BannerListResponseDto>> getBanners() async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
     return const ResponseResult.success(_mockListResponse);
   }
 
   Future<ResponseResult<BannerResponseDto>> createBanner({
-    required String token,
     required BannerCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -63,7 +60,6 @@ class BannersTestService {
   }
 
   Future<ResponseResult<BannerResponseDto>> getBannerById({
-    required String token,
     required int bannerId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
@@ -84,7 +80,6 @@ class BannersTestService {
   }
 
   Future<ResponseResult<BannerResponseDto>> updateBanner({
-    required String token,
     required int bannerId,
     required BannerUpdateRequestDto request,
   }) async {
@@ -103,7 +98,6 @@ class BannersTestService {
   }
 
   Future<ResponseResult<BannerDeleteResponseDto>> deleteBanner({
-    required String token,
     required int bannerId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));

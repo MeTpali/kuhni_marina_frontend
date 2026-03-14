@@ -35,15 +35,12 @@ class ReviewsTestService {
     ),
   ];
 
-  Future<ResponseResult<ReviewListResponseDto>> getReviews({
-    required String token,
-  }) async {
+  Future<ResponseResult<ReviewListResponseDto>> getReviews() async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 280));
     return ResponseResult.success(ReviewListResponseDto(items: _mockItems));
   }
 
   Future<ResponseResult<ReviewListResponseDto>> getReviewsByProductId({
-    required String token,
     required int productId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 280));
@@ -52,7 +49,6 @@ class ReviewsTestService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> getReviewById({
-    required String token,
     required int reviewId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 220));
@@ -64,7 +60,6 @@ class ReviewsTestService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> createReview({
-    required String token,
     required ReviewCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 280));
@@ -84,7 +79,6 @@ class ReviewsTestService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> updateReview({
-    required String token,
     required int reviewId,
     required ReviewUpdateRequestDto request,
   }) async {
@@ -105,7 +99,6 @@ class ReviewsTestService {
   }
 
   Future<ResponseResult<ReviewResponseDto>> approveReview({
-    required String token,
     required int reviewId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 220));
@@ -117,7 +110,6 @@ class ReviewsTestService {
   }
 
   Future<ResponseResult<ReviewDeleteResponseDto>> deleteReview({
-    required String token,
     required int reviewId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 220));

@@ -9,8 +9,7 @@ import '../models/product_type/product_type.dart';
 /// Репозиторий товаров каталога.
 abstract class IProductsRepository {
   /// Каталог товаров с пагинацией и фильтрами.
-  Future<Result<ProductCatalog>> getProductCatalog(
-    String token, {
+  Future<Result<ProductCatalog>> getProductCatalog({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -25,15 +24,13 @@ abstract class IProductsRepository {
 
   /// Подсказки поиска по товарам.
   Future<Result<List<ProductSearchSuggestion>>> getSearchSuggestions(
-    String token,
     String text, {
     ProductType? type,
     int? limit,
   });
 
   /// Хиты продаж (с пагинацией и фильтрами).
-  Future<Result<ProductCatalog>> getProductHits(
-    String token, {
+  Future<Result<ProductCatalog>> getProductHits({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -41,8 +38,7 @@ abstract class IProductsRepository {
   });
 
   /// Новинки (с пагинацией и фильтрами).
-  Future<Result<ProductCatalog>> getProductNew(
-    String token, {
+  Future<Result<ProductCatalog>> getProductNew({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -50,8 +46,7 @@ abstract class IProductsRepository {
   });
 
   /// Товары со скидкой (с пагинацией и фильтрами).
-  Future<Result<ProductCatalog>> getProductDiscounts(
-    String token, {
+  Future<Result<ProductCatalog>> getProductDiscounts({
     int? page,
     int? pageSize,
     List<int>? categoryIds,
@@ -59,28 +54,23 @@ abstract class IProductsRepository {
   });
 
   /// Список id товаров по фильтрам.
-  Future<Result<List<int>>> getProductIds(
-    String token, {
+  Future<Result<List<int>>> getProductIds({
     List<int>? categoryIds,
     String? attributeFilters,
   });
 
   /// Товар по id.
-  Future<Result<Product>> getProductById(String token, int productId);
+  Future<Result<Product>> getProductById(int productId);
 
   /// Создать товар.
-  Future<Result<Product>> createProduct(
-    String token,
-    ProductCreateRequest request,
-  );
+  Future<Result<Product>> createProduct(ProductCreateRequest request);
 
   /// Обновить товар.
   Future<Result<Product>> updateProduct(
-    String token,
     int productId,
     ProductUpdateRequest request,
   );
 
   /// Удалить товар.
-  Future<Result<bool>> deleteProduct(String token, int productId);
+  Future<Result<bool>> deleteProduct(int productId);
 }
