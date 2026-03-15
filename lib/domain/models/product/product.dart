@@ -28,5 +28,7 @@ class Product with _$Product {
     @Default([]) List<ProductImage> images,
     String? updatedAt,
     ProductDiscountInfo? discount,
+    @Default(0.0) double rating,
+    @Default(0) int reviewsCount,
   }) = _Product;
 }

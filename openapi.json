@@ -672,6 +672,24 @@
                         "description": "Фильтр по наличию скидки"
                     },
                     {
+                        "name": "campaign_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по ID акции",
+                            "title": "Campaign Id"
+                        },
+                        "description": "Фильтр по ID акции"
+                    },
+                    {
                         "name": "type",
                         "in": "query",
                         "required": false,
@@ -895,6 +913,24 @@
                             "title": "Attribute Filters"
                         },
                         "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ProductType"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)",
+                            "title": "Type"
+                        },
+                        "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)"
                     }
                 ],
                 "responses": {
@@ -1003,6 +1039,24 @@
                             "title": "Attribute Filters"
                         },
                         "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ProductType"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)",
+                            "title": "Type"
+                        },
+                        "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)"
                     }
                 ],
                 "responses": {
@@ -1111,6 +1165,24 @@
                             "title": "Attribute Filters"
                         },
                         "description": "Фильтр по атрибутам в формате JSON: [{\"attribute_id\": 1, \"value\": \"значение\"}]"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ProductType"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)",
+                            "title": "Type"
+                        },
+                        "description": "Фильтр по типу продукта (KITCHEN, FURNITURE)"
                     }
                 ],
                 "responses": {
@@ -2472,198 +2544,6 @@
                 ]
             }
         },
-        "/api/v1/project-products": {
-            "get": {
-                "tags": [
-                    "project-products"
-                ],
-                "summary": "Получить все связи проектов с продуктами",
-                "description": "Возвращает список всех связей проектов с продуктами",
-                "operationId": "get_project_products_api_v1_project_products_get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProjectProductListResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Project product not found"
-                    }
-                },
-                "security": [
-                    {
-                        "tokenAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "project-products"
-                ],
-                "summary": "Создать связь проекта с продуктом",
-                "description": "Создает и возвращает новую связь проекта с продуктом",
-                "operationId": "create_project_product_api_v1_project_products_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ProjectProductCreateRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "201": {
-                        "description": "Связь проекта с продуктом успешно создана",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProjectProductResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Project product not found"
-                    },
-                    "400": {
-                        "description": "Некорректные данные или связь уже существует"
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "tokenAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/project-products/product/{product_id}/projects": {
-            "get": {
-                "tags": [
-                    "project-products"
-                ],
-                "summary": "Получить список идентификаторов проектов по идентификатору продукта",
-                "description": "Возвращает список идентификаторов проектов, в которых используется указанный продукт",
-                "operationId": "get_project_ids_by_product_id_api_v1_project_products_product__product_id__projects_get",
-                "parameters": [
-                    {
-                        "name": "product_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "title": "Product Id"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Список идентификаторов проектов успешно получен",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProjectIdsByProductResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Project product not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "tokenAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/project-products/{project_id}/{product_id}": {
-            "delete": {
-                "tags": [
-                    "project-products"
-                ],
-                "summary": "Удалить связь проекта с продуктом",
-                "description": "Удаляет связь проекта с продуктом по идентификаторам",
-                "operationId": "delete_project_product_api_v1_project_products__project_id___product_id__delete",
-                "parameters": [
-                    {
-                        "name": "project_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "title": "Project Id"
-                        }
-                    },
-                    {
-                        "name": "product_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "title": "Product Id"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Связь проекта с продуктом успешно удалена",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProjectProductDeleteResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Связь проекта с продуктом не найдена"
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "tokenAuth": []
-                    }
-                ]
-            }
-        },
         "/api/v1/project-images": {
             "get": {
                 "tags": [
@@ -3012,6 +2892,35 @@
                 "summary": "Получить все проекты",
                 "description": "Возвращает список всех проектов",
                 "operationId": "get_projects_api_v1_projects_get",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Номер страницы",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Номер страницы"
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Размер страницы",
+                            "default": 20,
+                            "title": "Page Size"
+                        },
+                        "description": "Размер страницы"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -3025,6 +2934,16 @@
                     },
                     "404": {
                         "description": "Project not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -3041,14 +2960,14 @@
                 "description": "Создает и возвращает новый проект",
                 "operationId": "create_project_api_v1_projects_post",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/ProjectCreateRequest"
                             }
                         }
-                    },
-                    "required": true
+                    }
                 },
                 "responses": {
                     "201": {
@@ -3728,6 +3647,24 @@
                         "description": "Фильтр по типу скидки"
                     },
                     {
+                        "name": "campaign_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Фильтр по ID акции",
+                            "title": "Campaign Id"
+                        },
+                        "description": "Фильтр по ID акции"
+                    },
+                    {
                         "name": "product_id",
                         "in": "query",
                         "required": false,
@@ -4075,6 +4012,294 @@
                     }
                 ]
             }
+        },
+        "/api/v1/campaigns": {
+            "get": {
+                "tags": [
+                    "campaigns"
+                ],
+                "summary": "Получить список акций",
+                "description": "Возвращает список акций с пагинацией",
+                "operationId": "get_campaigns_api_v1_campaigns_get",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Номер страницы",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Номер страницы"
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Размер страницы",
+                            "default": 20,
+                            "title": "Page Size"
+                        },
+                        "description": "Размер страницы"
+                    },
+                    {
+                        "name": "include_inactive",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "description": "Включить неактивные акции",
+                            "default": false,
+                            "title": "Include Inactive"
+                        },
+                        "description": "Включить неактивные акции"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CampaignListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Campaign not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "campaigns"
+                ],
+                "summary": "Создать акцию",
+                "description": "Создает новую маркетинговую акцию (slug генерируется автоматически, если не передан)",
+                "operationId": "create_campaign_api_v1_campaigns_post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CampaignCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CampaignResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Campaign not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/campaigns/{campaign_id}": {
+            "get": {
+                "tags": [
+                    "campaigns"
+                ],
+                "summary": "Получить акцию по идентификатору",
+                "description": "Возвращает акцию с указанным идентификатором",
+                "operationId": "get_campaign_by_id_api_v1_campaigns__campaign_id__get",
+                "parameters": [
+                    {
+                        "name": "campaign_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Campaign Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CampaignResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Campaign not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "campaigns"
+                ],
+                "summary": "Обновить акцию",
+                "description": "Обновляет акцию по идентификатору",
+                "operationId": "update_campaign_api_v1_campaigns__campaign_id__put",
+                "parameters": [
+                    {
+                        "name": "campaign_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Campaign Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CampaignUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CampaignResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Campaign not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "campaigns"
+                ],
+                "summary": "Удалить акцию",
+                "description": "Деактивирует акцию по идентификатору",
+                "operationId": "delete_campaign_api_v1_campaigns__campaign_id__delete",
+                "parameters": [
+                    {
+                        "name": "campaign_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Campaign Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CampaignDeleteResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Campaign not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -4293,9 +4518,9 @@
                         ],
                         "title": "Link Url"
                     },
-                    "position": {
+                    "priority": {
                         "type": "integer",
-                        "title": "Position",
+                        "title": "Priority",
                         "default": 0
                     },
                     "is_active": {
@@ -4390,9 +4615,9 @@
                         ],
                         "title": "Link Url"
                     },
-                    "position": {
+                    "priority": {
                         "type": "integer",
-                        "title": "Position",
+                        "title": "Priority",
                         "default": 0
                     },
                     "is_active": {
@@ -4452,9 +4677,9 @@
                         ],
                         "title": "Link Url"
                     },
-                    "position": {
+                    "priority": {
                         "type": "integer",
-                        "title": "Position",
+                        "title": "Priority",
                         "default": 0
                     },
                     "is_active": {
@@ -4530,6 +4755,409 @@
                     "file"
                 ],
                 "title": "Body_upload_project_image_api_v1_project_images_upload_post"
+            },
+            "CampaignCreateRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "slug": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Slug"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "banner_image_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Banner Image Url"
+                    },
+                    "landing_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Landing Url"
+                    },
+                    "badge_text": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Badge Text"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Date"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "End Date"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active",
+                        "default": true
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "title": "Priority",
+                        "default": 0
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "start_date",
+                    "end_date"
+                ],
+                "title": "CampaignCreateRequest"
+            },
+            "CampaignDeleteResponse": {
+                "properties": {
+                    "campaign_id": {
+                        "type": "integer",
+                        "title": "Campaign Id"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "campaign_id"
+                ],
+                "title": "CampaignDeleteResponse"
+            },
+            "CampaignListResponse": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/CampaignResponse"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "page": {
+                        "type": "integer",
+                        "title": "Page"
+                    },
+                    "page_size": {
+                        "type": "integer",
+                        "title": "Page Size"
+                    },
+                    "total_pages": {
+                        "type": "integer",
+                        "title": "Total Pages"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "items",
+                    "total",
+                    "page",
+                    "page_size",
+                    "total_pages"
+                ],
+                "title": "CampaignListResponse"
+            },
+            "CampaignResponse": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "slug": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Slug"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "banner_image_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Banner Image Url"
+                    },
+                    "landing_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Landing Url"
+                    },
+                    "badge_text": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Badge Text"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Date"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "End Date"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active",
+                        "default": true
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "title": "Priority",
+                        "default": 0
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "updated_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated At"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "start_date",
+                    "end_date",
+                    "id",
+                    "created_at"
+                ],
+                "title": "CampaignResponse"
+            },
+            "CampaignUpdateRequest": {
+                "properties": {
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Name"
+                    },
+                    "slug": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Slug"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "banner_image_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Banner Image Url"
+                    },
+                    "landing_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Landing Url"
+                    },
+                    "badge_text": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Badge Text"
+                    },
+                    "start_date": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Start Date"
+                    },
+                    "end_date": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "End Date"
+                    },
+                    "is_active": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Active"
+                    },
+                    "priority": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Priority"
+                    }
+                },
+                "type": "object",
+                "title": "CampaignUpdateRequest"
             },
             "CatalogFacets": {
                 "properties": {
@@ -4855,6 +5483,51 @@
                 ],
                 "title": "CategoryUpdateRequest"
             },
+            "DiscountCampaignInfo": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "title": "Slug"
+                    },
+                    "badge_text": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Badge Text"
+                    },
+                    "landing_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Landing Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "slug"
+                ],
+                "title": "DiscountCampaignInfo"
+            },
             "DiscountCreateRequest": {
                 "properties": {
                     "name": {
@@ -4877,6 +5550,17 @@
                     },
                     "scope": {
                         "$ref": "#/components/schemas/DiscountScope"
+                    },
+                    "campaign_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Campaign Id"
                     },
                     "product_id": {
                         "anyOf": [
@@ -5029,6 +5713,17 @@
                     "scope": {
                         "$ref": "#/components/schemas/DiscountScope"
                     },
+                    "campaign_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Campaign Id"
+                    },
                     "product_id": {
                         "anyOf": [
                             {
@@ -5100,6 +5795,16 @@
                             }
                         ],
                         "title": "Updated At"
+                    },
+                    "campaign": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/DiscountCampaignInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
                     },
                     "message": {
                         "anyOf": [
@@ -5191,6 +5896,17 @@
                                 "type": "null"
                             }
                         ]
+                    },
+                    "campaign_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Campaign Id"
                     },
                     "product_id": {
                         "anyOf": [
@@ -6001,16 +6717,12 @@
                     "type": {
                         "$ref": "#/components/schemas/ProductType"
                     },
-                    "main_image": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Main Image"
+                    "images": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Images"
                     },
                     "is_active": {
                         "type": "boolean",
@@ -6026,6 +6738,16 @@
                                 "type": "null"
                             }
                         ]
+                    },
+                    "rating": {
+                        "type": "number",
+                        "title": "Rating",
+                        "default": 0.0
+                    },
+                    "reviews_count": {
+                        "type": "integer",
+                        "title": "Reviews Count",
+                        "default": 0
                     }
                 },
                 "type": "object",
@@ -6521,38 +7243,6 @@
                 ],
                 "title": "ProjectDetailResponse"
             },
-            "ProjectIdsByProductResponse": {
-                "properties": {
-                    "product_id": {
-                        "type": "integer",
-                        "title": "Product Id"
-                    },
-                    "project_ids": {
-                        "items": {
-                            "type": "integer"
-                        },
-                        "type": "array",
-                        "title": "Project Ids"
-                    },
-                    "message": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Message"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "product_id",
-                    "project_ids"
-                ],
-                "title": "ProjectIdsByProductResponse"
-            },
             "ProjectImageCreateBulkRequest": {
                 "properties": {
                     "images": {
@@ -6738,6 +7428,50 @@
                         "type": "array",
                         "title": "Items"
                     },
+                    "total": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Total"
+                    },
+                    "page": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Page"
+                    },
+                    "page_size": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Page Size"
+                    },
+                    "total_pages": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Total Pages"
+                    },
                     "message": {
                         "anyOf": [
                             {
@@ -6755,109 +7489,6 @@
                     "items"
                 ],
                 "title": "ProjectListResponse"
-            },
-            "ProjectProductCreateRequest": {
-                "properties": {
-                    "project_id": {
-                        "type": "integer",
-                        "title": "Project Id"
-                    },
-                    "product_id": {
-                        "type": "integer",
-                        "title": "Product Id"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "project_id",
-                    "product_id"
-                ],
-                "title": "ProjectProductCreateRequest"
-            },
-            "ProjectProductDeleteResponse": {
-                "properties": {
-                    "project_id": {
-                        "type": "integer",
-                        "title": "Project Id"
-                    },
-                    "product_id": {
-                        "type": "integer",
-                        "title": "Product Id"
-                    },
-                    "message": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Message"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "project_id",
-                    "product_id"
-                ],
-                "title": "ProjectProductDeleteResponse"
-            },
-            "ProjectProductListResponse": {
-                "properties": {
-                    "items": {
-                        "items": {
-                            "$ref": "#/components/schemas/ProjectProductResponse"
-                        },
-                        "type": "array",
-                        "title": "Items"
-                    },
-                    "message": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Message"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "items"
-                ],
-                "title": "ProjectProductListResponse"
-            },
-            "ProjectProductResponse": {
-                "properties": {
-                    "project_id": {
-                        "type": "integer",
-                        "title": "Project Id"
-                    },
-                    "product_id": {
-                        "type": "integer",
-                        "title": "Product Id"
-                    },
-                    "message": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Message"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "project_id",
-                    "product_id"
-                ],
-                "title": "ProjectProductResponse"
             },
             "ProjectResponse": {
                 "properties": {
@@ -6991,17 +7622,16 @@
                         ],
                         "title": "User Id"
                     },
-                    "is_approved": {
+                    "status": {
                         "anyOf": [
                             {
-                                "type": "boolean"
+                                "$ref": "#/components/schemas/ReviewStatus"
                             },
                             {
                                 "type": "null"
                             }
                         ],
-                        "title": "Is Approved",
-                        "default": false
+                        "default": "PENDING"
                     }
                 },
                 "type": "object",
@@ -7099,9 +7729,8 @@
                         ],
                         "title": "User Id"
                     },
-                    "is_approved": {
-                        "type": "boolean",
-                        "title": "Is Approved"
+                    "status": {
+                        "$ref": "#/components/schemas/ReviewStatus"
                     },
                     "id": {
                         "type": "integer",
@@ -7129,11 +7758,20 @@
                     "author_name",
                     "rating",
                     "text",
-                    "is_approved",
+                    "status",
                     "id",
                     "created_at"
                 ],
                 "title": "ReviewResponse"
+            },
+            "ReviewStatus": {
+                "type": "string",
+                "enum": [
+                    "PENDING",
+                    "APPROVED",
+                    "DECLINED"
+                ],
+                "title": "ReviewStatus"
             },
             "ReviewUpdateRequest": {
                 "properties": {
@@ -7191,6 +7829,16 @@
                             }
                         ],
                         "title": "User Id"
+                    },
+                    "status": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ReviewStatus"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
                     }
                 },
                 "type": "object",

@@ -27,8 +27,10 @@ mixin _$ProductListItem {
   bool get isNew => throw _privateConstructorUsedError;
   bool get isHit => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
-  String? get mainImage => throw _privateConstructorUsedError;
+  List<String> get images => throw _privateConstructorUsedError;
   ProductDiscountInfo? get discount => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
+  int get reviewsCount => throw _privateConstructorUsedError;
 
   /// Create a copy of ProductListItem
   /// with the given fields replaced by the non-null parameter values.
@@ -55,8 +57,10 @@ abstract class $ProductListItemCopyWith<$Res> {
     bool isNew,
     bool isHit,
     bool isActive,
-    String? mainImage,
+    List<String> images,
     ProductDiscountInfo? discount,
+    double rating,
+    int reviewsCount,
   });
 
   $ProductDiscountInfoCopyWith<$Res>? get discount;
@@ -87,8 +91,10 @@ class _$ProductListItemCopyWithImpl<$Res, $Val extends ProductListItem>
     Object? isNew = null,
     Object? isHit = null,
     Object? isActive = null,
-    Object? mainImage = freezed,
+    Object? images = null,
     Object? discount = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _value.copyWith(
@@ -132,14 +138,22 @@ class _$ProductListItemCopyWithImpl<$Res, $Val extends ProductListItem>
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
                       as bool,
-            mainImage: freezed == mainImage
-                ? _value.mainImage
-                : mainImage // ignore: cast_nullable_to_non_nullable
-                      as String?,
+            images: null == images
+                ? _value.images
+                : images // ignore: cast_nullable_to_non_nullable
+                      as List<String>,
             discount: freezed == discount
                 ? _value.discount
                 : discount // ignore: cast_nullable_to_non_nullable
                       as ProductDiscountInfo?,
+            rating: null == rating
+                ? _value.rating
+                : rating // ignore: cast_nullable_to_non_nullable
+                      as double,
+            reviewsCount: null == reviewsCount
+                ? _value.reviewsCount
+                : reviewsCount // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -180,8 +194,10 @@ abstract class _$$ProductListItemImplCopyWith<$Res>
     bool isNew,
     bool isHit,
     bool isActive,
-    String? mainImage,
+    List<String> images,
     ProductDiscountInfo? discount,
+    double rating,
+    int reviewsCount,
   });
 
   @override
@@ -212,8 +228,10 @@ class __$$ProductListItemImplCopyWithImpl<$Res>
     Object? isNew = null,
     Object? isHit = null,
     Object? isActive = null,
-    Object? mainImage = freezed,
+    Object? images = null,
     Object? discount = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _$ProductListItemImpl(
@@ -257,14 +275,22 @@ class __$$ProductListItemImplCopyWithImpl<$Res>
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
                   as bool,
-        mainImage: freezed == mainImage
-            ? _value.mainImage
-            : mainImage // ignore: cast_nullable_to_non_nullable
-                  as String?,
+        images: null == images
+            ? _value._images
+            : images // ignore: cast_nullable_to_non_nullable
+                  as List<String>,
         discount: freezed == discount
             ? _value.discount
             : discount // ignore: cast_nullable_to_non_nullable
                   as ProductDiscountInfo?,
+        rating: null == rating
+            ? _value.rating
+            : rating // ignore: cast_nullable_to_non_nullable
+                  as double,
+        reviewsCount: null == reviewsCount
+            ? _value.reviewsCount
+            : reviewsCount // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -284,9 +310,11 @@ class _$ProductListItemImpl implements _ProductListItem {
     this.isNew = false,
     this.isHit = false,
     this.isActive = true,
-    this.mainImage,
+    final List<String> images = const [],
     this.discount,
-  });
+    this.rating = 0.0,
+    this.reviewsCount = 0,
+  }) : _images = images;
 
   @override
   final int id;
@@ -311,14 +339,27 @@ class _$ProductListItemImpl implements _ProductListItem {
   @override
   @JsonKey()
   final bool isActive;
+  final List<String> _images;
   @override
-  final String? mainImage;
+  @JsonKey()
+  List<String> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
   @override
   final ProductDiscountInfo? discount;
+  @override
+  @JsonKey()
+  final double rating;
+  @override
+  @JsonKey()
+  final int reviewsCount;
 
   @override
   String toString() {
-    return 'ProductListItem(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, mainImage: $mainImage, discount: $discount)';
+    return 'ProductListItem(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, images: $images, discount: $discount, rating: $rating, reviewsCount: $reviewsCount)';
   }
 
   @override
@@ -339,10 +380,12 @@ class _$ProductListItemImpl implements _ProductListItem {
             (identical(other.isHit, isHit) || other.isHit == isHit) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
-            (identical(other.mainImage, mainImage) ||
-                other.mainImage == mainImage) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.discount, discount) ||
-                other.discount == discount));
+                other.discount == discount) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.reviewsCount, reviewsCount) ||
+                other.reviewsCount == reviewsCount));
   }
 
   @override
@@ -358,8 +401,10 @@ class _$ProductListItemImpl implements _ProductListItem {
     isNew,
     isHit,
     isActive,
-    mainImage,
+    const DeepCollectionEquality().hash(_images),
     discount,
+    rating,
+    reviewsCount,
   );
 
   /// Create a copy of ProductListItem
@@ -386,8 +431,10 @@ abstract class _ProductListItem implements ProductListItem {
     final bool isNew,
     final bool isHit,
     final bool isActive,
-    final String? mainImage,
+    final List<String> images,
     final ProductDiscountInfo? discount,
+    final double rating,
+    final int reviewsCount,
   }) = _$ProductListItemImpl;
 
   @override
@@ -411,9 +458,13 @@ abstract class _ProductListItem implements ProductListItem {
   @override
   bool get isActive;
   @override
-  String? get mainImage;
+  List<String> get images;
   @override
   ProductDiscountInfo? get discount;
+  @override
+  double get rating;
+  @override
+  int get reviewsCount;
 
   /// Create a copy of ProductListItem
   /// with the given fields replaced by the non-null parameter values.

@@ -57,6 +57,10 @@ mixin _$ProductResponseDto {
   ProductDiscountInfoDto? get discount => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
   String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating')
+  double get rating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'reviews_count')
+  int get reviewsCount => throw _privateConstructorUsedError;
 
   /// Serializes this ProductResponseDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -93,6 +97,8 @@ abstract class $ProductResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'updated_at') String? updatedAt,
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') String? message,
+    @JsonKey(name: 'rating') double rating,
+    @JsonKey(name: 'reviews_count') int reviewsCount,
   });
 
   $CategoryResponseDtoCopyWith<$Res> get category;
@@ -131,6 +137,8 @@ class _$ProductResponseDtoCopyWithImpl<$Res, $Val extends ProductResponseDto>
     Object? updatedAt = freezed,
     Object? discount = freezed,
     Object? message = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _value.copyWith(
@@ -202,6 +210,14 @@ class _$ProductResponseDtoCopyWithImpl<$Res, $Val extends ProductResponseDto>
                 ? _value.message
                 : message // ignore: cast_nullable_to_non_nullable
                       as String?,
+            rating: null == rating
+                ? _value.rating
+                : rating // ignore: cast_nullable_to_non_nullable
+                      as double,
+            reviewsCount: null == reviewsCount
+                ? _value.reviewsCount
+                : reviewsCount // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -259,6 +275,8 @@ abstract class _$$ProductResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'updated_at') String? updatedAt,
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') String? message,
+    @JsonKey(name: 'rating') double rating,
+    @JsonKey(name: 'reviews_count') int reviewsCount,
   });
 
   @override
@@ -298,6 +316,8 @@ class __$$ProductResponseDtoImplCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? discount = freezed,
     Object? message = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _$ProductResponseDtoImpl(
@@ -369,6 +389,14 @@ class __$$ProductResponseDtoImplCopyWithImpl<$Res>
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
                   as String?,
+        rating: null == rating
+            ? _value.rating
+            : rating // ignore: cast_nullable_to_non_nullable
+                  as double,
+        reviewsCount: null == reviewsCount
+            ? _value.reviewsCount
+            : reviewsCount // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -397,6 +425,8 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
     @JsonKey(name: 'updated_at') this.updatedAt,
     @JsonKey(name: 'discount') this.discount,
     @JsonKey(name: 'message') this.message,
+    @JsonKey(name: 'rating') this.rating = 0.0,
+    @JsonKey(name: 'reviews_count') this.reviewsCount = 0,
   }) : _attributes = attributes,
        _images = images;
 
@@ -466,10 +496,16 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
   @override
   @JsonKey(name: 'message')
   final String? message;
+  @override
+  @JsonKey(name: 'rating')
+  final double rating;
+  @override
+  @JsonKey(name: 'reviews_count')
+  final int reviewsCount;
 
   @override
   String toString() {
-    return 'ProductResponseDto(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount, message: $message)';
+    return 'ProductResponseDto(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount, message: $message, rating: $rating, reviewsCount: $reviewsCount)';
   }
 
   @override
@@ -503,12 +539,15 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
                 other.updatedAt == updatedAt) &&
             (identical(other.discount, discount) ||
                 other.discount == discount) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.reviewsCount, reviewsCount) ||
+                other.reviewsCount == reviewsCount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     runtimeType,
     id,
     name,
@@ -527,7 +566,9 @@ class _$ProductResponseDtoImpl implements _ProductResponseDto {
     updatedAt,
     discount,
     message,
-  );
+    rating,
+    reviewsCount,
+  ]);
 
   /// Create a copy of ProductResponseDto
   /// with the given fields replaced by the non-null parameter values.
@@ -566,6 +607,8 @@ abstract class _ProductResponseDto implements ProductResponseDto {
     @JsonKey(name: 'updated_at') final String? updatedAt,
     @JsonKey(name: 'discount') final ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') final String? message,
+    @JsonKey(name: 'rating') final double rating,
+    @JsonKey(name: 'reviews_count') final int reviewsCount,
   }) = _$ProductResponseDtoImpl;
 
   factory _ProductResponseDto.fromJson(Map<String, dynamic> json) =
@@ -622,6 +665,12 @@ abstract class _ProductResponseDto implements ProductResponseDto {
   @override
   @JsonKey(name: 'message')
   String? get message;
+  @override
+  @JsonKey(name: 'rating')
+  double get rating;
+  @override
+  @JsonKey(name: 'reviews_count')
+  int get reviewsCount;
 
   /// Create a copy of ProductResponseDto
   /// with the given fields replaced by the non-null parameter values.

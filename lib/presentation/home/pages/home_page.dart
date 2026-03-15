@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_spacing.dart';
-import '../providers/home_providers.dart';
+import '../../../core/constants/home_sizes.dart';
+import '../../../core/constants/screen_size.dart';
+import '../../../core/theme/app_theme.dart';
 import '../widgets/home_banner_section.dart';
+import '../widgets/home_campaigns_section.dart';
 import '../widgets/home_footer.dart';
-import '../widgets/home_products_section.dart';
+import '../widgets/home_furniture_section.dart';
+import '../widgets/home_kitchens_section.dart';
 import '../widgets/home_search_bar.dart';
 
 @RoutePage()
@@ -16,8 +19,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hitsAsync = ref.watch(homeHitsProvider);
-    final newAsync = ref.watch(homeNewProductsProvider);
+    final screenSize = context.screenSize;
 
     return Scaffold(
       body: CustomScrollView(
@@ -26,32 +28,18 @@ class HomePage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: AppSpacing.xl),
                 const HomeBannerSection(),
-                const SizedBox(height: AppSpacing.xl),
+                SizedBox(height: screenSize.sectionSpacing),
                 const HomeSearchBar(),
-                const SizedBox(height: AppSpacing.xxl),
-                hitsAsync.when(
-                  data: (catalog) => HomeProductsSection(
-                    title: 'Популярные кухни',
-                    productList: catalog.items,
-                  ),
-                  loading: () =>
-                      const _SectionPlaceholder(title: 'Популярные кухни'),
-                  error: (_, __) =>
-                      const _SectionPlaceholder(title: 'Популярные кухни'),
-                ),
-                const SizedBox(height: AppSpacing.xxl),
-                newAsync.when(
-                  data: (catalog) => HomeProductsSection(
-                    title: 'Новинки',
-                    productList: catalog.items,
-                  ),
-                  loading: () => const _SectionPlaceholder(title: 'Новинки'),
-                  error: (_, __) => const _SectionPlaceholder(title: 'Новинки'),
-                ),
-                const SizedBox(height: AppSpacing.xxl),
+                SizedBox(height: screenSize.sectionSpacing),
+                const HomeKitchensSection(),
+                const HomeFurnitureSection(),
+                const HomeCampaignsSection(),
+                SizedBox(height: screenSize.sectionSpacing),
                 const HomeFooter(),
+                SizedBox(height: screenSize.sectionSpacing),
+                const _ThemeToggle(),
+                SizedBox(height: screenSize.sectionSpacing),
               ],
             ),
           ),
@@ -61,53 +49,61 @@ class HomePage extends ConsumerWidget {
   }
 }
 
-class _SectionPlaceholder extends StatelessWidget {
-  const _SectionPlaceholder({required this.title});
-
-  final String title;
+class _ThemeToggle extends ConsumerWidget {
+  const _ThemeToggle();
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: AppSpacing.lg),
-          SizedBox(
-            height: 220,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: 3,
-              separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.lg),
-              itemBuilder: (_, __) => const _ProductCardSkeleton(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+    final isDark =
+        themeMode == ThemeMode.dark ||
+        (themeMode == ThemeMode.system &&
+            Theme.of(context).brightness == Brightness.dark);
+
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: context.screenSize.horizontalPadding,
+        ),
+        child: Material(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(12),
+          child: InkWell(
+            onTap: () {
+              ref.read(themeModeProvider.notifier).state = isDark
+                  ? ThemeMode.light
+                  : ThemeMode.dark;
+            },
+            borderRadius: BorderRadius.circular(12),
+            child: Padding(
+              padding: context.screenSize.themeTogglePadding,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    isDark ? Icons.dark_mode : Icons.light_mode,
+                    color: AppColors.accent,
+                    size: context.screenSize.themeToggleIconSize,
+                  ),
+                  SizedBox(width: context.screenSize.horizontalPadding * 0.5),
+                  Text(
+                    isDark ? 'Тёмная тема' : 'Светлая тема',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColors.onSurface,
+                      fontSize: context.screenSize.labelLargeSize,
+                    ),
+                  ),
+                  SizedBox(width: context.screenSize.horizontalPadding * 0.5),
+                  Icon(
+                    Icons.swap_horiz,
+                    color: AppColors.onSurfaceVariant,
+                    size: context.screenSize.themeToggleIconSmallSize,
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ProductCardSkeleton extends StatelessWidget {
-  const _ProductCardSkeleton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      decoration: BoxDecoration(
-        color: AppColors.neutral10,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(flex: 3, child: SizedBox()),
-          SizedBox(height: 8),
-          Expanded(child: SizedBox()),
-        ],
+        ),
       ),
     );
   }

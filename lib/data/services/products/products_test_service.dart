@@ -40,7 +40,7 @@ class ProductsTestService {
       isNew: true,
       isHit: false,
       isActive: true,
-      mainImage: 'https://example.com/img1.jpg',
+      images: ['https://example.com/img1.jpg'],
     ),
     ProductListItemResponseDto(
       id: 2,
@@ -53,7 +53,7 @@ class ProductsTestService {
       isNew: false,
       isHit: true,
       isActive: true,
-      mainImage: null,
+      images: [],
     ),
   ];
 
@@ -107,17 +107,16 @@ class ProductsTestService {
     return const ResponseResult.success(_mockCatalog);
   }
 
-  Future<ResponseResult<ProductSearchSuggestionsResponseDto>> getSearchSuggestions({
-    required String text,
-    String? type,
-    int? limit,
-  }) async {
+  Future<ResponseResult<ProductSearchSuggestionsResponseDto>>
+  getSearchSuggestions({required String text, String? type, int? limit}) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
     final count = (limit ?? 10).clamp(0, _mockSuggestionItems.length);
-    return ResponseResult.success(ProductSearchSuggestionsResponseDto(
-      items: _mockSuggestionItems.take(count).toList(),
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProductSearchSuggestionsResponseDto(
+        items: _mockSuggestionItems.take(count).toList(),
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductHits({
@@ -125,17 +124,20 @@ class ProductsTestService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    String? type,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
     final hitItems = _mockListItems.where((e) => e.isHit).toList();
-    return ResponseResult.success(ProductCatalogResponseDto(
-      items: hitItems,
-      total: hitItems.length,
-      page: page ?? 1,
-      pageSize: pageSize ?? 10,
-      totalPages: hitItems.isEmpty ? 1 : 1,
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProductCatalogResponseDto(
+        items: hitItems,
+        total: hitItems.length,
+        page: page ?? 1,
+        pageSize: pageSize ?? 10,
+        totalPages: hitItems.isEmpty ? 1 : 1,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductNew({
@@ -143,17 +145,20 @@ class ProductsTestService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    String? type,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
     final newItems = _mockListItems.where((e) => e.isNew).toList();
-    return ResponseResult.success(ProductCatalogResponseDto(
-      items: newItems,
-      total: newItems.length,
-      page: page ?? 1,
-      pageSize: pageSize ?? 10,
-      totalPages: newItems.isEmpty ? 1 : 1,
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProductCatalogResponseDto(
+        items: newItems,
+        total: newItems.length,
+        page: page ?? 1,
+        pageSize: pageSize ?? 10,
+        totalPages: newItems.isEmpty ? 1 : 1,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductDiscounts({
@@ -161,6 +166,7 @@ class ProductsTestService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    String? type,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
     return const ResponseResult.success(_mockCatalog);
@@ -178,48 +184,52 @@ class ProductsTestService {
     required int productId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));
-    return ResponseResult.success(ProductResponseDto(
-      id: productId,
-      name: 'Товар $productId',
-      categoryId: 1,
-      type: ProductTypeDto.KITCHEN,
-      category: _mockCategory,
-      createdAt: '2024-01-15T10:00:00Z',
-      slug: 'product-$productId',
-      description: null,
-      price: '0',
-      isNew: false,
-      isHit: false,
-      isActive: true,
-      attributes: const [],
-      images: const [],
-      updatedAt: null,
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProductResponseDto(
+        id: productId,
+        name: 'Товар $productId',
+        categoryId: 1,
+        type: ProductTypeDto.KITCHEN,
+        category: _mockCategory,
+        createdAt: '2024-01-15T10:00:00Z',
+        slug: 'product-$productId',
+        description: null,
+        price: '0',
+        isNew: false,
+        isHit: false,
+        isActive: true,
+        attributes: const [],
+        images: const [],
+        updatedAt: null,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProductResponseDto>> createProduct({
     required ProductCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
-    return ResponseResult.success(ProductResponseDto(
-      id: 99,
-      name: request.name,
-      categoryId: request.categoryId,
-      type: request.type,
-      category: _mockCategory,
-      createdAt: DateTime.now().toIso8601String(),
-      slug: request.slug,
-      description: request.description,
-      price: request.price?.toString(),
-      isNew: request.isNew,
-      isHit: request.isHit,
-      isActive: true,
-      attributes: const [],
-      images: const [],
-      updatedAt: null,
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProductResponseDto(
+        id: 99,
+        name: request.name,
+        categoryId: request.categoryId,
+        type: request.type,
+        category: _mockCategory,
+        createdAt: DateTime.now().toIso8601String(),
+        slug: request.slug,
+        description: request.description,
+        price: request.price?.toString(),
+        isNew: request.isNew,
+        isHit: request.isHit,
+        isActive: true,
+        attributes: const [],
+        images: const [],
+        updatedAt: null,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProductResponseDto>> updateProduct({
@@ -227,24 +237,26 @@ class ProductsTestService {
     required ProductUpdateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
-    return ResponseResult.success(ProductResponseDto(
-      id: productId,
-      name: request.name ?? 'Товар $productId',
-      categoryId: request.categoryId ?? 1,
-      type: request.type ?? ProductTypeDto.KITCHEN,
-      category: _mockCategory,
-      createdAt: '2024-01-15T10:00:00Z',
-      slug: request.slug,
-      description: request.description,
-      price: request.price?.toString(),
-      isNew: request.isNew ?? false,
-      isHit: request.isHit ?? false,
-      isActive: true,
-      attributes: const [],
-      images: const [],
-      updatedAt: DateTime.now().toIso8601String(),
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProductResponseDto(
+        id: productId,
+        name: request.name ?? 'Товар $productId',
+        categoryId: request.categoryId ?? 1,
+        type: request.type ?? ProductTypeDto.KITCHEN,
+        category: _mockCategory,
+        createdAt: '2024-01-15T10:00:00Z',
+        slug: request.slug,
+        description: request.description,
+        price: request.price?.toString(),
+        isNew: request.isNew ?? false,
+        isHit: request.isHit ?? false,
+        isActive: true,
+        attributes: const [],
+        images: const [],
+        updatedAt: DateTime.now().toIso8601String(),
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProductDeleteResponseDto>> deleteProduct({

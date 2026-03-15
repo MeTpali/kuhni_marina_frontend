@@ -70,10 +70,10 @@ class _ExpandableTextState extends State<ExpandableText> {
                 onTap: _toggleExpanded,
                 child: Text(
                   _expanded ? 'Скрыть' : 'Читать полностью',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.fairway,
+                    color: AppColors.primary,
                   ),
                 ),
               ),

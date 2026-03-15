@@ -21,9 +21,11 @@ class ProductListItemMapper
         isNew: from.isNew,
         isHit: from.isHit,
         isActive: from.isActive,
-        mainImage: from.mainImage,
+        images: from.images,
         discount:
             from.discount != null ? _discountMapper.map(from.discount!) : null,
+        rating: from.rating,
+        reviewsCount: from.reviewsCount,
       );
 
   static ProductType _toDomainType(ProductTypeDto dto) =>

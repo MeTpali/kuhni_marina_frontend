@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_radius.dart';
-import '../../../core/constants/app_spacing.dart';
+import '../../../core/constants/home_sizes.dart';
+import '../../../core/constants/screen_size.dart';
 
 /// Поле поиска на главной (заглушка под будущий экран поиска).
 class HomeSearchBar extends StatelessWidget {
@@ -15,8 +16,9 @@ class HomeSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.screenSize;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      padding: EdgeInsets.symmetric(horizontal: s.horizontalPadding),
       child: Material(
         color: AppColors.surface,
         borderRadius: AppRadius.mdAll,
@@ -25,10 +27,7 @@ class HomeSearchBar extends StatelessWidget {
           onTap: onTap,
           borderRadius: AppRadius.mdAll,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.lg,
-              vertical: AppSpacing.md,
-            ),
+            padding: s.searchBarPadding,
             decoration: BoxDecoration(
               borderRadius: AppRadius.mdAll,
               border: Border.all(color: AppColors.outline),
@@ -37,14 +36,15 @@ class HomeSearchBar extends StatelessWidget {
               children: [
                 Icon(
                   Icons.search_rounded,
-                  size: 22,
+                  size: s.searchIconSize,
                   color: AppColors.onSurfaceTertiary,
                 ),
-                const SizedBox(width: AppSpacing.sm),
+                SizedBox(width: s.horizontalPadding * 0.5),
                 Text(
                   'Поиск по каталогу кухонь',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: AppColors.onSurfaceTertiary,
+                        fontSize: s.bodyLargeSize,
                       ),
                 ),
               ],

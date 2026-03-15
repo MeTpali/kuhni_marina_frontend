@@ -1,80 +1,132 @@
 import 'package:flutter/material.dart';
 
-/// Цветовая палитра дизайн-системы для элитных кухонь.
-///
-/// Семантика:
-/// - [primary] / [primaryVariant] — основной бренд (благородный зелёный).
-/// - [accent] / [accentLight] — акцент премиум (золото, латунь).
-/// - [surface] / [background] — фон экранов и карточек.
-/// - [onPrimary], [onSurface], [onSurfaceVariant] — текст и иконки на фоне.
-/// - [outline] / [divider] — границы и разделители.
+// ---------------------------------------------------------------------------
+// Светлая тема (бело-молочный фон, тёмный текст)
+// ---------------------------------------------------------------------------
+
+abstract class AppColorsLight {
+  AppColorsLight._();
+
+  static const Color primary = Color(0xFF1F3A5F);
+  static const Color primaryVariant = Color(0xFF2C4F7C);
+  static const Color primaryContainer = Color(0xFFE8EEF6);
+  static const Color onPrimary = Color(0xFFFFFFFF);
+  static const Color onPrimaryContainer = Color(0xFF1C2B3A);
+
+  static const Color accent = Color(0xFFC6A15B);
+  static const Color accentLight = Color(0xFFD6BA82);
+  static const Color onAccent = Color(0xFF26292B);
+
+  static const Color background = Color(0xFFFAF9F7);
+  static const Color surface = Color(0xFFFCFCFD);
+  static const Color surfaceElevated = Color(0xFFF6F6F6);
+  static const Color onSurface = Color(0xFF26292B);
+  static const Color onSurfaceVariant = Color(0xFF5D666C);
+  static const Color onSurfaceTertiary = Color(0xFF919A9F);
+  static const Color outline = Color(0xFFD9DCDE);
+  static const Color divider = Color(0xFFE8E8E8);
+  static const Color error = Color(0xFFB3261E);
+  static const Color onError = Color(0xFFFFFFFF);
+}
+
+// ---------------------------------------------------------------------------
+// Тёмная тема (глубокий синий фон, золотые акценты)
+// ---------------------------------------------------------------------------
+
+abstract class AppColorsDark {
+  AppColorsDark._();
+
+  static const Color primary = Color(0xFF1F3A5F);
+  static const Color primaryVariant = Color(0xFF2C4F7C);
+  static const Color primaryContainer = Color(0xFF2A3F5C);
+  static const Color onPrimary = Color(0xFFFFFFFF);
+  static const Color onPrimaryContainer = Color(0xFFE2E8F0);
+
+  static const Color accent = Color(0xFFC6A15B);
+  static const Color accentLight = Color(0xFFD6BA82);
+  static const Color onAccent = Color(0xFF1A1D21);
+
+  static const Color background = Color(0xFF0F1729);
+  static const Color surface = Color(0xFF1A2332);
+  static const Color surfaceElevated = Color(0xFF243447);
+  static const Color onSurface = Color(0xFFF1F5F9);
+  static const Color onSurfaceVariant = Color(0xFF94A3B8);
+  static const Color onSurfaceTertiary = Color(0xFF64748B);
+  static const Color outline = Color(0xFF334155);
+  static const Color divider = Color(0xFF334155);
+  static const Color error = Color(0xFFB3261E);
+  static const Color onError = Color(0xFFFFFFFF);
+}
+
+// ---------------------------------------------------------------------------
+// Текущая палитра (зависит от активной темы)
+// ---------------------------------------------------------------------------
+
+/// Цветовая палитра дизайн-системы. Значения зависят от текущей темы.
+/// Яркость синхронизируется в [KuhniMarinaApp] через [updateBrightness].
 abstract class AppColors {
+  /// Устанавливается из [Theme.of(context).brightness]. По умолчанию — тёмная тема.
+  static Brightness? _brightness = Brightness.dark;
+
+  static void updateBrightness(Brightness brightness) {
+    _brightness = brightness;
+  }
+
+  static bool get _isDark => _brightness != Brightness.light;
+
   // ---------------------------------------------------------------------------
   // Семантические цвета бренда
   // ---------------------------------------------------------------------------
 
-  /// Основной цвет бренда (глубокий благородный зелёный).
-  static const Color primary = Color(0xFF2B5240);
-
-  /// Вариант основного (светлее, для hover/акцентов).
-  static const Color primaryVariant = Color(0xFF369551);
-
-  /// Светлый фон в зелёной гамме (подложки, бейджи).
-  static const Color primaryContainer = Color(0xFFE8F5EB);
-
-  /// Текст на [primary] и [primaryVariant].
+  static Color get primary =>
+      _isDark ? AppColorsDark.primary : AppColorsLight.primary;
+  static Color get primaryVariant =>
+      _isDark ? AppColorsDark.primaryVariant : AppColorsLight.primaryVariant;
+  static Color get primaryContainer => _isDark
+      ? AppColorsDark.primaryContainer
+      : AppColorsLight.primaryContainer;
   static const Color onPrimary = Color(0xFFFFFFFF);
+  static Color get onPrimaryContainer => _isDark
+      ? AppColorsDark.onPrimaryContainer
+      : AppColorsLight.onPrimaryContainer;
 
-  /// Текст на [primaryContainer].
-  static const Color onPrimaryContainer = Color(0xFF1E2E23);
-
-  /// Акцент премиум: золото / латунь.
-  static const Color accent = Color(0xFFB8860B);
-
-  /// Светлое золото (hover, подсветка).
-  static const Color accentLight = Color(0xFFC9A962);
-
-  /// Текст на [accent].
-  static const Color onAccent = Color(0xFFFFFFFF);
+  static Color get accent =>
+      _isDark ? AppColorsDark.accent : AppColorsLight.accent;
+  static Color get accentLight =>
+      _isDark ? AppColorsDark.accentLight : AppColorsLight.accentLight;
+  static Color get onAccent =>
+      _isDark ? AppColorsDark.onAccent : AppColorsLight.onAccent;
 
   // ---------------------------------------------------------------------------
-  // Нейтралы и поверхности (тёплые оттенки)
+  // Нейтралы и поверхности
   // ---------------------------------------------------------------------------
 
-  /// Чистый белый (иконки на тёмном, текст на primary).
   static const Color white = Color(0xFFFFFFFF);
 
-  /// Тёплый белый / слоновая кость — основной фон экранов.
-  static const Color background = Color(0xFFFAF9F7);
+  static Color get background =>
+      _isDark ? AppColorsDark.background : AppColorsLight.background;
+  static Color get surface =>
+      _isDark ? AppColorsDark.surface : AppColorsLight.surface;
+  static Color get surfaceElevated =>
+      _isDark ? AppColorsDark.surfaceElevated : AppColorsLight.surfaceElevated;
+  static Color get onSurface =>
+      _isDark ? AppColorsDark.onSurface : AppColorsLight.onSurface;
+  static Color get onSurfaceVariant => _isDark
+      ? AppColorsDark.onSurfaceVariant
+      : AppColorsLight.onSurfaceVariant;
+  static Color get onSurfaceTertiary => _isDark
+      ? AppColorsDark.onSurfaceTertiary
+      : AppColorsLight.onSurfaceTertiary;
+  static Color get outline =>
+      _isDark ? AppColorsDark.outline : AppColorsLight.outline;
+  static Color get divider =>
+      _isDark ? AppColorsDark.divider : AppColorsLight.divider;
 
-  /// Фон карточек, листов, модалок.
-  static const Color surface = Color(0xFFFCFCFD);
-
-  /// Приподнятая поверхность (карточки при hover, чипы).
-  static const Color surfaceElevated = Color(0xFFF6F6F6);
-
-  /// Текст основной (заголовки, параграфы).
-  static const Color onSurface = Color(0xFF26292B);
-
-  /// Текст вторичный (подписи, мета).
-  static const Color onSurfaceVariant = Color(0xFF5D666C);
-
-  /// Текст третичный (placeholder, disabled).
-  static const Color onSurfaceTertiary = Color(0xFF919A9F);
-
-  /// Границы полей, разделители.
-  static const Color outline = Color(0xFFD9DCDE);
-
-  /// Слабый разделитель (линии между элементами списка).
-  static const Color divider = Color(0xFFE8E8E8);
-
-  /// Ошибки и деструктивные действия.
   static const Color error = Color(0xFFB3261E);
-
   static const Color onError = Color(0xFFFFFFFF);
 
   // ---------------------------------------------------------------------------
-  // Шкала нейтралов (тёплый серый) — для градиентов и тонкой настройки
+  // Шкала нейтралов (общая для обеих тем)
   // ---------------------------------------------------------------------------
 
   static const Color neutral0 = Color(0xFFFFFFFF);
@@ -92,7 +144,7 @@ abstract class AppColors {
   static const Color neutralBlack = Color(0xFF161616);
 
   // ---------------------------------------------------------------------------
-  // Обратная совместимость: алиасы для существующих виджетов
+  // Алиасы для существующих виджетов
   // ---------------------------------------------------------------------------
 
   static const Color base0 = white;
@@ -106,30 +158,37 @@ abstract class AppColors {
   static const Color base70 = neutral70;
   static const Color base80 = neutral80;
   static const Color base90 = neutral90;
-  static const Color base100 = neutral100;
+  static Color get base100 => onSurface;
 
-  static const Color brilliance = surface;
-  static const Color carbonFiber = onSurface;
-  static const Color kettleman = onSurfaceVariant;
-  static const Color squant = onSurfaceTertiary;
-  static const Color uniformGrey = onSurfaceTertiary;
-  static const Color fairway = primaryVariant;
-  static const Color formalGarden = primaryVariant;
-  static const Color greenStain = primary;
-  static const Color quartzite = onPrimaryContainer;
-  static const Color astronomer = primaryContainer;
-  static const Color silverLeaf = Color(0xFF9BBAA2);
-  static const Color whiteEdgar = surfaceElevated;
-  static const Color unicornSilver = outline;
-  static const Color boysenberryShadow = Color(0xFFF2F2FA);
-  static const Color drWhite = Color(0xFFFAFAFA);
-  static const Color washMe = Color(0xFFFAFAFF);
-  static const Color whitePerl = Color(0xFFFAFAFF);
-  static const Color foundationWhite = Color(0xFFF0F0FF);
-  static const Color cascadingWhite = surfaceElevated;
-  static const Color crystalBell = Color(0xFFEFEFEF);
-  static const Color windChill = primaryContainer;
-  static const Color navyBlazer = Color(0xFF28303F);
+  static Color get brilliance => surface;
+  static Color get carbonFiber => onSurface;
+  static Color get kettleman => onSurfaceVariant;
+  static Color get squant => onSurfaceTertiary;
+  static Color get uniformGrey => onSurfaceTertiary;
+  static Color get fairway => primaryVariant;
+  static Color get formalGarden => primaryVariant;
+  static Color get greenStain => primary;
+  static Color get quartzite => onPrimaryContainer;
+  static Color get astronomer => primaryContainer;
+  static Color get silverLeaf =>
+      _isDark ? const Color(0xFF6B8A9E) : const Color(0xFF9BBAA2);
+  static Color get whiteEdgar => surfaceElevated;
+  static Color get unicornSilver => outline;
+  static Color get boysenberryShadow =>
+      _isDark ? const Color(0xFF1E293B) : const Color(0xFFF2F2FA);
+  static Color get drWhite => surface;
+  static Color get washMe =>
+      _isDark ? const Color(0xFF1E293B) : const Color(0xFFFAFAFF);
+  static Color get whitePerl =>
+      _isDark ? const Color(0xFF1E293B) : const Color(0xFFFAFAFF);
+  static Color get foundationWhite =>
+      _isDark ? const Color(0xFF1A2332) : const Color(0xFFF0F0FF);
+  static Color get cascadingWhite => surfaceElevated;
+  static Color get crystalBell =>
+      _isDark ? const Color(0xFF334155) : const Color(0xFFEFEFEF);
+  static Color get windChill => primaryContainer;
+  static Color get navyBlazer =>
+      _isDark ? const Color(0xFF1A2332) : const Color(0xFF28303F);
   static const Color potBlack = neutralBlack;
   static const Color lacqueredLiquorice = Color(0xFF383838);
   static const Color blueGenie = Color(0xFF6666FF);

@@ -34,6 +34,8 @@ class ProductMapper implements IMapper<ProductResponseDto, Product> {
       images: from.images.map(_imageMapper.map).toList(),
       updatedAt: from.updatedAt,
       discount: from.discount != null ? _discountMapper.map(from.discount!) : null,
+      rating: from.rating,
+      reviewsCount: from.reviewsCount,
     );
   }
 

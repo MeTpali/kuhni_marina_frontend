@@ -31,6 +31,8 @@ class ProductResponseDto with _$ProductResponseDto {
     @JsonKey(name: 'updated_at') String? updatedAt,
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'message') String? message,
+    @Default(0.0) @JsonKey(name: 'rating') double rating,
+    @Default(0) @JsonKey(name: 'reviews_count') int reviewsCount,
   }) = _ProductResponseDto;
 
   factory ProductResponseDto.fromJson(Map<String, dynamic> json) =>

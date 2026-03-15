@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/app_colors.dart';
 import '../types/bracing.dart';
 
 extension BracingCardType on BracingType {
@@ -26,7 +25,7 @@ class AppCard extends StatelessWidget {
   final Widget? child;
   final EdgeInsetsGeometry? contentPadding;
   final VoidCallback? onTap;
-  final Color color;
+  final Color? color;
   final double? borderRadius;
   final BoxBorder? border;
   final BracingType bracingType;
@@ -35,7 +34,7 @@ class AppCard extends StatelessWidget {
     this.child,
     this.contentPadding,
     this.onTap,
-    this.color = AppColors.brilliance,
+    this.color,
     this.borderRadius,
     this.border,
     this.bracingType = BracingType.none,
@@ -45,7 +44,7 @@ class AppCard extends StatelessWidget {
   const AppCard.defaultPadding({
     this.child,
     this.onTap,
-    this.color = AppColors.brilliance,
+    this.color,
     this.borderRadius,
     this.border,
     this.bracingType = BracingType.none,
@@ -55,7 +54,7 @@ class AppCard extends StatelessWidget {
   const AppCard.verticalPadding({
     this.child,
     this.onTap,
-    this.color = AppColors.brilliance,
+    this.color,
     this.borderRadius,
     this.border,
     this.bracingType = BracingType.none,

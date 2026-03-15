@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_spacing.dart';
+import '../../../core/constants/home_sizes.dart';
+import '../../../core/constants/screen_size.dart';
 
 /// Футер главной: общая информация о компании.
 class HomeFooter extends StatelessWidget {
@@ -9,12 +10,10 @@ class HomeFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.screenSize;
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.xxl,
-      ),
+      padding: s.footerPadding,
       decoration: BoxDecoration(
         color: AppColors.primary,
       ),
@@ -28,35 +27,40 @@ class HomeFooter extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     color: AppColors.white,
                     fontWeight: FontWeight.w600,
+                    fontSize: s.headlineSmallSize,
                   ),
             ),
-            const SizedBox(height: AppSpacing.sm),
+            SizedBox(height: s.sectionTitleBottomSpacing * 0.5),
             Text(
               'Элитные кухни на заказ. Индивидуальный дизайн, премиальные материалы и безупречное качество сборки.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.white.withValues(alpha: 0.9),
+                    fontSize: s.bodyMediumSize,
                   ),
             ),
-            const SizedBox(height: AppSpacing.xl),
+            SizedBox(height: s.sectionSpacing * 0.75),
             Text(
               'Контакты',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: AppColors.accentLight,
                     fontWeight: FontWeight.w600,
+                    fontSize: s.titleSmallSize,
                   ),
             ),
-            const SizedBox(height: AppSpacing.xs),
+            SizedBox(height: s.sectionTitleBottomSpacing * 0.25),
             Text(
               'Телефон: +7 (XXX) XXX-XX-XX',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.white.withValues(alpha: 0.9),
+                    fontSize: s.bodyMediumSize,
                   ),
             ),
-            const SizedBox(height: AppSpacing.xxs),
+            SizedBox(height: s.sectionTitleBottomSpacing * 0.25),
             Text(
               'Email: info@kuhni-marina.ru',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.white.withValues(alpha: 0.9),
+                    fontSize: s.bodyMediumSize,
                   ),
             ),
           ],

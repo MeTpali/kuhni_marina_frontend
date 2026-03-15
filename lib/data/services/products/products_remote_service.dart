@@ -65,12 +65,14 @@ class ProductsRemoteService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    String? type,
   }) async => _getProductCatalogPage(
     path: '$_path/hits',
     page: page,
     pageSize: pageSize,
     categoryIds: categoryIds,
     attributeFilters: attributeFilters,
+    type: type,
   );
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductNew({
@@ -78,12 +80,14 @@ class ProductsRemoteService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    String? type,
   }) async => _getProductCatalogPage(
     path: '$_path/new',
     page: page,
     pageSize: pageSize,
     categoryIds: categoryIds,
     attributeFilters: attributeFilters,
+    type: type,
   );
 
   Future<ResponseResult<ProductCatalogResponseDto>> getProductDiscounts({
@@ -91,12 +95,14 @@ class ProductsRemoteService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    String? type,
   }) async => _getProductCatalogPage(
     path: '$_path/discounts',
     page: page,
     pageSize: pageSize,
     categoryIds: categoryIds,
     attributeFilters: attributeFilters,
+    type: type,
   );
 
   Future<ResponseResult<ProductSearchSuggestionsResponseDto>> getSearchSuggestions({
@@ -266,6 +272,7 @@ class ProductsRemoteService {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    String? type,
   }) async {
     try {
       final queryParams = _catalogQueryParams(
@@ -274,6 +281,7 @@ class ProductsRemoteService {
         categoryIds: categoryIds,
         attributeFilters: attributeFilters,
       );
+      if (type != null) queryParams['type'] = type;
       final response = await _dio.get<Map<String, dynamic>>(
         path,
         queryParameters: queryParams.isEmpty ? null : queryParams,

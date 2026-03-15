@@ -43,10 +43,14 @@ mixin _$ProductListItemResponseDto {
   bool get isHit => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool get isActive => throw _privateConstructorUsedError;
-  @JsonKey(name: 'main_image')
-  String? get mainImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'images')
+  List<String> get images => throw _privateConstructorUsedError;
   @JsonKey(name: 'discount')
   ProductDiscountInfoDto? get discount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating')
+  double get rating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'reviews_count')
+  int get reviewsCount => throw _privateConstructorUsedError;
 
   /// Serializes this ProductListItemResponseDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -80,8 +84,10 @@ abstract class $ProductListItemResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'is_new') bool isNew,
     @JsonKey(name: 'is_hit') bool isHit,
     @JsonKey(name: 'is_active') bool isActive,
-    @JsonKey(name: 'main_image') String? mainImage,
+    @JsonKey(name: 'images') List<String> images,
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
+    @JsonKey(name: 'rating') double rating,
+    @JsonKey(name: 'reviews_count') int reviewsCount,
   });
 
   $ProductDiscountInfoDtoCopyWith<$Res>? get discount;
@@ -115,8 +121,10 @@ class _$ProductListItemResponseDtoCopyWithImpl<
     Object? isNew = null,
     Object? isHit = null,
     Object? isActive = null,
-    Object? mainImage = freezed,
+    Object? images = null,
     Object? discount = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _value.copyWith(
@@ -160,14 +168,22 @@ class _$ProductListItemResponseDtoCopyWithImpl<
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
                       as bool,
-            mainImage: freezed == mainImage
-                ? _value.mainImage
-                : mainImage // ignore: cast_nullable_to_non_nullable
-                      as String?,
+            images: null == images
+                ? _value.images
+                : images // ignore: cast_nullable_to_non_nullable
+                      as List<String>,
             discount: freezed == discount
                 ? _value.discount
                 : discount // ignore: cast_nullable_to_non_nullable
                       as ProductDiscountInfoDto?,
+            rating: null == rating
+                ? _value.rating
+                : rating // ignore: cast_nullable_to_non_nullable
+                      as double,
+            reviewsCount: null == reviewsCount
+                ? _value.reviewsCount
+                : reviewsCount // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -208,8 +224,10 @@ abstract class _$$ProductListItemResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'is_new') bool isNew,
     @JsonKey(name: 'is_hit') bool isHit,
     @JsonKey(name: 'is_active') bool isActive,
-    @JsonKey(name: 'main_image') String? mainImage,
+    @JsonKey(name: 'images') List<String> images,
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
+    @JsonKey(name: 'rating') double rating,
+    @JsonKey(name: 'reviews_count') int reviewsCount,
   });
 
   @override
@@ -244,8 +262,10 @@ class __$$ProductListItemResponseDtoImplCopyWithImpl<$Res>
     Object? isNew = null,
     Object? isHit = null,
     Object? isActive = null,
-    Object? mainImage = freezed,
+    Object? images = null,
     Object? discount = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _$ProductListItemResponseDtoImpl(
@@ -289,14 +309,22 @@ class __$$ProductListItemResponseDtoImplCopyWithImpl<$Res>
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
                   as bool,
-        mainImage: freezed == mainImage
-            ? _value.mainImage
-            : mainImage // ignore: cast_nullable_to_non_nullable
-                  as String?,
+        images: null == images
+            ? _value._images
+            : images // ignore: cast_nullable_to_non_nullable
+                  as List<String>,
         discount: freezed == discount
             ? _value.discount
             : discount // ignore: cast_nullable_to_non_nullable
                   as ProductDiscountInfoDto?,
+        rating: null == rating
+            ? _value.rating
+            : rating // ignore: cast_nullable_to_non_nullable
+                  as double,
+        reviewsCount: null == reviewsCount
+            ? _value.reviewsCount
+            : reviewsCount // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -316,9 +344,11 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
     @JsonKey(name: 'is_new') this.isNew = false,
     @JsonKey(name: 'is_hit') this.isHit = false,
     @JsonKey(name: 'is_active') this.isActive = true,
-    @JsonKey(name: 'main_image') this.mainImage,
+    @JsonKey(name: 'images') final List<String> images = const [],
     @JsonKey(name: 'discount') this.discount,
-  });
+    @JsonKey(name: 'rating') this.rating = 0.0,
+    @JsonKey(name: 'reviews_count') this.reviewsCount = 0,
+  }) : _images = images;
 
   factory _$ProductListItemResponseDtoImpl.fromJson(
     Map<String, dynamic> json,
@@ -354,16 +384,28 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
   @override
   @JsonKey(name: 'is_active')
   final bool isActive;
+  final List<String> _images;
   @override
-  @JsonKey(name: 'main_image')
-  final String? mainImage;
+  @JsonKey(name: 'images')
+  List<String> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
   @override
   @JsonKey(name: 'discount')
   final ProductDiscountInfoDto? discount;
+  @override
+  @JsonKey(name: 'rating')
+  final double rating;
+  @override
+  @JsonKey(name: 'reviews_count')
+  final int reviewsCount;
 
   @override
   String toString() {
-    return 'ProductListItemResponseDto(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, mainImage: $mainImage, discount: $discount)';
+    return 'ProductListItemResponseDto(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, images: $images, discount: $discount, rating: $rating, reviewsCount: $reviewsCount)';
   }
 
   @override
@@ -384,10 +426,12 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
             (identical(other.isHit, isHit) || other.isHit == isHit) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
-            (identical(other.mainImage, mainImage) ||
-                other.mainImage == mainImage) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.discount, discount) ||
-                other.discount == discount));
+                other.discount == discount) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.reviewsCount, reviewsCount) ||
+                other.reviewsCount == reviewsCount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -404,8 +448,10 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
     isNew,
     isHit,
     isActive,
-    mainImage,
+    const DeepCollectionEquality().hash(_images),
     discount,
+    rating,
+    reviewsCount,
   );
 
   /// Create a copy of ProductListItemResponseDto
@@ -438,8 +484,10 @@ abstract class _ProductListItemResponseDto
     @JsonKey(name: 'is_new') final bool isNew,
     @JsonKey(name: 'is_hit') final bool isHit,
     @JsonKey(name: 'is_active') final bool isActive,
-    @JsonKey(name: 'main_image') final String? mainImage,
+    @JsonKey(name: 'images') final List<String> images,
     @JsonKey(name: 'discount') final ProductDiscountInfoDto? discount,
+    @JsonKey(name: 'rating') final double rating,
+    @JsonKey(name: 'reviews_count') final int reviewsCount,
   }) = _$ProductListItemResponseDtoImpl;
 
   factory _ProductListItemResponseDto.fromJson(Map<String, dynamic> json) =
@@ -476,11 +524,17 @@ abstract class _ProductListItemResponseDto
   @JsonKey(name: 'is_active')
   bool get isActive;
   @override
-  @JsonKey(name: 'main_image')
-  String? get mainImage;
+  @JsonKey(name: 'images')
+  List<String> get images;
   @override
   @JsonKey(name: 'discount')
   ProductDiscountInfoDto? get discount;
+  @override
+  @JsonKey(name: 'rating')
+  double get rating;
+  @override
+  @JsonKey(name: 'reviews_count')
+  int get reviewsCount;
 
   /// Create a copy of ProductListItemResponseDto
   /// with the given fields replaced by the non-null parameter values.

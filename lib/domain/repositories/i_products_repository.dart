@@ -35,6 +35,7 @@ abstract class IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    ProductType? type,
   });
 
   /// Новинки (с пагинацией и фильтрами).
@@ -43,6 +44,7 @@ abstract class IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    ProductType? type,
   });
 
   /// Товары со скидкой (с пагинацией и фильтрами).
@@ -51,6 +53,7 @@ abstract class IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    ProductType? type,
   });
 
   /// Список id товаров по фильтрам.

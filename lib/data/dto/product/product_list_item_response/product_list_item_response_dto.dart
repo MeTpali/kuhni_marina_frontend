@@ -19,8 +19,10 @@ class ProductListItemResponseDto with _$ProductListItemResponseDto {
     @Default(false) @JsonKey(name: 'is_new') bool isNew,
     @Default(false) @JsonKey(name: 'is_hit') bool isHit,
     @Default(true) @JsonKey(name: 'is_active') bool isActive,
-    @JsonKey(name: 'main_image') String? mainImage,
+    @Default([]) @JsonKey(name: 'images') List<String> images,
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
+    @Default(0.0) @JsonKey(name: 'rating') double rating,
+    @Default(0) @JsonKey(name: 'reviews_count') int reviewsCount,
   }) = _ProductListItemResponseDto;
 
   factory ProductListItemResponseDto.fromJson(Map<String, dynamic> json) =>

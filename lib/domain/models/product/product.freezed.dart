@@ -33,6 +33,8 @@ mixin _$Product {
   List<ProductImage> get images => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
   ProductDiscountInfo? get discount => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
+  int get reviewsCount => throw _privateConstructorUsedError;
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.
@@ -62,6 +64,8 @@ abstract class $ProductCopyWith<$Res> {
     List<ProductImage> images,
     String? updatedAt,
     ProductDiscountInfo? discount,
+    double rating,
+    int reviewsCount,
   });
 
   $CategoryCopyWith<$Res> get category;
@@ -99,6 +103,8 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? images = null,
     Object? updatedAt = freezed,
     Object? discount = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _value.copyWith(
@@ -166,6 +172,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
                 ? _value.discount
                 : discount // ignore: cast_nullable_to_non_nullable
                       as ProductDiscountInfo?,
+            rating: null == rating
+                ? _value.rating
+                : rating // ignore: cast_nullable_to_non_nullable
+                      as double,
+            reviewsCount: null == reviewsCount
+                ? _value.reviewsCount
+                : reviewsCount // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -221,6 +235,8 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
     List<ProductImage> images,
     String? updatedAt,
     ProductDiscountInfo? discount,
+    double rating,
+    int reviewsCount,
   });
 
   @override
@@ -259,6 +275,8 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? images = null,
     Object? updatedAt = freezed,
     Object? discount = freezed,
+    Object? rating = null,
+    Object? reviewsCount = null,
   }) {
     return _then(
       _$ProductImpl(
@@ -326,6 +344,14 @@ class __$$ProductImplCopyWithImpl<$Res>
             ? _value.discount
             : discount // ignore: cast_nullable_to_non_nullable
                   as ProductDiscountInfo?,
+        rating: null == rating
+            ? _value.rating
+            : rating // ignore: cast_nullable_to_non_nullable
+                  as double,
+        reviewsCount: null == reviewsCount
+            ? _value.reviewsCount
+            : reviewsCount // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -351,6 +377,8 @@ class _$ProductImpl implements _Product {
     final List<ProductImage> images = const [],
     this.updatedAt,
     this.discount,
+    this.rating = 0.0,
+    this.reviewsCount = 0,
   }) : _attributes = attributes,
        _images = images;
 
@@ -403,10 +431,16 @@ class _$ProductImpl implements _Product {
   final String? updatedAt;
   @override
   final ProductDiscountInfo? discount;
+  @override
+  @JsonKey()
+  final double rating;
+  @override
+  @JsonKey()
+  final int reviewsCount;
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount)';
+    return 'Product(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount, rating: $rating, reviewsCount: $reviewsCount)';
   }
 
   @override
@@ -439,7 +473,10 @@ class _$ProductImpl implements _Product {
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.discount, discount) ||
-                other.discount == discount));
+                other.discount == discount) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.reviewsCount, reviewsCount) ||
+                other.reviewsCount == reviewsCount));
   }
 
   @override
@@ -461,6 +498,8 @@ class _$ProductImpl implements _Product {
     const DeepCollectionEquality().hash(_images),
     updatedAt,
     discount,
+    rating,
+    reviewsCount,
   );
 
   /// Create a copy of Product
@@ -490,6 +529,8 @@ abstract class _Product implements Product {
     final List<ProductImage> images,
     final String? updatedAt,
     final ProductDiscountInfo? discount,
+    final double rating,
+    final int reviewsCount,
   }) = _$ProductImpl;
 
   @override
@@ -524,6 +565,10 @@ abstract class _Product implements Product {
   String? get updatedAt;
   @override
   ProductDiscountInfo? get discount;
+  @override
+  double get rating;
+  @override
+  int get reviewsCount;
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.

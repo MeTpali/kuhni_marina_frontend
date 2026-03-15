@@ -78,12 +78,14 @@ class ProductsRemoteRepository implements IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    ProductType? type,
   }) async {
     final response = await _service.getProductHits(
       page: page,
       pageSize: pageSize,
       categoryIds: categoryIds,
       attributeFilters: attributeFilters,
+      type: type?.name,
     );
     return response.when(
       success: (dto) => Result.success(_catalogMapper.map(dto)),
@@ -97,12 +99,14 @@ class ProductsRemoteRepository implements IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    ProductType? type,
   }) async {
     final response = await _service.getProductNew(
       page: page,
       pageSize: pageSize,
       categoryIds: categoryIds,
       attributeFilters: attributeFilters,
+      type: type?.name,
     );
     return response.when(
       success: (dto) => Result.success(_catalogMapper.map(dto)),
@@ -116,12 +120,14 @@ class ProductsRemoteRepository implements IProductsRepository {
     int? pageSize,
     List<int>? categoryIds,
     String? attributeFilters,
+    ProductType? type,
   }) async {
     final response = await _service.getProductDiscounts(
       page: page,
       pageSize: pageSize,
       categoryIds: categoryIds,
       attributeFilters: attributeFilters,
+      type: type?.name,
     );
     return response.when(
       success: (dto) => Result.success(_catalogMapper.map(dto)),

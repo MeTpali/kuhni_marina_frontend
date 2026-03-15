@@ -19,7 +19,9 @@ class ProductListItem with _$ProductListItem {
     @Default(false) bool isNew,
     @Default(false) bool isHit,
     @Default(true) bool isActive,
-    String? mainImage,
+    @Default([]) List<String> images,
     ProductDiscountInfo? discount,
+    @Default(0.0) double rating,
+    @Default(0) int reviewsCount,
   }) = _ProductListItem;
 }
