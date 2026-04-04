@@ -31,6 +31,8 @@ mixin _$CategoryTreeNodeDto {
   CategoryTypeDto get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'parent_id')
   int? get parentId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool get isActive => throw _privateConstructorUsedError;
   @JsonKey(name: 'children')
@@ -61,6 +63,7 @@ abstract class $CategoryTreeNodeDtoCopyWith<$Res> {
     @JsonKey(name: 'slug') String slug,
     @JsonKey(name: 'type') CategoryTypeDto type,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'children') List<CategoryTreeNodeDto> children,
     @JsonKey(name: 'message') String? message,
@@ -87,6 +90,7 @@ class _$CategoryTreeNodeDtoCopyWithImpl<$Res, $Val extends CategoryTreeNodeDto>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
     Object? children = null,
     Object? message = freezed,
@@ -113,6 +117,10 @@ class _$CategoryTreeNodeDtoCopyWithImpl<$Res, $Val extends CategoryTreeNodeDto>
                 ? _value.parentId
                 : parentId // ignore: cast_nullable_to_non_nullable
                       as int?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isActive: null == isActive
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
@@ -146,6 +154,7 @@ abstract class _$$CategoryTreeNodeDtoImplCopyWith<$Res>
     @JsonKey(name: 'slug') String slug,
     @JsonKey(name: 'type') CategoryTypeDto type,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'children') List<CategoryTreeNodeDto> children,
     @JsonKey(name: 'message') String? message,
@@ -171,6 +180,7 @@ class __$$CategoryTreeNodeDtoImplCopyWithImpl<$Res>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
     Object? children = null,
     Object? message = freezed,
@@ -197,6 +207,10 @@ class __$$CategoryTreeNodeDtoImplCopyWithImpl<$Res>
             ? _value.parentId
             : parentId // ignore: cast_nullable_to_non_nullable
                   as int?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isActive: null == isActive
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
@@ -223,6 +237,7 @@ class _$CategoryTreeNodeDtoImpl implements _CategoryTreeNodeDto {
     @JsonKey(name: 'slug') required this.slug,
     @JsonKey(name: 'type') required this.type,
     @JsonKey(name: 'parent_id') this.parentId,
+    @JsonKey(name: 'image_url') this.imageUrl,
     @JsonKey(name: 'is_active') this.isActive = true,
     @JsonKey(name: 'children')
     final List<CategoryTreeNodeDto> children = const [],
@@ -248,6 +263,9 @@ class _$CategoryTreeNodeDtoImpl implements _CategoryTreeNodeDto {
   @JsonKey(name: 'parent_id')
   final int? parentId;
   @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
+  @override
   @JsonKey(name: 'is_active')
   final bool isActive;
   final List<CategoryTreeNodeDto> _children;
@@ -265,7 +283,7 @@ class _$CategoryTreeNodeDtoImpl implements _CategoryTreeNodeDto {
 
   @override
   String toString() {
-    return 'CategoryTreeNodeDto(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, isActive: $isActive, children: $children, message: $message)';
+    return 'CategoryTreeNodeDto(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, imageUrl: $imageUrl, isActive: $isActive, children: $children, message: $message)';
   }
 
   @override
@@ -279,6 +297,8 @@ class _$CategoryTreeNodeDtoImpl implements _CategoryTreeNodeDto {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
@@ -294,6 +314,7 @@ class _$CategoryTreeNodeDtoImpl implements _CategoryTreeNodeDto {
     slug,
     type,
     parentId,
+    imageUrl,
     isActive,
     const DeepCollectionEquality().hash(_children),
     message,
@@ -323,6 +344,7 @@ abstract class _CategoryTreeNodeDto implements CategoryTreeNodeDto {
     @JsonKey(name: 'slug') required final String slug,
     @JsonKey(name: 'type') required final CategoryTypeDto type,
     @JsonKey(name: 'parent_id') final int? parentId,
+    @JsonKey(name: 'image_url') final String? imageUrl,
     @JsonKey(name: 'is_active') final bool isActive,
     @JsonKey(name: 'children') final List<CategoryTreeNodeDto> children,
     @JsonKey(name: 'message') final String? message,
@@ -346,6 +368,9 @@ abstract class _CategoryTreeNodeDto implements CategoryTreeNodeDto {
   @override
   @JsonKey(name: 'parent_id')
   int? get parentId;
+  @override
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
   @override
   @JsonKey(name: 'is_active')
   bool get isActive;

@@ -31,6 +31,7 @@ mixin _$ProductListItem {
   ProductDiscountInfo? get discount => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   int get reviewsCount => throw _privateConstructorUsedError;
+  bool get isFavourite => throw _privateConstructorUsedError;
 
   /// Create a copy of ProductListItem
   /// with the given fields replaced by the non-null parameter values.
@@ -61,6 +62,7 @@ abstract class $ProductListItemCopyWith<$Res> {
     ProductDiscountInfo? discount,
     double rating,
     int reviewsCount,
+    bool isFavourite,
   });
 
   $ProductDiscountInfoCopyWith<$Res>? get discount;
@@ -95,6 +97,7 @@ class _$ProductListItemCopyWithImpl<$Res, $Val extends ProductListItem>
     Object? discount = freezed,
     Object? rating = null,
     Object? reviewsCount = null,
+    Object? isFavourite = null,
   }) {
     return _then(
       _value.copyWith(
@@ -154,6 +157,10 @@ class _$ProductListItemCopyWithImpl<$Res, $Val extends ProductListItem>
                 ? _value.reviewsCount
                 : reviewsCount // ignore: cast_nullable_to_non_nullable
                       as int,
+            isFavourite: null == isFavourite
+                ? _value.isFavourite
+                : isFavourite // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -198,6 +205,7 @@ abstract class _$$ProductListItemImplCopyWith<$Res>
     ProductDiscountInfo? discount,
     double rating,
     int reviewsCount,
+    bool isFavourite,
   });
 
   @override
@@ -232,6 +240,7 @@ class __$$ProductListItemImplCopyWithImpl<$Res>
     Object? discount = freezed,
     Object? rating = null,
     Object? reviewsCount = null,
+    Object? isFavourite = null,
   }) {
     return _then(
       _$ProductListItemImpl(
@@ -291,6 +300,10 @@ class __$$ProductListItemImplCopyWithImpl<$Res>
             ? _value.reviewsCount
             : reviewsCount // ignore: cast_nullable_to_non_nullable
                   as int,
+        isFavourite: null == isFavourite
+            ? _value.isFavourite
+            : isFavourite // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -314,6 +327,7 @@ class _$ProductListItemImpl implements _ProductListItem {
     this.discount,
     this.rating = 0.0,
     this.reviewsCount = 0,
+    this.isFavourite = false,
   }) : _images = images;
 
   @override
@@ -356,10 +370,13 @@ class _$ProductListItemImpl implements _ProductListItem {
   @override
   @JsonKey()
   final int reviewsCount;
+  @override
+  @JsonKey()
+  final bool isFavourite;
 
   @override
   String toString() {
-    return 'ProductListItem(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, images: $images, discount: $discount, rating: $rating, reviewsCount: $reviewsCount)';
+    return 'ProductListItem(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, images: $images, discount: $discount, rating: $rating, reviewsCount: $reviewsCount, isFavourite: $isFavourite)';
   }
 
   @override
@@ -385,7 +402,9 @@ class _$ProductListItemImpl implements _ProductListItem {
                 other.discount == discount) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.reviewsCount, reviewsCount) ||
-                other.reviewsCount == reviewsCount));
+                other.reviewsCount == reviewsCount) &&
+            (identical(other.isFavourite, isFavourite) ||
+                other.isFavourite == isFavourite));
   }
 
   @override
@@ -405,6 +424,7 @@ class _$ProductListItemImpl implements _ProductListItem {
     discount,
     rating,
     reviewsCount,
+    isFavourite,
   );
 
   /// Create a copy of ProductListItem
@@ -435,6 +455,7 @@ abstract class _ProductListItem implements ProductListItem {
     final ProductDiscountInfo? discount,
     final double rating,
     final int reviewsCount,
+    final bool isFavourite,
   }) = _$ProductListItemImpl;
 
   @override
@@ -465,6 +486,8 @@ abstract class _ProductListItem implements ProductListItem {
   double get rating;
   @override
   int get reviewsCount;
+  @override
+  bool get isFavourite;
 
   /// Create a copy of ProductListItem
   /// with the given fields replaced by the non-null parameter values.

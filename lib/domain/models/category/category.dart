@@ -13,6 +13,7 @@ class Category with _$Category {
     required String slug,
     required CategoryType type,
     int? parentId,
+    String? imageUrl,
     @Default(true) bool isActive,
   }) = _Category;
 }

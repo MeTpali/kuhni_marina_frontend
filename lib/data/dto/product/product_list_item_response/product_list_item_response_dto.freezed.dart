@@ -51,6 +51,8 @@ mixin _$ProductListItemResponseDto {
   double get rating => throw _privateConstructorUsedError;
   @JsonKey(name: 'reviews_count')
   int get reviewsCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_favourite')
+  bool get isFavourite => throw _privateConstructorUsedError;
 
   /// Serializes this ProductListItemResponseDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -88,6 +90,7 @@ abstract class $ProductListItemResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'rating') double rating,
     @JsonKey(name: 'reviews_count') int reviewsCount,
+    @JsonKey(name: 'is_favourite') bool isFavourite,
   });
 
   $ProductDiscountInfoDtoCopyWith<$Res>? get discount;
@@ -125,6 +128,7 @@ class _$ProductListItemResponseDtoCopyWithImpl<
     Object? discount = freezed,
     Object? rating = null,
     Object? reviewsCount = null,
+    Object? isFavourite = null,
   }) {
     return _then(
       _value.copyWith(
@@ -184,6 +188,10 @@ class _$ProductListItemResponseDtoCopyWithImpl<
                 ? _value.reviewsCount
                 : reviewsCount // ignore: cast_nullable_to_non_nullable
                       as int,
+            isFavourite: null == isFavourite
+                ? _value.isFavourite
+                : isFavourite // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -228,6 +236,7 @@ abstract class _$$ProductListItemResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'discount') ProductDiscountInfoDto? discount,
     @JsonKey(name: 'rating') double rating,
     @JsonKey(name: 'reviews_count') int reviewsCount,
+    @JsonKey(name: 'is_favourite') bool isFavourite,
   });
 
   @override
@@ -266,6 +275,7 @@ class __$$ProductListItemResponseDtoImplCopyWithImpl<$Res>
     Object? discount = freezed,
     Object? rating = null,
     Object? reviewsCount = null,
+    Object? isFavourite = null,
   }) {
     return _then(
       _$ProductListItemResponseDtoImpl(
@@ -325,6 +335,10 @@ class __$$ProductListItemResponseDtoImplCopyWithImpl<$Res>
             ? _value.reviewsCount
             : reviewsCount // ignore: cast_nullable_to_non_nullable
                   as int,
+        isFavourite: null == isFavourite
+            ? _value.isFavourite
+            : isFavourite // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -348,6 +362,7 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
     @JsonKey(name: 'discount') this.discount,
     @JsonKey(name: 'rating') this.rating = 0.0,
     @JsonKey(name: 'reviews_count') this.reviewsCount = 0,
+    @JsonKey(name: 'is_favourite') this.isFavourite = false,
   }) : _images = images;
 
   factory _$ProductListItemResponseDtoImpl.fromJson(
@@ -402,10 +417,13 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
   @override
   @JsonKey(name: 'reviews_count')
   final int reviewsCount;
+  @override
+  @JsonKey(name: 'is_favourite')
+  final bool isFavourite;
 
   @override
   String toString() {
-    return 'ProductListItemResponseDto(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, images: $images, discount: $discount, rating: $rating, reviewsCount: $reviewsCount)';
+    return 'ProductListItemResponseDto(id: $id, name: $name, slug: $slug, categoryId: $categoryId, type: $type, categoryName: $categoryName, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, images: $images, discount: $discount, rating: $rating, reviewsCount: $reviewsCount, isFavourite: $isFavourite)';
   }
 
   @override
@@ -431,7 +449,9 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
                 other.discount == discount) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.reviewsCount, reviewsCount) ||
-                other.reviewsCount == reviewsCount));
+                other.reviewsCount == reviewsCount) &&
+            (identical(other.isFavourite, isFavourite) ||
+                other.isFavourite == isFavourite));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -452,6 +472,7 @@ class _$ProductListItemResponseDtoImpl implements _ProductListItemResponseDto {
     discount,
     rating,
     reviewsCount,
+    isFavourite,
   );
 
   /// Create a copy of ProductListItemResponseDto
@@ -488,6 +509,7 @@ abstract class _ProductListItemResponseDto
     @JsonKey(name: 'discount') final ProductDiscountInfoDto? discount,
     @JsonKey(name: 'rating') final double rating,
     @JsonKey(name: 'reviews_count') final int reviewsCount,
+    @JsonKey(name: 'is_favourite') final bool isFavourite,
   }) = _$ProductListItemResponseDtoImpl;
 
   factory _ProductListItemResponseDto.fromJson(Map<String, dynamic> json) =
@@ -535,6 +557,9 @@ abstract class _ProductListItemResponseDto
   @override
   @JsonKey(name: 'reviews_count')
   int get reviewsCount;
+  @override
+  @JsonKey(name: 'is_favourite')
+  bool get isFavourite;
 
   /// Create a copy of ProductListItemResponseDto
   /// with the given fields replaced by the non-null parameter values.

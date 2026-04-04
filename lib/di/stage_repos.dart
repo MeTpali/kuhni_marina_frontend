@@ -1,5 +1,3 @@
-import 'package:get_it/get_it.dart';
-
 import '../../data/repositories/attributes/attributes_test_repository.dart';
 import '../../data/repositories/banners/banners_test_repository.dart';
 import '../../data/repositories/campaigns/campaigns_test_repository.dart';
@@ -30,9 +28,12 @@ import '../../domain/repositories/i_product_attributes_repository.dart';
 import '../../domain/repositories/i_products_repository.dart';
 import '../../domain/repositories/i_projects_repository.dart';
 import '../../domain/repositories/i_reviews_repository.dart';
+import '../data/repositories/session/session_repository.dart';
+import '../data/repositories/session/session_test_repository.dart';
+import 'di.dart';
 
 void setupStageRepos() {
-  final getIt = GetIt.instance;
+  getIt.registerSingleton<SessionRepository>(SessionTestRepository());
 
   /// Каталог — тестовые сервисы с моками
   getIt.registerSingleton<CategoriesTestService>(

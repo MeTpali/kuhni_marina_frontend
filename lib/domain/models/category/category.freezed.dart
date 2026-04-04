@@ -22,6 +22,7 @@ mixin _$Category {
   String get slug => throw _privateConstructorUsedError;
   CategoryType get type => throw _privateConstructorUsedError;
   int? get parentId => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
 
   /// Create a copy of Category
@@ -42,6 +43,7 @@ abstract class $CategoryCopyWith<$Res> {
     String slug,
     CategoryType type,
     int? parentId,
+    String? imageUrl,
     bool isActive,
   });
 }
@@ -66,6 +68,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
   }) {
     return _then(
@@ -90,6 +93,10 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
                 ? _value.parentId
                 : parentId // ignore: cast_nullable_to_non_nullable
                       as int?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isActive: null == isActive
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
@@ -115,6 +122,7 @@ abstract class _$$CategoryImplCopyWith<$Res>
     String slug,
     CategoryType type,
     int? parentId,
+    String? imageUrl,
     bool isActive,
   });
 }
@@ -138,6 +146,7 @@ class __$$CategoryImplCopyWithImpl<$Res>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
   }) {
     return _then(
@@ -162,6 +171,10 @@ class __$$CategoryImplCopyWithImpl<$Res>
             ? _value.parentId
             : parentId // ignore: cast_nullable_to_non_nullable
                   as int?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isActive: null == isActive
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
@@ -180,6 +193,7 @@ class _$CategoryImpl implements _Category {
     required this.slug,
     required this.type,
     this.parentId,
+    this.imageUrl,
     this.isActive = true,
   });
 
@@ -194,12 +208,14 @@ class _$CategoryImpl implements _Category {
   @override
   final int? parentId;
   @override
+  final String? imageUrl;
+  @override
   @JsonKey()
   final bool isActive;
 
   @override
   String toString() {
-    return 'Category(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, isActive: $isActive)';
+    return 'Category(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, imageUrl: $imageUrl, isActive: $isActive)';
   }
 
   @override
@@ -213,13 +229,23 @@ class _$CategoryImpl implements _Category {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, slug, type, parentId, isActive);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    name,
+    slug,
+    type,
+    parentId,
+    imageUrl,
+    isActive,
+  );
 
   /// Create a copy of Category
   /// with the given fields replaced by the non-null parameter values.
@@ -237,6 +263,7 @@ abstract class _Category implements Category {
     required final String slug,
     required final CategoryType type,
     final int? parentId,
+    final String? imageUrl,
     final bool isActive,
   }) = _$CategoryImpl;
 
@@ -250,6 +277,8 @@ abstract class _Category implements Category {
   CategoryType get type;
   @override
   int? get parentId;
+  @override
+  String? get imageUrl;
   @override
   bool get isActive;
 

@@ -4,6 +4,7 @@ import '../../dto/category/category_type_dto.dart';
 import '../../dto/product/product_catalog_response/product_catalog_response_dto.dart';
 import '../../dto/product/product_create_request/product_create_request_dto.dart';
 import '../../dto/product/product_delete_response/product_delete_response_dto.dart';
+import '../../dto/product/product_favorite_mutation_response/product_favorite_mutation_response_dto.dart';
 import '../../dto/product/product_id_list_response/product_id_list_response_dto.dart';
 import '../../dto/product/product_list_item_response/product_list_item_response_dto.dart';
 import '../../dto/product/product_response/product_response_dto.dart';
@@ -265,6 +266,44 @@ class ProductsTestService {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));
     return ResponseResult.success(
       ProductDeleteResponseDto(productId: productId, message: null),
+    );
+  }
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getFavoriteProducts({
+    int? page,
+    int? pageSize,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
+    final items =
+        _mockListItems.map((e) => e.copyWith(isFavourite: true)).toList();
+    return ResponseResult.success(
+      ProductCatalogResponseDto(
+        items: items,
+        total: items.length,
+        page: page ?? 1,
+        pageSize: pageSize ?? 10,
+        totalPages: 1,
+        message: null,
+      ),
+    );
+  }
+
+  Future<ResponseResult<ProductFavoriteMutationResponseDto>> addProductToFavorites({
+    required int productId,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
+    return ResponseResult.success(
+      ProductFavoriteMutationResponseDto(productId: productId, message: null),
+    );
+  }
+
+  Future<ResponseResult<ProductFavoriteMutationResponseDto>>
+  removeProductFromFavorites({
+    required int productId,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
+    return ResponseResult.success(
+      ProductFavoriteMutationResponseDto(productId: productId, message: null),
     );
   }
 }

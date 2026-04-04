@@ -12,6 +12,7 @@ class CategoryTreeNodeDto with _$CategoryTreeNodeDto {
     @JsonKey(name: 'slug') required String slug,
     @JsonKey(name: 'type') required CategoryTypeDto type,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @Default(true) @JsonKey(name: 'is_active') bool isActive,
     @Default([]) @JsonKey(name: 'children') List<CategoryTreeNodeDto> children,
     @JsonKey(name: 'message') String? message,

@@ -12,6 +12,7 @@ class CategoryCreateRequest with _$CategoryCreateRequest {
     required CategoryType type,
     String? slug,
     int? parentId,
+    String? imageUrl,
     @Default(true) bool isActive,
   }) = _CategoryCreateRequest;
 }

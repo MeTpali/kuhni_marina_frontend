@@ -33,6 +33,8 @@ mixin _$CategoryUpdateRequestDto {
   int? get parentId => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool? get isActive => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this CategoryUpdateRequestDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,6 +59,7 @@ abstract class $CategoryUpdateRequestDtoCopyWith<$Res> {
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'parent_id') int? parentId,
     @JsonKey(name: 'is_active') bool? isActive,
+    @JsonKey(name: 'image_url') String? imageUrl,
   });
 }
 
@@ -83,6 +86,7 @@ class _$CategoryUpdateRequestDtoCopyWithImpl<
     Object? slug = freezed,
     Object? parentId = freezed,
     Object? isActive = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -106,6 +110,10 @@ class _$CategoryUpdateRequestDtoCopyWithImpl<
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
                       as bool?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -127,6 +135,7 @@ abstract class _$$CategoryUpdateRequestDtoImplCopyWith<$Res>
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'parent_id') int? parentId,
     @JsonKey(name: 'is_active') bool? isActive,
+    @JsonKey(name: 'image_url') String? imageUrl,
   });
 }
 
@@ -153,6 +162,7 @@ class __$$CategoryUpdateRequestDtoImplCopyWithImpl<$Res>
     Object? slug = freezed,
     Object? parentId = freezed,
     Object? isActive = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(
       _$CategoryUpdateRequestDtoImpl(
@@ -176,6 +186,10 @@ class __$$CategoryUpdateRequestDtoImplCopyWithImpl<$Res>
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
                   as bool?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -190,6 +204,7 @@ class _$CategoryUpdateRequestDtoImpl implements _CategoryUpdateRequestDto {
     @JsonKey(name: 'slug') this.slug,
     @JsonKey(name: 'parent_id') this.parentId,
     @JsonKey(name: 'is_active') this.isActive,
+    @JsonKey(name: 'image_url') this.imageUrl,
   });
 
   factory _$CategoryUpdateRequestDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -210,10 +225,13 @@ class _$CategoryUpdateRequestDtoImpl implements _CategoryUpdateRequestDto {
   @override
   @JsonKey(name: 'is_active')
   final bool? isActive;
+  @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
 
   @override
   String toString() {
-    return 'CategoryUpdateRequestDto(name: $name, type: $type, slug: $slug, parentId: $parentId, isActive: $isActive)';
+    return 'CategoryUpdateRequestDto(name: $name, type: $type, slug: $slug, parentId: $parentId, isActive: $isActive, imageUrl: $imageUrl)';
   }
 
   @override
@@ -227,13 +245,15 @@ class _$CategoryUpdateRequestDtoImpl implements _CategoryUpdateRequestDto {
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, type, slug, parentId, isActive);
+      Object.hash(runtimeType, name, type, slug, parentId, isActive, imageUrl);
 
   /// Create a copy of CategoryUpdateRequestDto
   /// with the given fields replaced by the non-null parameter values.
@@ -259,6 +279,7 @@ abstract class _CategoryUpdateRequestDto implements CategoryUpdateRequestDto {
     @JsonKey(name: 'slug') final String? slug,
     @JsonKey(name: 'parent_id') final int? parentId,
     @JsonKey(name: 'is_active') final bool? isActive,
+    @JsonKey(name: 'image_url') final String? imageUrl,
   }) = _$CategoryUpdateRequestDtoImpl;
 
   factory _CategoryUpdateRequestDto.fromJson(Map<String, dynamic> json) =
@@ -279,6 +300,9 @@ abstract class _CategoryUpdateRequestDto implements CategoryUpdateRequestDto {
   @override
   @JsonKey(name: 'is_active')
   bool? get isActive;
+  @override
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
 
   /// Create a copy of CategoryUpdateRequestDto
   /// with the given fields replaced by the non-null parameter values.

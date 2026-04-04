@@ -13,6 +13,7 @@ _$CategoryCreateRequestDtoImpl _$$CategoryCreateRequestDtoImplFromJson(
   type: $enumDecode(_$CategoryTypeDtoEnumMap, json['type']),
   slug: json['slug'] as String?,
   parentId: (json['parent_id'] as num?)?.toInt(),
+  imageUrl: json['image_url'] as String?,
   isActive: json['is_active'] as bool? ?? true,
 );
 
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$CategoryCreateRequestDtoImplToJson(
   'type': _$CategoryTypeDtoEnumMap[instance.type]!,
   'slug': instance.slug,
   'parent_id': instance.parentId,
+  'image_url': instance.imageUrl,
   'is_active': instance.isActive,
 };
 

@@ -2,6 +2,7 @@ import '../../core/entities/result/result.dart';
 import '../models/product/product.dart';
 import '../models/product/product_catalog.dart';
 import '../models/product/product_create_request.dart';
+import '../models/product/product_favorite_mutation.dart';
 import '../models/product/product_search_suggestion.dart';
 import '../models/product/product_update_request.dart';
 import '../models/product_type/product_type.dart';
@@ -76,4 +77,18 @@ abstract class IProductsRepository {
 
   /// Удалить товар.
   Future<Result<bool>> deleteProduct(int productId);
+
+  /// Избранное текущей гостевой сессии (формат как у каталога).
+  Future<Result<ProductCatalog>> getFavoriteProducts({
+    int? page,
+    int? pageSize,
+  });
+
+  /// Добавить товар в избранное.
+  Future<Result<ProductFavoriteMutation>> addProductToFavorites(int productId);
+
+  /// Убрать товар из избранного.
+  Future<Result<ProductFavoriteMutation>> removeProductFromFavorites(
+    int productId,
+  );
 }

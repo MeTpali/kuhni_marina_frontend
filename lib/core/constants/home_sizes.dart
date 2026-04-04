@@ -91,6 +91,13 @@ extension HomeSizes on ScreenSize {
     ScreenSize.expanded => 12,
   };
 
+  /// Отступ снизу от баннера до точек индикатора.
+  double get bannerDotsHorizontalPadding => switch (this) {
+    ScreenSize.compact => 16,
+    ScreenSize.medium => 20,
+    ScreenSize.expanded => 24,
+  };
+
   // --- Иконки ---
 
   double get searchIconSize => switch (this) {

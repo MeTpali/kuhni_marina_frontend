@@ -13,5 +13,6 @@ class CategoryUpdateRequest with _$CategoryUpdateRequest {
     String? slug,
     int? parentId,
     bool? isActive,
+    String? imageUrl,
   }) = _CategoryUpdateRequest;
 }

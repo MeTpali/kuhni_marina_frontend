@@ -21,6 +21,7 @@ mixin _$CategoryCreateRequest {
   CategoryType get type => throw _privateConstructorUsedError;
   String? get slug => throw _privateConstructorUsedError;
   int? get parentId => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
 
   /// Create a copy of CategoryCreateRequest
@@ -42,6 +43,7 @@ abstract class $CategoryCreateRequestCopyWith<$Res> {
     CategoryType type,
     String? slug,
     int? parentId,
+    String? imageUrl,
     bool isActive,
   });
 }
@@ -68,6 +70,7 @@ class _$CategoryCreateRequestCopyWithImpl<
     Object? type = null,
     Object? slug = freezed,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
   }) {
     return _then(
@@ -88,6 +91,10 @@ class _$CategoryCreateRequestCopyWithImpl<
                 ? _value.parentId
                 : parentId // ignore: cast_nullable_to_non_nullable
                       as int?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isActive: null == isActive
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
@@ -112,6 +119,7 @@ abstract class _$$CategoryCreateRequestImplCopyWith<$Res>
     CategoryType type,
     String? slug,
     int? parentId,
+    String? imageUrl,
     bool isActive,
   });
 }
@@ -135,6 +143,7 @@ class __$$CategoryCreateRequestImplCopyWithImpl<$Res>
     Object? type = null,
     Object? slug = freezed,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
   }) {
     return _then(
@@ -155,6 +164,10 @@ class __$$CategoryCreateRequestImplCopyWithImpl<$Res>
             ? _value.parentId
             : parentId // ignore: cast_nullable_to_non_nullable
                   as int?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isActive: null == isActive
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
@@ -172,6 +185,7 @@ class _$CategoryCreateRequestImpl implements _CategoryCreateRequest {
     required this.type,
     this.slug,
     this.parentId,
+    this.imageUrl,
     this.isActive = true,
   });
 
@@ -184,12 +198,14 @@ class _$CategoryCreateRequestImpl implements _CategoryCreateRequest {
   @override
   final int? parentId;
   @override
+  final String? imageUrl;
+  @override
   @JsonKey()
   final bool isActive;
 
   @override
   String toString() {
-    return 'CategoryCreateRequest(name: $name, type: $type, slug: $slug, parentId: $parentId, isActive: $isActive)';
+    return 'CategoryCreateRequest(name: $name, type: $type, slug: $slug, parentId: $parentId, imageUrl: $imageUrl, isActive: $isActive)';
   }
 
   @override
@@ -202,13 +218,15 @@ class _$CategoryCreateRequestImpl implements _CategoryCreateRequest {
             (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, type, slug, parentId, isActive);
+      Object.hash(runtimeType, name, type, slug, parentId, imageUrl, isActive);
 
   /// Create a copy of CategoryCreateRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -229,6 +247,7 @@ abstract class _CategoryCreateRequest implements CategoryCreateRequest {
     required final CategoryType type,
     final String? slug,
     final int? parentId,
+    final String? imageUrl,
     final bool isActive,
   }) = _$CategoryCreateRequestImpl;
 
@@ -240,6 +259,8 @@ abstract class _CategoryCreateRequest implements CategoryCreateRequest {
   String? get slug;
   @override
   int? get parentId;
+  @override
+  String? get imageUrl;
   @override
   bool get isActive;
 

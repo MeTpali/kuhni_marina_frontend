@@ -5,6 +5,7 @@ import '../../../../core/utils/dio.dart';
 import '../../dto/product/product_catalog_response/product_catalog_response_dto.dart';
 import '../../dto/product/product_create_request/product_create_request_dto.dart';
 import '../../dto/product/product_delete_response/product_delete_response_dto.dart';
+import '../../dto/product/product_favorite_mutation_response/product_favorite_mutation_response_dto.dart';
 import '../../dto/product/product_id_list_response/product_id_list_response_dto.dart';
 import '../../dto/product/product_response/product_response_dto.dart';
 import '../../dto/product/product_search_suggestions_response/product_search_suggestions_response_dto.dart';
@@ -245,6 +246,76 @@ class ProductsRemoteService {
       );
     } on DioException catch (e) {
       return DioUtils.handleDioException<ProductDeleteResponseDto>(e);
+    }
+  }
+
+  Future<ResponseResult<ProductCatalogResponseDto>> getFavoriteProducts({
+    int? page,
+    int? pageSize,
+  }) async {
+    try {
+      final queryParams = <String, dynamic>{};
+      if (page != null) queryParams['page'] = page;
+      if (pageSize != null) queryParams['page_size'] = pageSize;
+
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$_path/favorites',
+        queryParameters: queryParams.isEmpty ? null : queryParams,
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          ProductCatalogResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProductCatalogResponseDto>(e);
+    }
+  }
+
+  Future<ResponseResult<ProductFavoriteMutationResponseDto>> addProductToFavorites({
+    required int productId,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '$_path/favorites/$productId',
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          ProductFavoriteMutationResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProductFavoriteMutationResponseDto>(e);
+    }
+  }
+
+  Future<ResponseResult<ProductFavoriteMutationResponseDto>>
+  removeProductFromFavorites({
+    required int productId,
+  }) async {
+    try {
+      final response = await _dio.delete<Map<String, dynamic>>(
+        '$_path/favorites/$productId',
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          ProductFavoriteMutationResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProductFavoriteMutationResponseDto>(e);
     }
   }
 

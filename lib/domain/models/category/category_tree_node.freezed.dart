@@ -22,6 +22,7 @@ mixin _$CategoryTreeNode {
   String get slug => throw _privateConstructorUsedError;
   CategoryType get type => throw _privateConstructorUsedError;
   int? get parentId => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
   List<CategoryTreeNode> get children => throw _privateConstructorUsedError;
 
@@ -45,6 +46,7 @@ abstract class $CategoryTreeNodeCopyWith<$Res> {
     String slug,
     CategoryType type,
     int? parentId,
+    String? imageUrl,
     bool isActive,
     List<CategoryTreeNode> children,
   });
@@ -70,6 +72,7 @@ class _$CategoryTreeNodeCopyWithImpl<$Res, $Val extends CategoryTreeNode>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
     Object? children = null,
   }) {
@@ -95,6 +98,10 @@ class _$CategoryTreeNodeCopyWithImpl<$Res, $Val extends CategoryTreeNode>
                 ? _value.parentId
                 : parentId // ignore: cast_nullable_to_non_nullable
                       as int?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isActive: null == isActive
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
@@ -124,6 +131,7 @@ abstract class _$$CategoryTreeNodeImplCopyWith<$Res>
     String slug,
     CategoryType type,
     int? parentId,
+    String? imageUrl,
     bool isActive,
     List<CategoryTreeNode> children,
   });
@@ -148,6 +156,7 @@ class __$$CategoryTreeNodeImplCopyWithImpl<$Res>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
     Object? children = null,
   }) {
@@ -173,6 +182,10 @@ class __$$CategoryTreeNodeImplCopyWithImpl<$Res>
             ? _value.parentId
             : parentId // ignore: cast_nullable_to_non_nullable
                   as int?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isActive: null == isActive
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
@@ -195,6 +208,7 @@ class _$CategoryTreeNodeImpl implements _CategoryTreeNode {
     required this.slug,
     required this.type,
     this.parentId,
+    this.imageUrl,
     this.isActive = true,
     final List<CategoryTreeNode> children = const [],
   }) : _children = children;
@@ -210,6 +224,8 @@ class _$CategoryTreeNodeImpl implements _CategoryTreeNode {
   @override
   final int? parentId;
   @override
+  final String? imageUrl;
+  @override
   @JsonKey()
   final bool isActive;
   final List<CategoryTreeNode> _children;
@@ -223,7 +239,7 @@ class _$CategoryTreeNodeImpl implements _CategoryTreeNode {
 
   @override
   String toString() {
-    return 'CategoryTreeNode(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, isActive: $isActive, children: $children)';
+    return 'CategoryTreeNode(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, imageUrl: $imageUrl, isActive: $isActive, children: $children)';
   }
 
   @override
@@ -237,6 +253,8 @@ class _$CategoryTreeNodeImpl implements _CategoryTreeNode {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             const DeepCollectionEquality().equals(other._children, _children));
@@ -250,6 +268,7 @@ class _$CategoryTreeNodeImpl implements _CategoryTreeNode {
     slug,
     type,
     parentId,
+    imageUrl,
     isActive,
     const DeepCollectionEquality().hash(_children),
   );
@@ -273,6 +292,7 @@ abstract class _CategoryTreeNode implements CategoryTreeNode {
     required final String slug,
     required final CategoryType type,
     final int? parentId,
+    final String? imageUrl,
     final bool isActive,
     final List<CategoryTreeNode> children,
   }) = _$CategoryTreeNodeImpl;
@@ -287,6 +307,8 @@ abstract class _CategoryTreeNode implements CategoryTreeNode {
   CategoryType get type;
   @override
   int? get parentId;
+  @override
+  String? get imageUrl;
   @override
   bool get isActive;
   @override

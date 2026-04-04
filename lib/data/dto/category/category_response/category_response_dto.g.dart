@@ -14,6 +14,7 @@ _$CategoryResponseDtoImpl _$$CategoryResponseDtoImplFromJson(
   slug: json['slug'] as String,
   type: $enumDecode(_$CategoryTypeDtoEnumMap, json['type']),
   parentId: (json['parent_id'] as num?)?.toInt(),
+  imageUrl: json['image_url'] as String?,
   isActive: json['is_active'] as bool? ?? true,
   message: json['message'] as String?,
 );
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$CategoryResponseDtoImplToJson(
   'slug': instance.slug,
   'type': _$CategoryTypeDtoEnumMap[instance.type]!,
   'parent_id': instance.parentId,
+  'image_url': instance.imageUrl,
   'is_active': instance.isActive,
   'message': instance.message,
 };

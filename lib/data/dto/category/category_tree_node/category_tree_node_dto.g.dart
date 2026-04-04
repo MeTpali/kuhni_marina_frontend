@@ -14,6 +14,7 @@ _$CategoryTreeNodeDtoImpl _$$CategoryTreeNodeDtoImplFromJson(
   slug: json['slug'] as String,
   type: $enumDecode(_$CategoryTypeDtoEnumMap, json['type']),
   parentId: (json['parent_id'] as num?)?.toInt(),
+  imageUrl: json['image_url'] as String?,
   isActive: json['is_active'] as bool? ?? true,
   children:
       (json['children'] as List<dynamic>?)
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$CategoryTreeNodeDtoImplToJson(
   'slug': instance.slug,
   'type': _$CategoryTypeDtoEnumMap[instance.type]!,
   'parent_id': instance.parentId,
+  'image_url': instance.imageUrl,
   'is_active': instance.isActive,
   'children': instance.children,
   'message': instance.message,

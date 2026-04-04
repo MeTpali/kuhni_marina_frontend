@@ -12,6 +12,7 @@ class CategoryRequestMappers {
       type: _toDtoType(from.type),
       slug: from.slug,
       parentId: from.parentId,
+      imageUrl: from.imageUrl,
       isActive: from.isActive,
     );
 
@@ -21,6 +22,7 @@ class CategoryRequestMappers {
       slug: from.slug,
       parentId: from.parentId,
       isActive: from.isActive,
+      imageUrl: from.imageUrl,
     );
 
   static CategoryTypeDto _toDtoType(CategoryType domain) => CategoryTypeDto.values.byName(domain.name);

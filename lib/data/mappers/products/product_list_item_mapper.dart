@@ -26,6 +26,7 @@ class ProductListItemMapper
             from.discount != null ? _discountMapper.map(from.discount!) : null,
         rating: from.rating,
         reviewsCount: from.reviewsCount,
+        isFavourite: from.isFavourite,
       );
 
   static ProductType _toDomainType(ProductTypeDto dto) =>

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../data/repositories/attributes/attributes_remote_repository.dart';
 import '../../data/repositories/banners/banners_remote_repository.dart';
@@ -30,9 +31,19 @@ import '../../domain/repositories/i_product_attributes_repository.dart';
 import '../../domain/repositories/i_products_repository.dart';
 import '../../domain/repositories/i_projects_repository.dart';
 import '../../domain/repositories/i_reviews_repository.dart';
+import '../data/repositories/session/session_repository.dart';
+import '../data/repositories/session/session_secure_repository.dart';
+import '../data/services/session/session_service.dart';
 import 'di.dart';
 
 void setupProdRepos() {
+  getIt.registerLazySingleton<SessionRepository>(
+    () => SessionSecureRepository(getIt<FlutterSecureStorage>()),
+  );
+  getIt.registerLazySingleton<SessionService>(
+    () => SessionService(getIt<Dio>()),
+  );
+
   /// Каталог — remote-сервисы и репозитории (требуют Dio)
   getIt.registerLazySingleton<CategoriesRemoteService>(
     () => CategoriesRemoteService(getIt<Dio>()),

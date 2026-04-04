@@ -542,6 +542,33 @@
                 ]
             }
         },
+        "/api/v1/session": {
+            "get": {
+                "tags": [
+                    "session"
+                ],
+                "summary": "Текущая гостевая сессия",
+                "description": "Вызывайте при первом входе в приложение. Идентификатор сессии задаётся в HttpOnly-cookie `sessionid` (на каждом ответе API он обновляется middleware). Тело ответа не содержит id.",
+                "operationId": "get_current_session_api_v1_session_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GuestSessionAckResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/products/catalog": {
             "get": {
                 "tags": [
@@ -1192,6 +1219,173 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ProductCatalogResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/favorites": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Избранные продукты",
+                "description": "Страница избранного текущей гостевой сессии (формат как у каталога, без фасетов).",
+                "operationId": "get_favorite_products_api_v1_products_favorites_get",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Номер страницы",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Номер страницы"
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Размер страницы",
+                            "default": 20,
+                            "title": "Page Size"
+                        },
+                        "description": "Размер страницы"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductCatalogResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/favorites/{product_id}": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Добавить продукт в избранное",
+                "operationId": "add_product_to_favorites_api_v1_products_favorites__product_id__post",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductFavoriteMutationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Убрать продукт из избранного",
+                "operationId": "remove_product_from_favorites_api_v1_products_favorites__product_id__delete",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductFavoriteMutationResponse"
                                 }
                             }
                         }
@@ -5214,6 +5408,17 @@
                         "type": "boolean",
                         "title": "Is Active",
                         "default": true
+                    },
+                    "image_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Image Url"
                     }
                 },
                 "type": "object",
@@ -5334,6 +5539,17 @@
                     "type": {
                         "$ref": "#/components/schemas/CategoryType"
                     },
+                    "image_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Image Url"
+                    },
                     "id": {
                         "type": "integer",
                         "title": "Id"
@@ -5387,6 +5603,17 @@
                     },
                     "type": {
                         "$ref": "#/components/schemas/CategoryType"
+                    },
+                    "image_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Image Url"
                     },
                     "id": {
                         "type": "integer",
@@ -5474,6 +5701,17 @@
                             }
                         ],
                         "title": "Is Active"
+                    },
+                    "image_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Image Url"
                     }
                 },
                 "type": "object",
@@ -5989,6 +6227,18 @@
                 },
                 "type": "object",
                 "title": "DiscountUpdateRequest"
+            },
+            "GuestSessionAckResponse": {
+                "properties": {
+                    "ok": {
+                        "type": "boolean",
+                        "title": "Ok",
+                        "default": true
+                    }
+                },
+                "type": "object",
+                "title": "GuestSessionAckResponse",
+                "description": "Подтверждение, что гостевая сессия активна (идентификатор только в cookie sessionid)."
             },
             "HTTPValidationError": {
                 "properties": {
@@ -6518,6 +6768,30 @@
                 "title": "ProductDiscountInfo",
                 "description": "Информация о скидке на продукт"
             },
+            "ProductFavoriteMutationResponse": {
+                "properties": {
+                    "product_id": {
+                        "type": "integer",
+                        "title": "Product Id"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product_id"
+                ],
+                "title": "ProductFavoriteMutationResponse"
+            },
             "ProductIdListResponse": {
                 "properties": {
                     "product_ids": {
@@ -6748,6 +7022,11 @@
                         "type": "integer",
                         "title": "Reviews Count",
                         "default": 0
+                    },
+                    "is_favourite": {
+                        "type": "boolean",
+                        "title": "Is Favourite",
+                        "default": false
                     }
                 },
                 "type": "object",

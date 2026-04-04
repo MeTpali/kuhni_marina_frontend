@@ -83,6 +83,7 @@ class CategoriesTestService {
       slug: request.slug ?? request.name.toLowerCase().replaceAll(' ', '-'),
       type: request.type,
       parentId: request.parentId,
+      imageUrl: request.imageUrl,
       isActive: request.isActive,
       message: null,
     ));
@@ -114,6 +115,7 @@ class CategoriesTestService {
       slug: request.slug ?? request.name.toLowerCase().replaceAll(' ', '-'),
       type: request.type,
       parentId: request.parentId,
+      imageUrl: request.imageUrl,
       isActive: request.isActive ?? true,
       message: null,
     ));

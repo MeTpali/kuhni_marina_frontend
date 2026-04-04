@@ -13,6 +13,7 @@ class CategoryTreeNode with _$CategoryTreeNode {
     required String slug,
     required CategoryType type,
     int? parentId,
+    String? imageUrl,
     @Default(true) bool isActive,
     @Default([]) List<CategoryTreeNode> children,
   }) = _CategoryTreeNode;

@@ -31,6 +31,8 @@ mixin _$CategoryResponseDto {
   CategoryTypeDto get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'parent_id')
   int? get parentId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool get isActive => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
@@ -59,6 +61,7 @@ abstract class $CategoryResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'slug') String slug,
     @JsonKey(name: 'type') CategoryTypeDto type,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'message') String? message,
   });
@@ -84,6 +87,7 @@ class _$CategoryResponseDtoCopyWithImpl<$Res, $Val extends CategoryResponseDto>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
     Object? message = freezed,
   }) {
@@ -109,6 +113,10 @@ class _$CategoryResponseDtoCopyWithImpl<$Res, $Val extends CategoryResponseDto>
                 ? _value.parentId
                 : parentId // ignore: cast_nullable_to_non_nullable
                       as int?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isActive: null == isActive
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
@@ -138,6 +146,7 @@ abstract class _$$CategoryResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'slug') String slug,
     @JsonKey(name: 'type') CategoryTypeDto type,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'message') String? message,
   });
@@ -162,6 +171,7 @@ class __$$CategoryResponseDtoImplCopyWithImpl<$Res>
     Object? slug = null,
     Object? type = null,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
     Object? message = freezed,
   }) {
@@ -187,6 +197,10 @@ class __$$CategoryResponseDtoImplCopyWithImpl<$Res>
             ? _value.parentId
             : parentId // ignore: cast_nullable_to_non_nullable
                   as int?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isActive: null == isActive
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
@@ -209,6 +223,7 @@ class _$CategoryResponseDtoImpl implements _CategoryResponseDto {
     @JsonKey(name: 'slug') required this.slug,
     @JsonKey(name: 'type') required this.type,
     @JsonKey(name: 'parent_id') this.parentId,
+    @JsonKey(name: 'image_url') this.imageUrl,
     @JsonKey(name: 'is_active') this.isActive = true,
     @JsonKey(name: 'message') this.message,
   });
@@ -232,6 +247,9 @@ class _$CategoryResponseDtoImpl implements _CategoryResponseDto {
   @JsonKey(name: 'parent_id')
   final int? parentId;
   @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
+  @override
   @JsonKey(name: 'is_active')
   final bool isActive;
   @override
@@ -240,7 +258,7 @@ class _$CategoryResponseDtoImpl implements _CategoryResponseDto {
 
   @override
   String toString() {
-    return 'CategoryResponseDto(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, isActive: $isActive, message: $message)';
+    return 'CategoryResponseDto(id: $id, name: $name, slug: $slug, type: $type, parentId: $parentId, imageUrl: $imageUrl, isActive: $isActive, message: $message)';
   }
 
   @override
@@ -254,6 +272,8 @@ class _$CategoryResponseDtoImpl implements _CategoryResponseDto {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             (identical(other.message, message) || other.message == message));
@@ -268,6 +288,7 @@ class _$CategoryResponseDtoImpl implements _CategoryResponseDto {
     slug,
     type,
     parentId,
+    imageUrl,
     isActive,
     message,
   );
@@ -296,6 +317,7 @@ abstract class _CategoryResponseDto implements CategoryResponseDto {
     @JsonKey(name: 'slug') required final String slug,
     @JsonKey(name: 'type') required final CategoryTypeDto type,
     @JsonKey(name: 'parent_id') final int? parentId,
+    @JsonKey(name: 'image_url') final String? imageUrl,
     @JsonKey(name: 'is_active') final bool isActive,
     @JsonKey(name: 'message') final String? message,
   }) = _$CategoryResponseDtoImpl;
@@ -318,6 +340,9 @@ abstract class _CategoryResponseDto implements CategoryResponseDto {
   @override
   @JsonKey(name: 'parent_id')
   int? get parentId;
+  @override
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
   @override
   @JsonKey(name: 'is_active')
   bool get isActive;

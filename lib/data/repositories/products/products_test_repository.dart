@@ -2,11 +2,13 @@ import '../../../core/entities/result/result.dart';
 import '../../../domain/models/product/product.dart';
 import '../../../domain/models/product/product_catalog.dart';
 import '../../../domain/models/product/product_create_request.dart';
+import '../../../domain/models/product/product_favorite_mutation.dart';
 import '../../../domain/models/product/product_search_suggestion.dart';
 import '../../../domain/models/product/product_update_request.dart';
 import '../../../domain/models/product_type/product_type.dart';
 import '../../../domain/repositories/i_products_repository.dart';
 import '../../mappers/products/product_catalog_mapper.dart';
+import '../../mappers/products/product_favorite_mutation_mapper.dart';
 import '../../mappers/products/product_mapper.dart';
 import '../../mappers/products/product_request_mappers.dart';
 import '../../mappers/products/product_suggestion_item_mapper.dart';
@@ -23,6 +25,8 @@ class ProductsTestRepository implements IProductsRepository {
   final ProductCatalogMapper _catalogMapper = ProductCatalogMapper();
   final ProductSuggestionItemMapper _suggestionMapper =
       ProductSuggestionItemMapper();
+  final ProductFavoriteMutationMapper _favoriteMutationMapper =
+      ProductFavoriteMutationMapper();
 
   @override
   Future<Result<ProductCatalog>> getProductCatalog({
@@ -191,6 +195,45 @@ class ProductsTestRepository implements IProductsRepository {
     final response = await _service.deleteProduct(productId: productId);
     return response.when(
       success: (_) => const Result.success(true),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<ProductCatalog>> getFavoriteProducts({
+    int? page,
+    int? pageSize,
+  }) async {
+    final response = await _service.getFavoriteProducts(
+      page: page,
+      pageSize: pageSize,
+    );
+    return response.when(
+      success: (dto) => Result.success(_catalogMapper.map(dto)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<ProductFavoriteMutation>> addProductToFavorites(
+    int productId,
+  ) async {
+    final response =
+        await _service.addProductToFavorites(productId: productId);
+    return response.when(
+      success: (dto) => Result.success(_favoriteMutationMapper.map(dto)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<ProductFavoriteMutation>> removeProductFromFavorites(
+    int productId,
+  ) async {
+    final response =
+        await _service.removeProductFromFavorites(productId: productId);
+    return response.when(
+      success: (dto) => Result.success(_favoriteMutationMapper.map(dto)),
       error: (e) => Result.error(responseErrorToMessage(e)),
     );
   }

@@ -223,18 +223,21 @@ class _BannerDotsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = screenSize;
     return Padding(
-      padding: EdgeInsets.only(bottom: s.bannerDotsBottomPadding),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      padding: EdgeInsets.only(
+        bottom: s.bannerDotsBottomPadding,
+        left: s.bannerDotsHorizontalPadding,
+        right: s.bannerDotsHorizontalPadding,
+      ),
+      child: Wrap(
+        spacing: s.bannerDotSpacing,
+        runSpacing: s.bannerDotSpacing,
+        alignment: WrapAlignment.center,
         children: List.generate(
           count,
-          (index) => Padding(
-            padding: EdgeInsets.symmetric(horizontal: s.bannerDotSpacing / 2),
-            child: _BannerDot(
-              size: s.bannerDotSize,
-              isActive: index == currentIndex,
-              onTap: () => onDotTap(index),
-            ),
+          (index) => _BannerDot(
+            size: s.bannerDotSize,
+            isActive: index == currentIndex,
+            onTap: () => onDotTap(index),
           ),
         ),
       ),
@@ -255,27 +258,25 @@ class _BannerDot extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: ClipOval(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-          child: Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isActive
-                  ? AppColors.white.withValues(alpha: 0.9)
-                  : AppColors.white.withValues(alpha: 0.25),
-            ),
+  Widget build(BuildContext context) => GestureDetector(
+    onTap: onTap,
+    behavior: HitTestBehavior.opaque,
+    child: ClipOval(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+        child: Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isActive
+                ? AppColors.white.withValues(alpha: 0.9)
+                : AppColors.white.withValues(alpha: 0.25),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
 
 /// Плейсхолдер баннера на всю ширину без скруглений.

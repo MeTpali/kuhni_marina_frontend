@@ -14,6 +14,7 @@ _$CategoryUpdateRequestDtoImpl _$$CategoryUpdateRequestDtoImplFromJson(
   slug: json['slug'] as String?,
   parentId: (json['parent_id'] as num?)?.toInt(),
   isActive: json['is_active'] as bool?,
+  imageUrl: json['image_url'] as String?,
 );
 
 Map<String, dynamic> _$$CategoryUpdateRequestDtoImplToJson(
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$CategoryUpdateRequestDtoImplToJson(
   'slug': instance.slug,
   'parent_id': instance.parentId,
   'is_active': instance.isActive,
+  'image_url': instance.imageUrl,
 };
 
 const _$CategoryTypeDtoEnumMap = {

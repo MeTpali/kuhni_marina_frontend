@@ -12,6 +12,7 @@ class CategoryResponseDto with _$CategoryResponseDto {
     @JsonKey(name: 'slug') required String slug,
     @JsonKey(name: 'type') required CategoryTypeDto type,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @Default(true) @JsonKey(name: 'is_active') bool isActive,
     @JsonKey(name: 'message') String? message,
   }) = _CategoryResponseDto;

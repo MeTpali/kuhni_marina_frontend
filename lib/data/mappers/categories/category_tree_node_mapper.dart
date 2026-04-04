@@ -12,6 +12,7 @@ class CategoryTreeNodeMapper implements IMapper<CategoryTreeNodeDto, CategoryTre
       slug: from.slug,
       type: _toDomainType(from.type),
       parentId: from.parentId,
+      imageUrl: from.imageUrl,
       isActive: from.isActive,
       children: from.children.map((e) => map(e)).toList(),
     );

@@ -12,6 +12,7 @@ class CategoryUpdateRequestDto with _$CategoryUpdateRequestDto {
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'parent_id') int? parentId,
     @JsonKey(name: 'is_active') bool? isActive,
+    @JsonKey(name: 'image_url') String? imageUrl,
   }) = _CategoryUpdateRequestDto;
 
   factory CategoryUpdateRequestDto.fromJson(Map<String, dynamic> json) =>

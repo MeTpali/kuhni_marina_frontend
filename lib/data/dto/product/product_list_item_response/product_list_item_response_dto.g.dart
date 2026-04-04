@@ -29,6 +29,7 @@ _$ProductListItemResponseDtoImpl _$$ProductListItemResponseDtoImplFromJson(
         ),
   rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
   reviewsCount: (json['reviews_count'] as num?)?.toInt() ?? 0,
+  isFavourite: json['is_favourite'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$$ProductListItemResponseDtoImplToJson(
@@ -48,6 +49,7 @@ Map<String, dynamic> _$$ProductListItemResponseDtoImplToJson(
   'discount': instance.discount,
   'rating': instance.rating,
   'reviews_count': instance.reviewsCount,
+  'is_favourite': instance.isFavourite,
 };
 
 const _$ProductTypeDtoEnumMap = {

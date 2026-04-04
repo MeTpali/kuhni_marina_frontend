@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import '../data/interceptors/retry_interceptor.dart';
 import '../routing/app_router.dart';
 import 'di.dart';
 import 'stage_repos.dart';
@@ -23,6 +24,8 @@ void configureStageDependencies() {
   getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
 
   setupStageRepos();
+
+  _setupInterceptors(getIt<Dio>(), getIt<Talker>());
 }
 
 Talker _setupTalker() => TalkerFlutter.init(
@@ -38,12 +41,18 @@ Dio _setupDio(Talker talker) {
     ),
   );
 
+  return dio;
+}
+
+void _setupInterceptors(Dio dio, Talker talker) {
   dio.interceptors.addAll([
+    RetryInterceptor(dio: dio),
     TalkerDioLogger(
       talker: talker,
-      settings: const TalkerDioLoggerSettings(printRequestHeaders: true),
+      settings: const TalkerDioLoggerSettings(
+        printRequestHeaders: true,
+        hiddenHeaders: {'set-cookie', 'Cookie', 'sessionid'},
+      ),
     ),
   ]);
-
-  return dio;
 }

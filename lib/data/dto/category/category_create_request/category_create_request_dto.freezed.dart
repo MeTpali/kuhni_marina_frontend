@@ -31,6 +31,8 @@ mixin _$CategoryCreateRequestDto {
   String? get slug => throw _privateConstructorUsedError;
   @JsonKey(name: 'parent_id')
   int? get parentId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool get isActive => throw _privateConstructorUsedError;
 
@@ -56,6 +58,7 @@ abstract class $CategoryCreateRequestDtoCopyWith<$Res> {
     @JsonKey(name: 'type') CategoryTypeDto type,
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'is_active') bool isActive,
   });
 }
@@ -82,6 +85,7 @@ class _$CategoryCreateRequestDtoCopyWithImpl<
     Object? type = null,
     Object? slug = freezed,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
   }) {
     return _then(
@@ -102,6 +106,10 @@ class _$CategoryCreateRequestDtoCopyWithImpl<
                 ? _value.parentId
                 : parentId // ignore: cast_nullable_to_non_nullable
                       as int?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isActive: null == isActive
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
@@ -126,6 +134,7 @@ abstract class _$$CategoryCreateRequestDtoImplCopyWith<$Res>
     @JsonKey(name: 'type') CategoryTypeDto type,
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'parent_id') int? parentId,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'is_active') bool isActive,
   });
 }
@@ -152,6 +161,7 @@ class __$$CategoryCreateRequestDtoImplCopyWithImpl<$Res>
     Object? type = null,
     Object? slug = freezed,
     Object? parentId = freezed,
+    Object? imageUrl = freezed,
     Object? isActive = null,
   }) {
     return _then(
@@ -172,6 +182,10 @@ class __$$CategoryCreateRequestDtoImplCopyWithImpl<$Res>
             ? _value.parentId
             : parentId // ignore: cast_nullable_to_non_nullable
                   as int?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isActive: null == isActive
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
@@ -189,6 +203,7 @@ class _$CategoryCreateRequestDtoImpl implements _CategoryCreateRequestDto {
     @JsonKey(name: 'type') required this.type,
     @JsonKey(name: 'slug') this.slug,
     @JsonKey(name: 'parent_id') this.parentId,
+    @JsonKey(name: 'image_url') this.imageUrl,
     @JsonKey(name: 'is_active') this.isActive = true,
   });
 
@@ -208,12 +223,15 @@ class _$CategoryCreateRequestDtoImpl implements _CategoryCreateRequestDto {
   @JsonKey(name: 'parent_id')
   final int? parentId;
   @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
+  @override
   @JsonKey(name: 'is_active')
   final bool isActive;
 
   @override
   String toString() {
-    return 'CategoryCreateRequestDto(name: $name, type: $type, slug: $slug, parentId: $parentId, isActive: $isActive)';
+    return 'CategoryCreateRequestDto(name: $name, type: $type, slug: $slug, parentId: $parentId, imageUrl: $imageUrl, isActive: $isActive)';
   }
 
   @override
@@ -226,6 +244,8 @@ class _$CategoryCreateRequestDtoImpl implements _CategoryCreateRequestDto {
             (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive));
   }
@@ -233,7 +253,7 @@ class _$CategoryCreateRequestDtoImpl implements _CategoryCreateRequestDto {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, type, slug, parentId, isActive);
+      Object.hash(runtimeType, name, type, slug, parentId, imageUrl, isActive);
 
   /// Create a copy of CategoryCreateRequestDto
   /// with the given fields replaced by the non-null parameter values.
@@ -258,6 +278,7 @@ abstract class _CategoryCreateRequestDto implements CategoryCreateRequestDto {
     @JsonKey(name: 'type') required final CategoryTypeDto type,
     @JsonKey(name: 'slug') final String? slug,
     @JsonKey(name: 'parent_id') final int? parentId,
+    @JsonKey(name: 'image_url') final String? imageUrl,
     @JsonKey(name: 'is_active') final bool isActive,
   }) = _$CategoryCreateRequestDtoImpl;
 
@@ -276,6 +297,9 @@ abstract class _CategoryCreateRequestDto implements CategoryCreateRequestDto {
   @override
   @JsonKey(name: 'parent_id')
   int? get parentId;
+  @override
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
   @override
   @JsonKey(name: 'is_active')
   bool get isActive;

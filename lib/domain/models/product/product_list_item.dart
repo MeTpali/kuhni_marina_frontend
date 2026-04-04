@@ -23,5 +23,6 @@ class ProductListItem with _$ProductListItem {
     ProductDiscountInfo? discount,
     @Default(0.0) double rating,
     @Default(0) int reviewsCount,
+    @Default(false) bool isFavourite,
   }) = _ProductListItem;
 }

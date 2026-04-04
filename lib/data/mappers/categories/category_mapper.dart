@@ -12,6 +12,7 @@ class CategoryMapper implements IMapper<CategoryResponseDto, Category> {
       slug: from.slug,
       type: _toDomainType(from.type),
       parentId: from.parentId,
+      imageUrl: from.imageUrl,
       isActive: from.isActive,
     );
 

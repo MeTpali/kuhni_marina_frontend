@@ -22,6 +22,7 @@ mixin _$CategoryUpdateRequest {
   String? get slug => throw _privateConstructorUsedError;
   int? get parentId => throw _privateConstructorUsedError;
   bool? get isActive => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Create a copy of CategoryUpdateRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -43,6 +44,7 @@ abstract class $CategoryUpdateRequestCopyWith<$Res> {
     String? slug,
     int? parentId,
     bool? isActive,
+    String? imageUrl,
   });
 }
 
@@ -69,6 +71,7 @@ class _$CategoryUpdateRequestCopyWithImpl<
     Object? slug = freezed,
     Object? parentId = freezed,
     Object? isActive = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -92,6 +95,10 @@ class _$CategoryUpdateRequestCopyWithImpl<
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
                       as bool?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -113,6 +120,7 @@ abstract class _$$CategoryUpdateRequestImplCopyWith<$Res>
     String? slug,
     int? parentId,
     bool? isActive,
+    String? imageUrl,
   });
 }
 
@@ -136,6 +144,7 @@ class __$$CategoryUpdateRequestImplCopyWithImpl<$Res>
     Object? slug = freezed,
     Object? parentId = freezed,
     Object? isActive = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(
       _$CategoryUpdateRequestImpl(
@@ -159,6 +168,10 @@ class __$$CategoryUpdateRequestImplCopyWithImpl<$Res>
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
                   as bool?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -173,6 +186,7 @@ class _$CategoryUpdateRequestImpl implements _CategoryUpdateRequest {
     this.slug,
     this.parentId,
     this.isActive,
+    this.imageUrl,
   });
 
   @override
@@ -185,10 +199,12 @@ class _$CategoryUpdateRequestImpl implements _CategoryUpdateRequest {
   final int? parentId;
   @override
   final bool? isActive;
+  @override
+  final String? imageUrl;
 
   @override
   String toString() {
-    return 'CategoryUpdateRequest(name: $name, type: $type, slug: $slug, parentId: $parentId, isActive: $isActive)';
+    return 'CategoryUpdateRequest(name: $name, type: $type, slug: $slug, parentId: $parentId, isActive: $isActive, imageUrl: $imageUrl)';
   }
 
   @override
@@ -202,12 +218,14 @@ class _$CategoryUpdateRequestImpl implements _CategoryUpdateRequest {
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, type, slug, parentId, isActive);
+      Object.hash(runtimeType, name, type, slug, parentId, isActive, imageUrl);
 
   /// Create a copy of CategoryUpdateRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -229,6 +247,7 @@ abstract class _CategoryUpdateRequest implements CategoryUpdateRequest {
     final String? slug,
     final int? parentId,
     final bool? isActive,
+    final String? imageUrl,
   }) = _$CategoryUpdateRequestImpl;
 
   @override
@@ -241,6 +260,8 @@ abstract class _CategoryUpdateRequest implements CategoryUpdateRequest {
   int? get parentId;
   @override
   bool? get isActive;
+  @override
+  String? get imageUrl;
 
   /// Create a copy of CategoryUpdateRequest
   /// with the given fields replaced by the non-null parameter values.
