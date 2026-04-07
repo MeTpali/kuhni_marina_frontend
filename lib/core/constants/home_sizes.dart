@@ -63,39 +63,25 @@ extension HomeSizes on ScreenSize {
     ScreenSize.expanded => 380,
   };
 
-  /// Высота баннера акции в блоке акций на главной.
-  double get campaignBannerHeight => switch (this) {
-    ScreenSize.compact => 140,
-    ScreenSize.medium => 180,
-    ScreenSize.expanded => 220,
+  /// Скругление нижних углов секции баннера на главной.
+  double get bannerBottomRadius => switch (this) {
+    ScreenSize.compact => 12,
+    ScreenSize.medium => 16,
+    ScreenSize.expanded => 20,
   };
 
-  /// Размер точки индикатора баннеров.
-  double get bannerDotSize => switch (this) {
+  /// Тень под секцией баннера ([Material.elevation]).
+  double get bannerElevation => switch (this) {
     ScreenSize.compact => 6,
     ScreenSize.medium => 8,
     ScreenSize.expanded => 10,
   };
 
-  /// Расстояние между точками индикатора баннеров.
-  double get bannerDotSpacing => switch (this) {
-    ScreenSize.compact => 6,
-    ScreenSize.medium => 8,
-    ScreenSize.expanded => 10,
-  };
-
-  /// Отступ снизу от баннера до точек индикатора.
-  double get bannerDotsBottomPadding => switch (this) {
-    ScreenSize.compact => 8,
-    ScreenSize.medium => 10,
-    ScreenSize.expanded => 12,
-  };
-
-  /// Отступ снизу от баннера до точек индикатора.
-  double get bannerDotsHorizontalPadding => switch (this) {
-    ScreenSize.compact => 16,
-    ScreenSize.medium => 20,
-    ScreenSize.expanded => 24,
+  /// Иконка стрелки «предыдущий / следующий» на баннере (десктоп, hover).
+  double get bannerNavArrowSize => switch (this) {
+    ScreenSize.compact => 28,
+    ScreenSize.medium => 32,
+    ScreenSize.expanded => 36,
   };
 
   // --- Иконки ---
@@ -104,6 +90,57 @@ extension HomeSizes on ScreenSize {
     ScreenSize.compact => 20,
     ScreenSize.medium => 22,
     ScreenSize.expanded => 24,
+  };
+
+  // --- Верхняя панель главной (логотип, меню, поиск) ---
+
+  /// Высота строки панели (без учёта статус-бара).
+  double get homeAppBarHeight => switch (this) {
+    ScreenSize.compact => 52,
+    ScreenSize.medium => 56,
+    ScreenSize.expanded => 64,
+  };
+
+  /// Высота логотипа в панели.
+  double get homeAppBarLogoHeight => switch (this) {
+    ScreenSize.compact => 28,
+    ScreenSize.medium => 32,
+    ScreenSize.expanded => 36,
+  };
+
+  /// Текст пунктов меню в панели (только [ScreenSize.expanded]).
+  double get homeAppBarNavTextSize => switch (this) {
+    ScreenSize.compact => 13,
+    ScreenSize.medium => 14,
+    ScreenSize.expanded => 15,
+  };
+
+  /// Горизонтальный внутренний отступ у текстовой кнопки меню в панели.
+  double get homeAppBarNavButtonPaddingH => switch (this) {
+    ScreenSize.compact => 6,
+    ScreenSize.medium => 8,
+    ScreenSize.expanded => 10,
+  };
+
+  /// Иконки поиска и бургер-меню в панели.
+  double get homeAppBarActionIconSize => switch (this) {
+    ScreenSize.compact => 22,
+    ScreenSize.medium => 24,
+    ScreenSize.expanded => 26,
+  };
+
+  /// Толщина подчёркивания активного пункта меню в панели.
+  double get homeAppBarUnderlineHeight => switch (this) {
+    ScreenSize.compact => 2,
+    ScreenSize.medium => 2.5,
+    ScreenSize.expanded => 3,
+  };
+
+  /// Сила размытия фона верхней панели (sigma для размытия заднего плана).
+  double get homeAppBarBlurSigma => switch (this) {
+    ScreenSize.compact => 3,
+    ScreenSize.medium => 4,
+    ScreenSize.expanded => 5,
   };
 
   /// Основная иконка переключателя темы (свет/луна).
@@ -122,7 +159,7 @@ extension HomeSizes on ScreenSize {
 
   // --- Отступы главной ---
 
-  /// Горизонтальный отступ блоков (вместо фиксированного [AppSpacing.lg]).
+  /// Горизонтальный отступ блоков (вместо фиксированного AppSpacing.lg).
   double get horizontalPadding => switch (this) {
     ScreenSize.compact => 16,
     ScreenSize.medium => 24,
@@ -145,9 +182,9 @@ extension HomeSizes on ScreenSize {
 
   /// Отступ между заголовком секции и списком карточек.
   double get sectionTitleBottomSpacing => switch (this) {
-    ScreenSize.compact => 12,
-    ScreenSize.medium => 16,
-    ScreenSize.expanded => 20,
+    ScreenSize.compact => 24,
+    ScreenSize.medium => 32,
+    ScreenSize.expanded => 40,
   };
 
   /// Внутренний отступ баннера (заголовок от краёв).

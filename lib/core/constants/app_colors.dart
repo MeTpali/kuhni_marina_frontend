@@ -1,61 +1,79 @@
 import 'package:flutter/material.dart';
 
 // ---------------------------------------------------------------------------
-// Светлая тема (бело-молочный фон, тёмный текст)
+// Светлая тема (бежевый фон, тёплый бренд)
 // ---------------------------------------------------------------------------
 
 abstract class AppColorsLight {
   AppColorsLight._();
 
-  static const Color primary = Color(0xFF1F3A5F);
-  static const Color primaryVariant = Color(0xFF2C4F7C);
-  static const Color primaryContainer = Color(0xFFE8EEF6);
+  // Основной (тёмно-коричневый)
+  static const Color primary = Color(0xFF5A3E2B);
+  static const Color primaryVariant = Color(0xFF6B4A34);
+  static const Color primaryContainer = Color(0xFFE9E1D5);
   static const Color onPrimary = Color(0xFFFFFFFF);
-  static const Color onPrimaryContainer = Color(0xFF1C2B3A);
+  static const Color onPrimaryContainer = Color(0xFF3E2A1F);
 
-  static const Color accent = Color(0xFFC6A15B);
-  static const Color accentLight = Color(0xFFD6BA82);
-  static const Color onAccent = Color(0xFF26292B);
+  // Акцент (оранжевый)
+  static const Color accent = Color(0xFFE86F1E);
+  static const Color accentLight = Color(0xFFF08A4B);
+  static const Color onAccent = Color(0xFFFFFFFF);
 
-  static const Color background = Color(0xFFFAF9F7);
-  static const Color surface = Color(0xFFFCFCFD);
-  static const Color surfaceElevated = Color(0xFFF6F6F6);
-  static const Color onSurface = Color(0xFF26292B);
-  static const Color onSurfaceVariant = Color(0xFF5D666C);
-  static const Color onSurfaceTertiary = Color(0xFF919A9F);
-  static const Color outline = Color(0xFFD9DCDE);
-  static const Color divider = Color(0xFFE8E8E8);
+  // Фоны
+  static const Color background = Color(0xFFFAF7F2);
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color surfaceElevated = Color(0xFFF3ECE3);
+
+  // Текст
+  static const Color onSurface = Color(0xFF2E2E2E);
+  static const Color onSurfaceVariant = Color(0xFF6B6B6B);
+  static const Color onSurfaceTertiary = Color(0xFF9A9A9A);
+
+  // Разделители
+  static const Color outline = Color(0xFFE0D8CC);
+  static const Color divider = Color(0xFFE8E1D8);
+
+  // Ошибки
   static const Color error = Color(0xFFB3261E);
   static const Color onError = Color(0xFFFFFFFF);
 }
 
 // ---------------------------------------------------------------------------
-// Тёмная тема (глубокий синий фон, золотые акценты)
+// Тёмная тема (тёплый тёмно-коричневый, не холодный)
 // ---------------------------------------------------------------------------
 
 abstract class AppColorsDark {
   AppColorsDark._();
 
-  static const Color primary = Color(0xFF1F3A5F);
-  static const Color primaryVariant = Color(0xFF2C4F7C);
-  static const Color primaryContainer = Color(0xFF2A3F5C);
+  // Основной
+  static const Color primary = Color(0xFF6B4A34);
+  static const Color primaryVariant = Color(0xFF5A3E2B);
+  static const Color primaryContainer = Color(0xFF3A2A1F);
   static const Color onPrimary = Color(0xFFFFFFFF);
-  static const Color onPrimaryContainer = Color(0xFFE2E8F0);
+  static const Color onPrimaryContainer = Color(0xFFE9E1D5);
 
-  static const Color accent = Color(0xFFC6A15B);
-  static const Color accentLight = Color(0xFFD6BA82);
-  static const Color onAccent = Color(0xFF1A1D21);
+  // Акцент
+  static const Color accent = Color(0xFFE86F1E);
+  static const Color accentLight = Color(0xFFF08A4B);
+  static const Color onAccent = Color(0xFF1A1A1A);
 
-  static const Color background = Color(0xFF0F1729);
-  static const Color surface = Color(0xFF1A2332);
-  static const Color surfaceElevated = Color(0xFF243447);
-  static const Color onSurface = Color(0xFFF1F5F9);
-  static const Color onSurfaceVariant = Color(0xFF94A3B8);
-  static const Color onSurfaceTertiary = Color(0xFF64748B);
-  static const Color outline = Color(0xFF334155);
-  static const Color divider = Color(0xFF334155);
-  static const Color error = Color(0xFFB3261E);
-  static const Color onError = Color(0xFFFFFFFF);
+  // Фоны
+  static const Color background = Color(0xFF1E1A17);
+  static const Color surface = Color(0xFF2A231E);
+  static const Color surfaceElevated = Color(0xFF332922);
+
+  // Текст
+  static const Color onSurface = Color(0xFFF5F5F5);
+  static const Color onSurfaceVariant = Color(0xFFB8B0A6);
+  static const Color onSurfaceTertiary = Color(0xFF8C837A);
+
+  // Разделители
+  static const Color outline = Color(0xFF4A3A30);
+  static const Color divider = Color(0xFF4A3A30);
+
+  // Ошибки
+  static const Color error = Color(0xFFCF6679);
+  static const Color onError = Color(0xFF000000);
 }
 
 // ---------------------------------------------------------------------------

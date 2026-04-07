@@ -1,11 +1,16 @@
+import 'dart:async';
+import 'dart:ui' show lerpDouble;
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_images.dart';
 import '../../../core/constants/home_sizes.dart';
 import '../../../core/constants/screen_size.dart';
 import '../../../core/theme/app_theme.dart';
+import '../widgets/home_app_bar.dart';
 import '../widgets/home_banner_section.dart';
 import '../widgets/home_campaigns_section.dart';
 import '../widgets/home_footer.dart';
@@ -14,36 +19,253 @@ import '../widgets/home_kitchens_section.dart';
 import '../widgets/home_search_bar.dart';
 
 @RoutePage()
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage>
+    with SingleTickerProviderStateMixin {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scrollController = ScrollController();
+  final _searchSectionKey = GlobalKey();
+
+  int _selectedNavIndex = 0;
+
+  late final AnimationController _appBarHideController;
+  late final Animation<double> _appBarHideCurve;
+  double _lastScrollPixels = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _appBarHideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 280),
+    );
+    _appBarHideCurve = CurvedAnimation(
+      parent: _appBarHideController,
+      curve: Curves.easeOutCubic,
+    );
+    _scrollController.addListener(_handleScrollForAppBar);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_handleScrollForAppBar);
+    _appBarHideController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _handleScrollForAppBar() {
+    if (!_scrollController.hasClients) return;
+    final offset = _scrollController.offset;
+    final delta = offset - _lastScrollPixels;
+
+    if (offset <= 0) {
+      if (_appBarHideController.value > 0) {
+        _appBarHideController.reverse();
+      }
+      _lastScrollPixels = offset;
+      return;
+    }
+
+    const scrollThreshold = 10.0;
+    if (delta.abs() < scrollThreshold) {
+      _lastScrollPixels = offset;
+      return;
+    }
+
+    if (delta > 0) {
+      if (_appBarHideController.value < 1) {
+        _appBarHideController.forward();
+      }
+    } else {
+      if (_appBarHideController.value > 0) {
+        _appBarHideController.reverse();
+      }
+    }
+    _lastScrollPixels = offset;
+  }
+
+  void _scrollToSearch() {
+    final ctx = _searchSectionKey.currentContext;
+    if (ctx != null) {
+      unawaited(
+        Scrollable.ensureVisible(
+          ctx,
+          duration: const Duration(milliseconds: 450),
+          curve: Curves.easeOutCubic,
+          alignment: 0.12,
+        ),
+      );
+    }
+  }
+
+  void _scrollToTop() {
+    if (!_scrollController.hasClients) return;
+    unawaited(
+      _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOutCubic,
+      ),
+    );
+  }
+
+  void _onNavSelect(int index) {
+    setState(() => _selectedNavIndex = index);
+    if (index == 0) {
+      _scrollToTop();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final screenSize = context.screenSize;
+    final statusTop = MediaQuery.paddingOf(context).top;
+    final appBarHeight = statusTop + screenSize.homeAppBarHeight;
+
+    final bodySliver = SliverToBoxAdapter(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const HomeBannerSection(),
+          SizedBox(height: screenSize.sectionSpacing),
+          KeyedSubtree(key: _searchSectionKey, child: const HomeSearchBar()),
+          SizedBox(height: screenSize.sectionSpacing),
+          const HomeKitchensSection(),
+          const HomeFurnitureSection(),
+          const HomeCampaignsSection(),
+          SizedBox(height: screenSize.sectionSpacing),
+          const HomeFooter(),
+          SizedBox(height: screenSize.sectionSpacing),
+          const _ThemeToggle(),
+          SizedBox(height: screenSize.sectionSpacing),
+        ],
+      ),
+    );
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const HomeBannerSection(),
-                SizedBox(height: screenSize.sectionSpacing),
-                const HomeSearchBar(),
-                SizedBox(height: screenSize.sectionSpacing),
-                const HomeKitchensSection(),
-                const HomeFurnitureSection(),
-                const HomeCampaignsSection(),
-                SizedBox(height: screenSize.sectionSpacing),
-                const HomeFooter(),
-                SizedBox(height: screenSize.sectionSpacing),
-                const _ThemeToggle(),
-                SizedBox(height: screenSize.sectionSpacing),
-              ],
-            ),
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(appBarHeight),
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: Offset.zero,
+            end: const Offset(0, -1),
+          ).animate(_appBarHideCurve),
+          child: HomeAppBar(
+            toolbarInnerHeight: screenSize.homeAppBarHeight,
+            selectedNavIndex: _selectedNavIndex,
+            onSearchTap: _scrollToSearch,
+            onOpenDrawer: screenSize.isExpanded
+                ? null
+                : () => _scaffoldKey.currentState?.openDrawer(),
+            onNavItemTap: _onNavSelect,
           ),
-        ],
+        ),
+      ),
+      drawer: screenSize.isExpanded
+          ? null
+          : Drawer(
+              child: _HomeDrawerContent(
+                selectedIndex: _selectedNavIndex,
+                onSelect: (index) {
+                  Navigator.of(context).pop();
+                  _onNavSelect(index);
+                },
+              ),
+            ),
+      body: AnimatedBuilder(
+        animation: _appBarHideCurve,
+        builder: (context, _) {
+          final top =
+              lerpDouble(appBarHeight, statusTop, _appBarHideCurve.value) ??
+              appBarHeight;
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverPadding(
+                padding: EdgeInsets.only(top: top),
+                sliver: bodySliver,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _HomeDrawerContent extends StatelessWidget {
+  const _HomeDrawerContent({
+    required this.selectedIndex,
+    required this.onSelect,
+  });
+
+  final int selectedIndex;
+  final void Function(int index) onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = context.screenSize;
+    return ColoredBox(
+      color: AppColors.surface,
+      child: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            vertical: s.horizontalPadding,
+            horizontal: s.horizontalPadding * 0.75,
+          ),
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: s.horizontalPadding * 0.25,
+                bottom: s.sectionSpacing * 0.5,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset(
+                  AppImages.logo,
+                  height: s.homeAppBarLogoHeight + 8,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => Icon(
+                    Icons.image_not_supported_outlined,
+                    size: s.homeAppBarLogoHeight + 8,
+                    color: AppColors.onSurfaceTertiary,
+                  ),
+                ),
+              ),
+            ),
+            for (var i = 0; i < HomeAppBar.navLabels.length; i++)
+              ListTile(
+                selected: i == selectedIndex,
+                selectedTileColor: AppColors.accent.withValues(alpha: 0.08),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: s.horizontalPadding,
+                  vertical: s.horizontalPadding * 0.15,
+                ),
+                title: Text(
+                  HomeAppBar.navLabels[i],
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: i == selectedIndex
+                        ? AppColors.accent
+                        : AppColors.onSurface,
+                    fontWeight: i == selectedIndex
+                        ? FontWeight.w600
+                        : FontWeight.w500,
+                    fontSize: s.bodyLargeSize,
+                  ),
+                ),
+                onTap: () => onSelect(i),
+              ),
+          ],
+        ),
       ),
     );
   }
