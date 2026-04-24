@@ -4,6 +4,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_images.dart';
@@ -18,6 +19,9 @@ import '../widgets/home_furniture_section.dart';
 import '../widgets/home_kitchens_section.dart';
 import '../widgets/home_search_bar.dart';
 
+/// Видео-фон главной (Marya promo).
+const _kHomeBackdropVideoUrl = 'https://www.marya.ru/promo/home3/img/7.mp4';
+
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -31,6 +35,7 @@ class _HomePageState extends ConsumerState<HomePage>
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _scrollController = ScrollController();
   final _searchSectionKey = GlobalKey();
+  final _furnitureSectionKey = GlobalKey();
 
   int _selectedNavIndex = 0;
 
@@ -38,9 +43,12 @@ class _HomePageState extends ConsumerState<HomePage>
   late final Animation<double> _appBarHideCurve;
   double _lastScrollPixels = 0;
 
+  VideoPlayerController? _homeBackdropVideo;
+
   @override
   void initState() {
     super.initState();
+    unawaited(_initHomeBackdropVideo());
     _appBarHideController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 280),
@@ -57,7 +65,35 @@ class _HomePageState extends ConsumerState<HomePage>
     _scrollController.removeListener(_handleScrollForAppBar);
     _appBarHideController.dispose();
     _scrollController.dispose();
+    _homeBackdropVideo?.dispose();
     super.dispose();
+  }
+
+  Future<void> _initHomeBackdropVideo() async {
+    final controller = VideoPlayerController.networkUrl(
+      Uri.parse(_kHomeBackdropVideoUrl),
+    );
+    try {
+      await controller.initialize();
+      if (!mounted) {
+        await controller.dispose();
+        return;
+      }
+      await controller.setLooping(true);
+      await controller.setVolume(0);
+      if (!mounted) {
+        await controller.dispose();
+        return;
+      }
+      await controller.play();
+      if (!mounted) {
+        await controller.dispose();
+        return;
+      }
+      setState(() => _homeBackdropVideo = controller);
+    } catch (_) {
+      await controller.dispose();
+    }
   }
 
   void _handleScrollForAppBar() {
@@ -116,18 +152,37 @@ class _HomePageState extends ConsumerState<HomePage>
     );
   }
 
+  void _scrollToFurniture() {
+    final ctx = _furnitureSectionKey.currentContext;
+    if (ctx != null) {
+      unawaited(
+        Scrollable.ensureVisible(
+          ctx,
+          duration: const Duration(milliseconds: 450),
+          curve: Curves.easeOutCubic,
+          alignment: 0.08,
+        ),
+      );
+    }
+  }
+
   void _onNavSelect(int index) {
     setState(() => _selectedNavIndex = index);
     if (index == 0) {
       _scrollToTop();
+    } else if (index == 2) {
+      _scrollToFurniture();
     }
   }
+
+  void _onFavoritesTap() {}
 
   @override
   Widget build(BuildContext context) {
     final screenSize = context.screenSize;
     final statusTop = MediaQuery.paddingOf(context).top;
     final appBarHeight = statusTop + screenSize.homeAppBarHeight;
+    final backdropVideo = _homeBackdropVideo;
 
     final bodySliver = SliverToBoxAdapter(
       child: Column(
@@ -138,7 +193,10 @@ class _HomePageState extends ConsumerState<HomePage>
           KeyedSubtree(key: _searchSectionKey, child: const HomeSearchBar()),
           SizedBox(height: screenSize.sectionSpacing),
           const HomeKitchensSection(),
-          const HomeFurnitureSection(),
+          KeyedSubtree(
+            key: _furnitureSectionKey,
+            child: const HomeFurnitureSection(),
+          ),
           const HomeCampaignsSection(),
           SizedBox(height: screenSize.sectionSpacing),
           const HomeFooter(),
@@ -151,6 +209,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: AppColors.homePageBackground,
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(appBarHeight),
@@ -163,6 +222,7 @@ class _HomePageState extends ConsumerState<HomePage>
             toolbarInnerHeight: screenSize.homeAppBarHeight,
             selectedNavIndex: _selectedNavIndex,
             onSearchTap: _scrollToSearch,
+            onFavoritesTap: _onFavoritesTap,
             onOpenDrawer: screenSize.isExpanded
                 ? null
                 : () => _scaffoldKey.currentState?.openDrawer(),
@@ -181,22 +241,41 @@ class _HomePageState extends ConsumerState<HomePage>
                 },
               ),
             ),
-      body: AnimatedBuilder(
-        animation: _appBarHideCurve,
-        builder: (context, _) {
-          final top =
-              lerpDouble(appBarHeight, statusTop, _appBarHideCurve.value) ??
-              appBarHeight;
-          return CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              SliverPadding(
-                padding: EdgeInsets.only(top: top),
-                sliver: bodySliver,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          const ColoredBox(color: AppColors.homePageBackground),
+          if (backdropVideo != null) // && backdropVideo.value.isInitialized
+            Positioned.fill(
+              child: ClipRect(
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: backdropVideo.value.size.width,
+                    height: backdropVideo.value.size.height,
+                    child: VideoPlayer(backdropVideo),
+                  ),
+                ),
               ),
-            ],
-          );
-        },
+            ),
+          AnimatedBuilder(
+            animation: _appBarHideCurve,
+            builder: (context, _) {
+              final top =
+                  lerpDouble(appBarHeight, statusTop, _appBarHideCurve.value) ??
+                  appBarHeight;
+              return CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  SliverPadding(
+                    padding: EdgeInsets.only(top: top),
+                    sliver: bodySliver,
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
       ),
     );
   }

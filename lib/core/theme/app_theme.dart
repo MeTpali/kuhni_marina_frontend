@@ -49,11 +49,12 @@ abstract class AppThemes {
     ),
   );
 
+  /// Пока совпадает со светлой: те же серые «стеклянные» фоны и контрасты.
   static ThemeData get dark => ThemeData(
     useMaterial3: true,
-    brightness: Brightness.dark,
-    colorScheme: ColorScheme.dark(
-      primary: AppColorsDark.primaryVariant,
+    brightness: Brightness.light,
+    colorScheme: ColorScheme.light(
+      primary: AppColorsDark.primary,
       onPrimary: AppColorsDark.onPrimary,
       primaryContainer: AppColorsDark.primaryContainer,
       onPrimaryContainer: AppColorsDark.onPrimaryContainer,

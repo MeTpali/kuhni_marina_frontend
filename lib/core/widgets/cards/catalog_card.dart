@@ -92,11 +92,15 @@ class _CatalogCardState extends State<CatalogCard> {
 
   void _onImageAreaHover(double localDx, double width) {
     if (_images.length <= 1 || width <= 0) return;
-    final segment = (localDx / width * _images.length).floor().clamp(0, _images.length - 1);
+    final segment = (localDx / width * _images.length).floor().clamp(
+      0,
+      _images.length - 1,
+    );
     if (segment == _lastHoverSegment) return;
     _lastHoverSegment = segment;
     final currentPage = _controller.page?.round() ?? _images.length * 100;
-    final targetPage = (currentPage ~/ _images.length) * _images.length + segment;
+    final targetPage =
+        (currentPage ~/ _images.length) * _images.length + segment;
     if (targetPage != currentPage) {
       _controller.animateToPage(
         targetPage,
@@ -159,48 +163,54 @@ class _CatalogCardState extends State<CatalogCard> {
                             ),
                           ),
                           Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: s.labelsPaddingBottom),
-                        child: Column(
-                          spacing: s.labelsSpacing,
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (widget.discount != null)
-                              CardLabel(
-                                title: '-${widget.discount!.discountPercent}%',
-                                bracingType: BracingType.left,
-                                color: AppColors.error,
-                                paddingHorizontal: s.labelPaddingHorizontal,
-                                paddingVertical: s.labelPaddingVertical,
-                                fontSize: s.labelFontSize,
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: s.labelsPaddingBottom,
                               ),
-                            if (widget.isHit)
-                              CardLabel(
-                                title: 'Хит',
-                                bracingType: BracingType.left,
-                                color: AppColors.accent,
-                                paddingHorizontal: s.labelPaddingHorizontal,
-                                paddingVertical: s.labelPaddingVertical,
-                                fontSize: s.labelFontSize,
+                              child: Column(
+                                spacing: s.labelsSpacing,
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (widget.discount != null)
+                                    CardLabel(
+                                      title:
+                                          '-${widget.discount!.discountPercent}%',
+                                      bracingType: BracingType.left,
+                                      color: AppColors.error,
+                                      paddingHorizontal:
+                                          s.labelPaddingHorizontal,
+                                      paddingVertical: s.labelPaddingVertical,
+                                      fontSize: s.labelFontSize,
+                                    ),
+                                  if (widget.isHit)
+                                    CardLabel(
+                                      title: 'ХИТ',
+                                      bracingType: BracingType.left,
+                                      color: AppColors.accent,
+                                      paddingHorizontal:
+                                          s.labelPaddingHorizontal,
+                                      paddingVertical: s.labelPaddingVertical,
+                                      fontSize: s.labelFontSize,
+                                    ),
+                                  if (widget.isNew)
+                                    CardLabel(
+                                      title: 'НОВИНКА',
+                                      bracingType: BracingType.left,
+                                      color: AppColors.accent,
+                                      paddingHorizontal:
+                                          s.labelPaddingHorizontal,
+                                      paddingVertical: s.labelPaddingVertical,
+                                      fontSize: s.labelFontSize,
+                                    ),
+                                ],
                               ),
-                            if (widget.isNew)
-                              CardLabel(
-                                title: 'Новинка',
-                                bracingType: BracingType.left,
-                                color: AppColors.accent,
-                                paddingHorizontal: s.labelPaddingHorizontal,
-                                paddingVertical: s.labelPaddingVertical,
-                                fontSize: s.labelFontSize,
-                              ),
-                          ],
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              );
+                    );
                   },
                 ),
               ),
@@ -301,7 +311,7 @@ class _Price extends StatelessWidget {
         children: [
           Text(
             '${discount!.finalPrice} ₽',
-            style: TextStyle(
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
               color: AppColors.error,
               fontSize: screenSize.priceFontSize,
               fontWeight: FontWeight.w700,
@@ -310,7 +320,7 @@ class _Price extends StatelessWidget {
           SizedBox(width: screenSize.priceGap),
           Text(
             '$price ₽',
-            style: TextStyle(
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
               color: AppColors.onSurfaceTertiary,
               fontSize: screenSize.priceStrikethroughFontSize,
               fontWeight: FontWeight.w700,
@@ -323,7 +333,7 @@ class _Price extends StatelessWidget {
     }
     return Text(
       '$price ₽',
-      style: TextStyle(
+      style: Theme.of(context).textTheme.labelMedium?.copyWith(
         color: AppColors.base100,
         fontSize: screenSize.priceFontSize,
         fontWeight: FontWeight.w700,
@@ -401,20 +411,20 @@ class _Stats extends StatelessWidget {
         ),
       ),
       SizedBox(width: screenSize.statsGap1),
-Icon(
-            Icons.chat_bubble,
-            color: AppColors.onSurfaceTertiary,
-            size: screenSize.statsIconSize,
-          ),
-          SizedBox(width: screenSize.statsGap2),
-          Text(
-            _reviewString(reviewsCount),
-            style: TextStyle(
-              fontSize: screenSize.statsFontSize,
-              fontWeight: FontWeight.w600,
-              color: AppColors.onSurfaceTertiary,
-            ),
-          ),
+      Icon(
+        Icons.chat_bubble,
+        color: AppColors.onSurfaceTertiary,
+        size: screenSize.statsIconSize,
+      ),
+      SizedBox(width: screenSize.statsGap2),
+      Text(
+        _reviewString(reviewsCount),
+        style: TextStyle(
+          fontSize: screenSize.statsFontSize,
+          fontWeight: FontWeight.w600,
+          color: AppColors.onSurfaceTertiary,
+        ),
+      ),
     ],
   );
 

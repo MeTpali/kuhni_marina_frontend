@@ -96,9 +96,9 @@ extension HomeSizes on ScreenSize {
 
   /// Высота строки панели (без учёта статус-бара).
   double get homeAppBarHeight => switch (this) {
-    ScreenSize.compact => 52,
-    ScreenSize.medium => 56,
-    ScreenSize.expanded => 64,
+    ScreenSize.compact => 46,
+    ScreenSize.medium => 50,
+    ScreenSize.expanded => 58,
   };
 
   /// Высота логотипа в панели.
@@ -110,30 +110,31 @@ extension HomeSizes on ScreenSize {
 
   /// Текст пунктов меню в панели (только [ScreenSize.expanded]).
   double get homeAppBarNavTextSize => switch (this) {
-    ScreenSize.compact => 13,
-    ScreenSize.medium => 14,
-    ScreenSize.expanded => 15,
+    ScreenSize.compact => 11,
+    ScreenSize.medium => 12,
+    ScreenSize.expanded => 13,
   };
 
-  /// Горизонтальный внутренний отступ у текстовой кнопки меню в панели.
+  /// Горизонтальный внутренний отступ у текстовой кнопки меню в панели
+  /// (половина «промежутка» между соседними кнопками; +5 к прежним значениям).
   double get homeAppBarNavButtonPaddingH => switch (this) {
-    ScreenSize.compact => 6,
-    ScreenSize.medium => 8,
-    ScreenSize.expanded => 10,
+    ScreenSize.compact => 11,
+    ScreenSize.medium => 13,
+    ScreenSize.expanded => 15,
   };
 
   /// Иконки поиска и бургер-меню в панели.
   double get homeAppBarActionIconSize => switch (this) {
-    ScreenSize.compact => 22,
-    ScreenSize.medium => 24,
-    ScreenSize.expanded => 26,
+    ScreenSize.compact => 18,
+    ScreenSize.medium => 20,
+    ScreenSize.expanded => 22,
   };
 
   /// Толщина подчёркивания активного пункта меню в панели.
   double get homeAppBarUnderlineHeight => switch (this) {
-    ScreenSize.compact => 2,
-    ScreenSize.medium => 2.5,
-    ScreenSize.expanded => 3,
+    ScreenSize.compact => 0.5,
+    ScreenSize.medium => 1,
+    ScreenSize.expanded => 1.5,
   };
 
   /// Сила размытия фона верхней панели (sigma для размытия заднего плана).

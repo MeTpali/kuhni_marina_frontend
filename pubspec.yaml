@@ -34,6 +34,7 @@ dependencies:
   video_player: ^2.10.1
   visibility_detector: ^0.4.0+2
   google_fonts: ^6.3.2
+  liquid_glass_easy: ^1.1.1
   flutter_localizations:
     sdk: flutter
 
@@ -52,3 +53,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+  shaders:
+    - shaders/liquid_glass_displace.frag
+    - shaders/liquid_glass_magnify.frag
