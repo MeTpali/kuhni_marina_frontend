@@ -14,7 +14,6 @@ class HomeFurnitureSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenSize = context.screenSize;
     final hitsAsync = ref.watch(HomeDi.homeHitsFurnitureProvider);
     final newAsync = ref.watch(HomeDi.homeNewFurnitureProvider);
 
@@ -31,25 +30,24 @@ class HomeFurnitureSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(height: screenSize.sectionSpacing),
         hitsAsync.when(
           data: (catalog) => catalog.items.isEmpty
               ? const SizedBox.shrink()
               : HomeProductsSection(
                   title: 'Популярная мебель',
                   productList: catalog.items,
+                  backdropStyle: HomeSectionBackdropStyle.glassLight,
                 ),
           loading: () => const _SectionPlaceholder(title: 'Популярная мебель'),
           error: (_, __) => const SizedBox.shrink(),
         ),
-        if (hitsHasProducts && newHasProducts)
-          SizedBox(height: screenSize.sectionSpacing),
         newAsync.when(
           data: (catalog) => catalog.items.isEmpty
               ? const SizedBox.shrink()
               : HomeProductsSection(
                   title: 'Новинки',
                   productList: catalog.items,
+                  backdropStyle: HomeSectionBackdropStyle.glassHeavy,
                 ),
           loading: () => const _SectionPlaceholder(title: 'Новинки'),
           error: (_, __) => const SizedBox.shrink(),

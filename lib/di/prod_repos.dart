@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../data/repositories/attributes/attributes_remote_repository.dart';
+import '../../data/repositories/background_images/background_images_remote_repository.dart';
 import '../../data/repositories/banners/banners_remote_repository.dart';
 import '../../data/repositories/campaigns/campaigns_remote_repository.dart';
 import '../../data/repositories/categories/categories_remote_repository.dart';
@@ -12,6 +13,7 @@ import '../../data/repositories/products/products_remote_repository.dart';
 import '../../data/repositories/projects/projects_remote_repository.dart';
 import '../../data/repositories/reviews/reviews_remote_repository.dart';
 import '../../data/services/attributes/attributes_remote_service.dart';
+import '../../data/services/background_images/background_images_remote_service.dart';
 import '../../data/services/banners/banners_remote_service.dart';
 import '../../data/services/campaigns/campaigns_remote_service.dart';
 import '../../data/services/categories/categories_remote_service.dart';
@@ -22,6 +24,7 @@ import '../../data/services/products/products_remote_service.dart';
 import '../../data/services/projects/projects_remote_service.dart';
 import '../../data/services/reviews/reviews_remote_service.dart';
 import '../../domain/repositories/i_attributes_repository.dart';
+import '../../domain/repositories/i_background_images_repository.dart';
 import '../../domain/repositories/i_banners_repository.dart';
 import '../../domain/repositories/i_campaigns_repository.dart';
 import '../../domain/repositories/i_categories_repository.dart';
@@ -57,6 +60,9 @@ void setupProdRepos() {
   getIt.registerLazySingleton<BannersRemoteService>(
     () => BannersRemoteService(getIt<Dio>()),
   );
+  getIt.registerLazySingleton<BackgroundImagesRemoteService>(
+    () => BackgroundImagesRemoteService(getIt<Dio>()),
+  );
   getIt.registerLazySingleton<MeasureRequestsRemoteService>(
     () => MeasureRequestsRemoteService(getIt<Dio>()),
   );
@@ -87,6 +93,11 @@ void setupProdRepos() {
   );
   getIt.registerSingleton<IBannersRepository>(
     BannersRemoteRepository(service: getIt<BannersRemoteService>()),
+  );
+  getIt.registerSingleton<IBackgroundImagesRepository>(
+    BackgroundImagesRemoteRepository(
+      service: getIt<BackgroundImagesRemoteService>(),
+    ),
   );
   getIt.registerSingleton<IMeasureRequestsRepository>(
     MeasureRequestsRemoteRepository(

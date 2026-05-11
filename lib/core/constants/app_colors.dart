@@ -19,6 +19,7 @@ abstract class AppColorsLight {
   // Акцент = тот же красный, вторичный оттенок — hover
   static const Color accent = Color(0xFFE31E24);
   static const Color accentLight = Color(0xFFC80B11);
+  static const Color accentGraphite = Color(0xFF333333);
   static const Color onAccent = Color(0xFFFFFFFF);
 
   // Фоны (liquid glass: светлый холст + белые «стёкла»)
@@ -55,6 +56,7 @@ abstract class AppColorsDark {
 
   static const Color accent = AppColorsLight.accent;
   static const Color accentLight = AppColorsLight.accentLight;
+  static const Color accentGraphite = AppColorsLight.accentGraphite;
   static const Color onAccent = AppColorsLight.onAccent;
 
   static const Color background = AppColorsLight.background;
@@ -108,8 +110,14 @@ abstract class AppColors {
       _isDark ? AppColorsDark.accent : AppColorsLight.accent;
   static Color get accentLight =>
       _isDark ? AppColorsDark.accentLight : AppColorsLight.accentLight;
+  static Color get accentGraphite => _isDark
+      ? AppColorsDark.accentGraphite
+      : AppColorsLight.accentGraphite;
   static Color get onAccent =>
       _isDark ? AppColorsDark.onAccent : AppColorsLight.onAccent;
+
+  /// Второй акцентный цвет (графит).
+  static Color get graphite => accentGraphite;
 
   // ---------------------------------------------------------------------------
   // Нейтралы и поверхности

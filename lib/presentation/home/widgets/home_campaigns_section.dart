@@ -1,25 +1,35 @@
+import 'dart:async' show unawaited;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/home_sizes.dart';
+import '../../../core/constants/product_card_sizes.dart';
 import '../../../core/constants/screen_size.dart';
+import '../../../core/widgets/horizontal_scroll/horizontal_loop_carousel.dart';
+import '../../../core/widgets/reveal/reveal_wrap.dart';
 import '../../../domain/models/campaign/campaign.dart';
-import '../../widgets/picker_loop_carousel.dart';
 import '../providers/home_di.dart';
+import 'home_campaign_card.dart';
+import 'home_section_backdrop.dart';
 
-/// Секция акций: горизонтальная «picker»-карусель.
-///
-/// В окне видно 3 изображения (между ними по 14 px).
-/// Центральное изображение почти прямое, к краям — всё сильнее изгиб сверху и
-/// снизу, создавая вогнутый профиль (как у горизонтального picker).
+/// Секция «Акции»: заголовок и горизонтальная зацикленная лента с автоскроллом и стрелками.
 class HomeCampaignsSection extends ConsumerWidget {
   const HomeCampaignsSection({super.key});
+
+  static const String _title = 'Акции';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final campaignsAsync = ref.watch(HomeDi.homeCampaignsProvider);
-    final s = context.screenSize;
+    final screenSize = context.screenSize;
+    final cardWidth = screenSize.productCardDefaultWidth * 2.5;
+    final listHeight = HomeCampaignCard.cardHeightForWidth(cardWidth);
+    final gap = screenSize.horizontalPadding;
+    const backdropStyle = HomeSectionBackdropStyle.glassLight;
+    final glassVerticalEdge = screenSize.sectionGlassBlockVerticalMargin;
 
     return campaignsAsync.when(
       data: (campaigns) {
@@ -30,50 +40,127 @@ class HomeCampaignsSection extends ConsumerWidget {
               ..sort((a, b) => b.priority.compareTo(a.priority));
 
         if (items.isEmpty) return const SizedBox.shrink();
-        return Padding(
-          padding: EdgeInsets.only(top: s.sectionSpacing),
-          child: PickerLoopCarousel<Campaign>(
-            items: items,
-            itemKey: (c) => c.id,
-            height: PickerLoopCarousel.heightForBannerAnchor(
-              bannerHeight: s.bannerHeight,
+
+        final content = Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: glassVerticalEdge),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: screenSize.horizontalPadding,
+              ),
+              child: RevealWrap(
+                key: const ValueKey('campaigns-title'),
+                variant: RevealEntranceVariant.fadeSlideFromTop,
+                resetWhenLeavingViewport: true,
+                child: Text(
+                  _title,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: AppColors.graphite,
+                    fontWeight: FontWeight.w600,
+                    fontSize: screenSize.headlineMediumSize,
+                  ),
+                ),
+              ),
             ),
-            centerInset: PickerLoopCarousel.centerInsetForBannerAnchor(
-              bannerHeight: s.bannerHeight,
+            SizedBox(height: screenSize.sectionTitleBottomSpacing),
+            SizedBox(
+              height: listHeight,
+              child: HorizontalLoopCarousel<Campaign>(
+                items: items,
+                itemKey: (c) => c.id,
+                itemWidth: cardWidth,
+                gap: gap,
+                height: listHeight,
+                screenSize: screenSize,
+                itemBuilder: (context, campaign, index) => RevealWrap(
+                  key: ValueKey('campaign-card-${campaign.id}-$index'),
+                  variant: RevealEntranceVariant.fade,
+                  resetWhenLeavingViewport: true,
+                  child: SizedBox(
+                    width: cardWidth,
+                    child: HomeCampaignCard(
+                      campaign: campaign,
+                      screenSize: screenSize,
+                      cardWidth: cardWidth,
+                      onTap: _hasTapTarget(campaign)
+                          ? () => unawaited(_onCampaignTap(context, campaign))
+                          : null,
+                    ),
+                  ),
+                ),
+              ),
             ),
-            itemBuilder: (context, campaign, _) =>
-                _CampaignImageCard(campaign: campaign),
-          ),
+            SizedBox(height: glassVerticalEdge),
+          ],
         );
+
+        return HomeSectionBackdrop(style: backdropStyle, child: content);
       },
-      loading: () => SizedBox(
-        height: PickerLoopCarousel.heightForBannerAnchor(
-          bannerHeight: s.bannerHeight,
-        ),
-        child: ColoredBox(color: AppColors.surfaceElevated),
-      ),
+      loading: () => _CampaignsLoadingPlaceholder(screenSize: screenSize),
       error: (_, __) => const SizedBox.shrink(),
     );
   }
+
+  static bool _hasTapTarget(Campaign c) {
+    final u = (c.landingUrl ?? '').trim();
+    return u.isNotEmpty;
+  }
+
+  static Future<void> _onCampaignTap(
+    BuildContext context,
+    Campaign campaign,
+  ) async {
+    final raw = (campaign.landingUrl ?? '').trim();
+    if (raw.isEmpty) return;
+    final uri = Uri.tryParse(raw);
+    if (uri == null) return;
+    final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!ok && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Не удалось открыть ссылку')),
+      );
+    }
+  }
 }
 
-class _CampaignImageCard extends StatelessWidget {
-  const _CampaignImageCard({required this.campaign});
+class _CampaignsLoadingPlaceholder extends StatelessWidget {
+  const _CampaignsLoadingPlaceholder({required this.screenSize});
 
-  final Campaign campaign;
+  final ScreenSize screenSize;
 
   @override
-  Widget build(BuildContext context) => Container(
-    width: double.infinity,
-    alignment: Alignment.center,
-    color: Colors.red,
-    child: Text(
-      campaign.name,
-      textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
+  Widget build(BuildContext context) {
+    final cardWidth = screenSize.productCardDefaultWidth * 2;
+    final listHeight = HomeCampaignCard.cardHeightForWidth(cardWidth);
+    final edge = screenSize.sectionGlassBlockVerticalMargin;
+
+    return HomeSectionBackdrop(
+      style: HomeSectionBackdropStyle.glassLight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(height: edge),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSize.horizontalPadding,
+            ),
+            child: Container(
+              height: screenSize.headlineMediumSize,
+              decoration: BoxDecoration(
+                color: AppColors.surfaceElevated,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+          SizedBox(height: screenSize.sectionTitleBottomSpacing),
+          SizedBox(
+            height: listHeight,
+            child: ColoredBox(color: AppColors.surfaceElevated),
+          ),
+          SizedBox(height: edge),
+        ],
       ),
-    ),
-  );
+    );
+  }
 }

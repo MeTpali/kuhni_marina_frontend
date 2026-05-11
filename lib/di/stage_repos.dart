@@ -1,4 +1,5 @@
 import '../../data/repositories/attributes/attributes_test_repository.dart';
+import '../../data/repositories/background_images/background_images_test_repository.dart';
 import '../../data/repositories/banners/banners_test_repository.dart';
 import '../../data/repositories/campaigns/campaigns_test_repository.dart';
 import '../../data/repositories/categories/categories_test_repository.dart';
@@ -9,6 +10,7 @@ import '../../data/repositories/products/products_test_repository.dart';
 import '../../data/repositories/projects/projects_test_repository.dart';
 import '../../data/repositories/reviews/reviews_test_repository.dart';
 import '../../data/services/attributes/attributes_test_service.dart';
+import '../../data/services/background_images/background_images_test_service.dart';
 import '../../data/services/banners/banners_test_service.dart';
 import '../../data/services/campaigns/campaigns_test_service.dart';
 import '../../data/services/categories/categories_test_service.dart';
@@ -19,6 +21,7 @@ import '../../data/services/products/products_test_service.dart';
 import '../../data/services/projects/projects_test_service.dart';
 import '../../data/services/reviews/reviews_test_service.dart';
 import '../../domain/repositories/i_attributes_repository.dart';
+import '../../domain/repositories/i_background_images_repository.dart';
 import '../../domain/repositories/i_banners_repository.dart';
 import '../../domain/repositories/i_campaigns_repository.dart';
 import '../../domain/repositories/i_categories_repository.dart';
@@ -47,6 +50,9 @@ void setupStageRepos() {
   );
   getIt.registerSingleton<BannersTestService>(
     BannersTestService(addDelay: true),
+  );
+  getIt.registerSingleton<BackgroundImagesTestService>(
+    BackgroundImagesTestService(addDelay: true),
   );
   getIt.registerSingleton<MeasureRequestsTestService>(
     MeasureRequestsTestService(addDelay: true),
@@ -78,6 +84,9 @@ void setupStageRepos() {
   );
   getIt.registerSingleton<IBannersRepository>(
     BannersTestRepository(service: getIt<BannersTestService>()),
+  );
+  getIt.registerSingleton<IBackgroundImagesRepository>(
+    BackgroundImagesTestRepository(service: getIt<BackgroundImagesTestService>()),
   );
   getIt.registerSingleton<IMeasureRequestsRepository>(
     MeasureRequestsTestRepository(service: getIt<MeasureRequestsTestService>()),

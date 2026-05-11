@@ -4494,6 +4494,249 @@
                     }
                 ]
             }
+        },
+        "/api/v1/background-images": {
+            "get": {
+                "tags": [
+                    "background-images"
+                ],
+                "summary": "Получить все активные фоновые изображения",
+                "description": "Возвращает список всех активных фоновых изображений",
+                "operationId": "get_background_images_api_v1_background_images_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BackgroundImageListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Background image not found"
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "background-images"
+                ],
+                "summary": "Создать фоновое изображение",
+                "description": "Создает и возвращает новое фоновое изображение",
+                "operationId": "create_background_image_api_v1_background_images_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BackgroundImageCreateRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Фоновое изображение успешно создано",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BackgroundImageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Background image not found"
+                    },
+                    "400": {
+                        "description": "Некорректные данные для фонового изображения"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/background-images/{background_image_id}": {
+            "get": {
+                "tags": [
+                    "background-images"
+                ],
+                "summary": "Получить фоновое изображение по идентификатору",
+                "description": "Возвращает фоновое изображение с указанным идентификатором",
+                "operationId": "get_background_image_by_id_api_v1_background_images__background_image_id__get",
+                "parameters": [
+                    {
+                        "name": "background_image_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Background Image Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Фоновое изображение найдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BackgroundImageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Фоновое изображение не найдено или неактивно"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "background-images"
+                ],
+                "summary": "Обновить фоновое изображение",
+                "description": "Обновляет фоновое изображение по идентификатору",
+                "operationId": "update_background_image_api_v1_background_images__background_image_id__put",
+                "parameters": [
+                    {
+                        "name": "background_image_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Background Image Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BackgroundImageUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Фоновое изображение успешно обновлено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BackgroundImageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Фоновое изображение не найдено"
+                    },
+                    "400": {
+                        "description": "Некорректные данные для фонового изображения"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "background-images"
+                ],
+                "summary": "Удалить фоновое изображение",
+                "description": "Удаляет фоновое изображение по идентификатору (деактивирует)",
+                "operationId": "delete_background_image_api_v1_background_images__background_image_id__delete",
+                "parameters": [
+                    {
+                        "name": "background_image_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Background Image Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Фоновое изображение успешно удалено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BackgroundImageDeleteResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Фоновое изображение не найдено"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -4690,6 +4933,148 @@
                     "name"
                 ],
                 "title": "AttributeUpdateRequest"
+            },
+            "BackgroundImageCreateRequest": {
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    },
+                    "is_active": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Active",
+                        "default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "url"
+                ],
+                "title": "BackgroundImageCreateRequest"
+            },
+            "BackgroundImageDeleteResponse": {
+                "properties": {
+                    "background_image_id": {
+                        "type": "integer",
+                        "title": "Background Image Id"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "background_image_id"
+                ],
+                "title": "BackgroundImageDeleteResponse"
+            },
+            "BackgroundImageListResponse": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/BackgroundImageResponse"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "items"
+                ],
+                "title": "BackgroundImageListResponse"
+            },
+            "BackgroundImageResponse": {
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    },
+                    "is_active": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Active",
+                        "default": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "url",
+                    "id"
+                ],
+                "title": "BackgroundImageResponse"
+            },
+            "BackgroundImageUpdateRequest": {
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    },
+                    "is_active": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Active",
+                        "default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "url"
+                ],
+                "title": "BackgroundImageUpdateRequest"
             },
             "BannerCreateRequest": {
                 "properties": {

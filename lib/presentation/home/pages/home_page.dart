@@ -4,13 +4,13 @@ import 'dart:ui' show lerpDouble;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_images.dart';
 import '../../../core/constants/home_sizes.dart';
 import '../../../core/constants/screen_size.dart';
 import '../../../core/theme/app_theme.dart';
+import '../providers/home_di.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/home_banner_section.dart';
 import '../widgets/home_campaigns_section.dart';
@@ -18,9 +18,6 @@ import '../widgets/home_footer.dart';
 import '../widgets/home_furniture_section.dart';
 import '../widgets/home_kitchens_section.dart';
 import '../widgets/home_search_bar.dart';
-
-/// Видео-фон главной (Marya promo).
-const _kHomeBackdropVideoUrl = 'https://www.marya.ru/promo/home3/img/7.mp4';
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
@@ -43,12 +40,9 @@ class _HomePageState extends ConsumerState<HomePage>
   late final Animation<double> _appBarHideCurve;
   double _lastScrollPixels = 0;
 
-  VideoPlayerController? _homeBackdropVideo;
-
   @override
   void initState() {
     super.initState();
-    unawaited(_initHomeBackdropVideo());
     _appBarHideController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 280),
@@ -65,35 +59,7 @@ class _HomePageState extends ConsumerState<HomePage>
     _scrollController.removeListener(_handleScrollForAppBar);
     _appBarHideController.dispose();
     _scrollController.dispose();
-    _homeBackdropVideo?.dispose();
     super.dispose();
-  }
-
-  Future<void> _initHomeBackdropVideo() async {
-    final controller = VideoPlayerController.networkUrl(
-      Uri.parse(_kHomeBackdropVideoUrl),
-    );
-    try {
-      await controller.initialize();
-      if (!mounted) {
-        await controller.dispose();
-        return;
-      }
-      await controller.setLooping(true);
-      await controller.setVolume(0);
-      if (!mounted) {
-        await controller.dispose();
-        return;
-      }
-      await controller.play();
-      if (!mounted) {
-        await controller.dispose();
-        return;
-      }
-      setState(() => _homeBackdropVideo = controller);
-    } catch (_) {
-      await controller.dispose();
-    }
   }
 
   void _handleScrollForAppBar() {
@@ -182,15 +148,21 @@ class _HomePageState extends ConsumerState<HomePage>
     final screenSize = context.screenSize;
     final statusTop = MediaQuery.paddingOf(context).top;
     final appBarHeight = statusTop + screenSize.homeAppBarHeight;
-    final backdropVideo = _homeBackdropVideo;
+    final backgroundImagesAsync = ref.watch(
+      HomeDi.homeBackgroundImagesProvider,
+    );
+    final backgroundImageUrls = backgroundImagesAsync.maybeWhen(
+      data: (items) => items.map((e) => e.url).toList(),
+      orElse: () => const <String>[],
+    );
 
     final bodySliver = SliverToBoxAdapter(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const HomeBannerSection(),
-          SizedBox(height: screenSize.sectionSpacing),
           KeyedSubtree(key: _searchSectionKey, child: const HomeSearchBar()),
+          SizedBox(height: screenSize.sectionSpacing),
+          const HomeBannerSection(),
           SizedBox(height: screenSize.sectionSpacing),
           const HomeKitchensSection(),
           KeyedSubtree(
@@ -245,19 +217,9 @@ class _HomePageState extends ConsumerState<HomePage>
         fit: StackFit.expand,
         children: [
           const ColoredBox(color: AppColors.homePageBackground),
-          if (backdropVideo != null) // && backdropVideo.value.isInitialized
-            Positioned.fill(
-              child: ClipRect(
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: SizedBox(
-                    width: backdropVideo.value.size.width,
-                    height: backdropVideo.value.size.height,
-                    child: VideoPlayer(backdropVideo),
-                  ),
-                ),
-              ),
-            ),
+          Positioned.fill(
+            child: _AnimatedBackgroundFrames(urls: backgroundImageUrls),
+          ),
           AnimatedBuilder(
             animation: _appBarHideCurve,
             builder: (context, _) {
@@ -279,6 +241,104 @@ class _HomePageState extends ConsumerState<HomePage>
       ),
     );
   }
+}
+
+class _AnimatedBackgroundFrames extends StatefulWidget {
+  const _AnimatedBackgroundFrames({required this.urls});
+
+  final List<String> urls;
+
+  @override
+  State<_AnimatedBackgroundFrames> createState() =>
+      _AnimatedBackgroundFramesState();
+}
+
+class _AnimatedBackgroundFramesState extends State<_AnimatedBackgroundFrames> {
+  static const _switchDuration = Duration(milliseconds: 1200);
+
+  /// Интервал смены кадра — совпадает с полным циклом zoom, чтобы не обрывать анимацию.
+  static const _slideInterval = Duration(milliseconds: 7200);
+
+  /// Длительность zoom (в 2 раза дольше прежних 3600 ms).
+  static const _zoomDuration = Duration(milliseconds: 7200);
+  static const _zoomStart = 1.0;
+
+  /// Амплитуда zoom в 2 раза сильнее (раньше было +0.08, теперь +0.16).
+  static const _zoomEnd = 1.16;
+
+  Timer? _timer;
+  int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _startLoop();
+  }
+
+  @override
+  void didUpdateWidget(covariant _AnimatedBackgroundFrames oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.urls != widget.urls) {
+      _index = 0;
+      _startLoop();
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startLoop() {
+    _timer?.cancel();
+    if (widget.urls.length <= 1) return;
+    _timer = Timer.periodic(_slideInterval, (_) {
+      if (!mounted || widget.urls.isEmpty) return;
+      setState(() => _index = (_index + 1) % widget.urls.length);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.urls.isEmpty) {
+      return _backgroundAsset();
+    }
+
+    final i = _index % widget.urls.length;
+    final current = widget.urls[i];
+    // Ключ по индексу обязателен: при одинаковых URL у разных элементов
+    // AnimatedSwitcher и TweenAnimationBuilder иначе не пересоздаются.
+    return AnimatedSwitcher(
+      duration: _switchDuration,
+      switchInCurve: Curves.easeInOutCubic,
+      switchOutCurve: Curves.easeInOutCubic,
+      child: TweenAnimationBuilder<double>(
+        key: ValueKey<int>(i),
+        tween: Tween<double>(begin: _zoomStart, end: _zoomEnd),
+        duration: _zoomDuration,
+        curve: Curves.easeInOut,
+        builder: (context, scale, child) =>
+            Transform.scale(scale: scale, child: child),
+        child: _backgroundNetwork(current),
+      ),
+    );
+  }
+
+  Widget _backgroundAsset() => Image.asset(
+    AppImages.backgroundFallback,
+    fit: BoxFit.cover,
+    width: double.infinity,
+    height: double.infinity,
+  );
+
+  Widget _backgroundNetwork(String url) => Image.network(
+    url,
+    fit: BoxFit.cover,
+    width: double.infinity,
+    height: double.infinity,
+    errorBuilder: (_, __, ___) => _backgroundAsset(),
+  );
 }
 
 class _HomeDrawerContent extends StatelessWidget {

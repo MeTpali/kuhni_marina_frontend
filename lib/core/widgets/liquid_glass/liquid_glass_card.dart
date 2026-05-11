@@ -125,18 +125,6 @@ class _LiquidGlassCardState extends State<LiquidGlassCard>
         return DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
-            boxShadow: const [
-              BoxShadow(
-                offset: Offset(0, 6),
-                blurRadius: 6,
-                color: Color(0x33000000),
-              ),
-              BoxShadow(
-                offset: Offset(0, 0),
-                blurRadius: 20,
-                color: Color(0x1A000000),
-              ),
-            ],
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),
@@ -368,18 +356,6 @@ class _LiquidGlassCardAdvancedState extends State<LiquidGlassCardAdvanced>
           key: _panelKey,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
-            boxShadow: const [
-              BoxShadow(
-                offset: Offset(0, 6),
-                blurRadius: 6,
-                color: Color(0x33000000),
-              ),
-              BoxShadow(
-                offset: Offset(0, 0),
-                blurRadius: 20,
-                color: Color(0x1A000000),
-              ),
-            ],
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),

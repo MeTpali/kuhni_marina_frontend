@@ -10,6 +10,7 @@ enum LiquidGlassVariant { light, dark, accent }
 /// `LiquidGlassCard` — blur, **равномерная** заливка [LiquidGlassTokens.variantMonotoneWash],
 /// обводка [LiquidGlassTokens.variantBorderColor]; без градиентных бликов.
 /// `LiquidGlassCardAdvanced` — то же + опционально displacement и лупа по снимку.
+/// `LiquidGlassLikeButton` / `LiquidGlassLikeButtonAdvanced` — круглый лайк по той же схеме.
 ///
 /// Почему нет `feDisplacementMap` в обычной карточке: во Flutter [BackdropFilter]
 /// ограничен [ImageFilter]. Displacement — только через снимок + шейдер, см.

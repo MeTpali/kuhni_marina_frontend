@@ -55,11 +55,9 @@ class HomeAppBar extends StatelessWidget {
           height: top + toolbarInnerHeight,
           padding: EdgeInsets.only(top: top),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.7),
+            color: Colors.white.withValues(alpha: 0.2),
             border: Border(
-              bottom: BorderSide(
-                color: AppColors.outline.withValues(alpha: 0.35),
-              ),
+              bottom: BorderSide(color: AppColors.outline, width: 1),
             ),
           ),
           child: Padding(
@@ -375,7 +373,7 @@ class _NavTextButtonState extends State<_NavTextButton> {
         ? AppColors.accent
         : AppColors.onSurface;
     final base = Theme.of(context).textTheme.labelMedium ?? const TextStyle();
-    final fontWeight = widget.selected ? FontWeight.w700 : FontWeight.w600;
+    final fontWeight = widget.selected ? FontWeight.w700 : FontWeight.w700;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hover = true),

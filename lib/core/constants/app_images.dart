@@ -3,7 +3,5 @@ abstract class AppImages {
 
   // PNG images
   static const String logo = '$base/logo.png';
-
-  // SVG images
-  static const String dayCard = '$base/day_card.svg';
+  static const String backgroundFallback = '$base/background_fallback.png';
 }

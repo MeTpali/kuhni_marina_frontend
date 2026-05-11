@@ -1,15 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../di/di.dart';
+import '../../../domain/models/background_image/background_image.dart';
 import '../../../domain/models/banner/banner.dart';
 import '../../../domain/models/campaign/campaign.dart';
 import '../../../domain/models/product/product_catalog.dart';
 import '../../../domain/models/product_type/product_type.dart';
+import '../../../domain/repositories/i_background_images_repository.dart';
 import '../../../domain/repositories/i_banners_repository.dart';
 import '../../../domain/repositories/i_campaigns_repository.dart';
 import '../../../domain/repositories/i_products_repository.dart';
 
 abstract class HomeDi {
+  /// Фоновые изображения для анимированного фона на главной.
+  static final homeBackgroundImagesProvider =
+      FutureProvider<List<BackgroundImage>>((ref) async {
+        final repo = getIt<IBackgroundImagesRepository>();
+        final result = await repo.getBackgroundImages();
+        return result.when(
+          success: (list) => list.where((item) => item.isActive).toList(),
+          error: (message) => throw Exception(message),
+        );
+      });
+
   /// Список баннеров для главной страницы (отсортированы по приоритету [position]).
   static final homeBannersProvider = FutureProvider<List<Banner>>((ref) async {
     final repo = getIt<IBannersRepository>();
@@ -30,7 +43,7 @@ abstract class HomeDi {
   ) async {
     final repo = getIt<IProductsRepository>();
     final result = await repo.getProductHits(
-      pageSize: 8,
+      pageSize: 10,
       type: ProductType.kitchen,
     );
     return result.when(
@@ -45,7 +58,7 @@ abstract class HomeDi {
   ) async {
     final repo = getIt<IProductsRepository>();
     final result = await repo.getProductHits(
-      pageSize: 8,
+      pageSize: 10,
       type: ProductType.furniture,
     );
     return result.when(
@@ -60,7 +73,7 @@ abstract class HomeDi {
   ) async {
     final repo = getIt<IProductsRepository>();
     final result = await repo.getProductNew(
-      pageSize: 8,
+      pageSize: 10,
       type: ProductType.kitchen,
     );
     return result.when(
@@ -75,7 +88,7 @@ abstract class HomeDi {
   ) async {
     final repo = getIt<IProductsRepository>();
     final result = await repo.getProductNew(
-      pageSize: 8,
+      pageSize: 10,
       type: ProductType.furniture,
     );
     return result.when(

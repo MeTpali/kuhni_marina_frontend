@@ -8,9 +8,9 @@ extension HomeSizes on ScreenSize {
 
   /// Заголовок баннера, плейсхолдер баннера.
   double get headlineMediumSize => switch (this) {
-    ScreenSize.compact => 20,
-    ScreenSize.medium => 24,
-    ScreenSize.expanded => 28,
+    ScreenSize.compact => 30,
+    ScreenSize.medium => 36,
+    ScreenSize.expanded => 42,
   };
 
   /// Крупный заголовок секции главной (Кухни, Мебель, Акции) — по центру.
@@ -110,9 +110,9 @@ extension HomeSizes on ScreenSize {
 
   /// Текст пунктов меню в панели (только [ScreenSize.expanded]).
   double get homeAppBarNavTextSize => switch (this) {
-    ScreenSize.compact => 11,
-    ScreenSize.medium => 12,
-    ScreenSize.expanded => 13,
+    ScreenSize.compact => 13,
+    ScreenSize.medium => 14,
+    ScreenSize.expanded => 15,
   };
 
   /// Горизонтальный внутренний отступ у текстовой кнопки меню в панели
@@ -139,9 +139,9 @@ extension HomeSizes on ScreenSize {
 
   /// Сила размытия фона верхней панели (sigma для размытия заднего плана).
   double get homeAppBarBlurSigma => switch (this) {
-    ScreenSize.compact => 3,
-    ScreenSize.medium => 4,
-    ScreenSize.expanded => 5,
+    ScreenSize.compact => 8,
+    ScreenSize.medium => 9,
+    ScreenSize.expanded => 10,
   };
 
   /// Основная иконка переключателя темы (свет/луна).
@@ -174,6 +174,13 @@ extension HomeSizes on ScreenSize {
     ScreenSize.expanded => 40,
   };
 
+  /// Вертикальный отступ от краёв стеклянной подложки секции с карточками (сверху/снизу).
+  double get sectionGlassBlockVerticalMargin => switch (this) {
+    ScreenSize.compact => 48,
+    ScreenSize.medium => 64,
+    ScreenSize.expanded => 80,
+  };
+
   /// Вертикальный отступ вокруг разделителя между секциями.
   double get sectionDividerPadding => switch (this) {
     ScreenSize.compact => 20,
@@ -199,15 +206,15 @@ extension HomeSizes on ScreenSize {
   EdgeInsets get searchBarPadding => switch (this) {
     ScreenSize.compact => const EdgeInsets.symmetric(
       horizontal: 16,
-      vertical: 12,
+      vertical: 1,
     ),
     ScreenSize.medium => const EdgeInsets.symmetric(
       horizontal: 20,
-      vertical: 14,
+      vertical: 2,
     ),
     ScreenSize.expanded => const EdgeInsets.symmetric(
       horizontal: 24,
-      vertical: 16,
+      vertical: 3,
     ),
   };
 

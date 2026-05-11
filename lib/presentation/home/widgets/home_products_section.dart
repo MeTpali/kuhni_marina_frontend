@@ -5,9 +5,13 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/home_sizes.dart';
 import '../../../core/constants/product_card_sizes.dart';
 import '../../../core/constants/screen_size.dart';
-import '../../../core/entities/discount/discount.dart';
-import '../../../core/widgets/cards/product_card.dart';
+import '../../../core/widgets/cards/home_product_smooth_card.dart';
+import '../../../core/widgets/horizontal_scroll/horizontal_loop_carousel.dart';
+import '../../../core/widgets/reveal/reveal_wrap.dart';
 import '../../../domain/models/product/product_list_item.dart';
+import 'home_section_backdrop.dart';
+
+export 'home_section_backdrop.dart';
 
 /// Секция с заголовком и горизонтальным списком карточек товаров.
 class HomeProductsSection extends ConsumerWidget {
@@ -17,12 +21,16 @@ class HomeProductsSection extends ConsumerWidget {
     super.key,
     this.onSeeAll,
     this.onProductTap,
+    this.onFavoriteTap,
+    this.backdropStyle = HomeSectionBackdropStyle.none,
   });
 
   final String title;
   final List<ProductListItem> productList;
   final VoidCallback? onSeeAll;
   final void Function(ProductListItem)? onProductTap;
+  final void Function(ProductListItem)? onFavoriteTap;
+  final HomeSectionBackdropStyle backdropStyle;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,11 +39,17 @@ class HomeProductsSection extends ConsumerWidget {
     }
 
     final screenSize = context.screenSize;
-    final cardHeight = screenSize.productCardDefaultHeight;
+    final imageSize = screenSize.productCardDefaultWidth * 1.5;
+    final listHeight = imageSize + 118;
+    final gap = screenSize.horizontalPadding;
+    final glassVerticalEdge = backdropStyle == HomeSectionBackdropStyle.none
+        ? screenSize.sectionSpacing
+        : screenSize.sectionGlassBlockVerticalMargin;
 
-    return Column(
+    final content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        SizedBox(height: glassVerticalEdge),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: screenSize.horizontalPadding,
@@ -43,11 +57,17 @@ class HomeProductsSection extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: AppColors.accent,
-                  fontSize: screenSize.headlineSmallSize,
+              RevealWrap(
+                key: ValueKey('products-title-$title'),
+                variant: RevealEntranceVariant.fadeSlideFromTop,
+                resetWhenLeavingViewport: true,
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: AppColors.graphite,
+                    fontWeight: FontWeight.w600,
+                    fontSize: screenSize.headlineMediumSize,
+                  ),
                 ),
               ),
               if (onSeeAll != null)
@@ -66,45 +86,40 @@ class HomeProductsSection extends ConsumerWidget {
         ),
         SizedBox(height: screenSize.sectionTitleBottomSpacing),
         SizedBox(
-          height: cardHeight,
-          child: ListView.separated(
-            padding: EdgeInsets.symmetric(
-              horizontal: screenSize.horizontalPadding,
+          height: listHeight,
+          child: HorizontalLoopCarousel<ProductListItem>(
+            items: productList,
+            itemKey: (p) => p.id,
+            itemWidth: imageSize,
+            gap: gap,
+            height: listHeight,
+            screenSize: screenSize,
+            itemBuilder: (context, product, index) => RevealWrap(
+              key: ValueKey('product-card-$title-${product.id}-$index'),
+              variant: RevealEntranceVariant.fade,
+              resetWhenLeavingViewport: true,
+              child: SizedBox(
+                width: imageSize,
+                child: HomeProductSmoothCard(
+                  screenSize: screenSize,
+                  imageSize: imageSize,
+                  name: product.name,
+                  images: product.images,
+                  price: product.price ?? '',
+                  isFavorite: product.isFavourite,
+                  onTap: () => onProductTap?.call(product),
+                  onFavoriteTap: onFavoriteTap != null
+                      ? () => onFavoriteTap!(product)
+                      : null,
+                ),
+              ),
             ),
-            scrollDirection: Axis.horizontal,
-            itemCount: productList.length,
-            separatorBuilder: (_, __) =>
-                SizedBox(width: screenSize.horizontalPadding),
-            itemBuilder: (context, index) {
-              final product = productList[index];
-              final discount =
-                  product.discount != null &&
-                      product.discount!.discountPercent != null &&
-                      product.discount!.finalPrice != null
-                  ? Discount(
-                      discountPercent: product.discount!.discountPercent!,
-                      discountAmount: product.discount!.discountAmount ?? '',
-                      finalPrice: product.discount!.finalPrice!,
-                    )
-                  : null;
-
-              return ProductCard(
-                screenSize: screenSize,
-                name: product.name,
-                categoryName: product.categoryName ?? '',
-                images: product.images,
-                isNew: product.isNew,
-                isHit: product.isHit,
-                price: product.price ?? '',
-                rating: product.rating,
-                reviewsCount: product.reviewsCount,
-                discount: discount,
-                onTap: () => onProductTap?.call(product),
-              );
-            },
           ),
         ),
+        SizedBox(height: glassVerticalEdge),
       ],
     );
+
+    return HomeSectionBackdrop(style: backdropStyle, child: content);
   }
 }

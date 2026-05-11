@@ -20,16 +20,16 @@ class ProductCard extends StatefulWidget {
   /// Название продукта
   final String name;
 
-  /// Название продукта
+  /// Название категории продукта
   final String categoryName;
 
-  /// Название продукта
+  /// Список изображений продукта
   final List<String> images;
 
   /// Является новым товаром
   final bool isNew;
 
-  /// Является новым товаром
+  /// Является популярным товаром
   final bool isHit;
 
   /// Цена без скидки
