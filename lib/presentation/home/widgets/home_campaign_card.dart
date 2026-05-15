@@ -43,11 +43,11 @@ class _HomeCampaignCardState extends State<HomeCampaignCard> {
 
   static const EdgeInsets _padCollapsed = EdgeInsets.symmetric(
     horizontal: 14,
-    vertical: 12,
+    vertical: 22,
   );
   static const EdgeInsets _padExpanded = EdgeInsets.symmetric(
     horizontal: 14,
-    vertical: 22,
+    vertical: 32,
   );
 
   @override

@@ -14,6 +14,7 @@ import '../providers/home_di.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/home_banner_section.dart';
 import '../widgets/home_campaigns_section.dart';
+import '../widgets/home_design_request_section.dart';
 import '../widgets/home_footer.dart';
 import '../widgets/home_furniture_section.dart';
 import '../widgets/home_kitchens_section.dart';
@@ -170,6 +171,7 @@ class _HomePageState extends ConsumerState<HomePage>
             child: const HomeFurnitureSection(),
           ),
           const HomeCampaignsSection(),
+          const HomeDesignRequestSection(),
           SizedBox(height: screenSize.sectionSpacing),
           const HomeFooter(),
           SizedBox(height: screenSize.sectionSpacing),
