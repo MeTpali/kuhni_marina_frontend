@@ -10,5 +10,6 @@ class ProjectMapper implements IMapper<ProjectResponseDto, Project> {
         createdAt: from.createdAt.toIso8601String(),
         description: from.description,
         location: from.location,
+        image: from.image,
       );
 }

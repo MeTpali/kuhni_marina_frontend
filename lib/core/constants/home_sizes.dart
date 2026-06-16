@@ -1,5 +1,9 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
+import 'breakpoints.dart';
+import 'product_card_sizes.dart';
 import 'screen_size.dart';
 
 /// Размеры и типографика главной страницы в зависимости от [ScreenSize].
@@ -56,6 +60,24 @@ extension HomeSizes on ScreenSize {
   };
 
   // --- Высота баннера ---
+
+  /// Соотношение сторон промо-блоков на главной (баннеры, акции).
+  static const double homePromoAspectRatio = 16 / 9;
+
+  /// Макс. ширина карточки акции (Full HD) — на 2K/4K влезает больше карточек.
+  static const double homeCampaignCardMaxWidth = 1920;
+
+  /// Макс. ширина модального окна поиска (потолок для [homeSearchModalContentWidth]).
+  static const double homeSearchModalMaxWidth = 720;
+
+  /// Соотношение сторон превью проекта на главной (ширина : высота = 4 : 3).
+  static const double homeProjectCardAspectRatio = 4 / 3;
+
+  /// Доп. высота карусели портфолио под двухстрочное название.
+  static const double homeProjectCarouselTextExtra = 144;
+
+  /// Множитель ширины карточки проекта относительно базовой карточки товара.
+  static const double homeProjectCardWidthMultiplier = 2.25;
 
   double get bannerHeight => switch (this) {
     ScreenSize.compact => 240,
@@ -121,6 +143,13 @@ extension HomeSizes on ScreenSize {
     ScreenSize.compact => 11,
     ScreenSize.medium => 13,
     ScreenSize.expanded => 15,
+  };
+
+  /// Вертикальный зазор между пунктами бокового меню.
+  double get homeSideMenuNavItemSpacing => switch (this) {
+    ScreenSize.compact => 16,
+    ScreenSize.medium => 20,
+    ScreenSize.expanded => 24,
   };
 
   /// Иконки поиска и бургер-меню в панели.
@@ -218,6 +247,28 @@ extension HomeSizes on ScreenSize {
     ),
   };
 
+  /// Внешняя высота [HomeSearchBar] со стеклянной карточкой (без hover-анимации).
+  double get homeSearchBarOuterHeight {
+    const glassVerticalPad = 12.8 * 2;
+    final innerVertical = searchBarPadding.top + searchBarPadding.bottom;
+    return glassVerticalPad + innerVertical + searchIconSize;
+  }
+
+  /// Ширина контента модального окна поиска.
+  ///
+  /// [ScreenSize.expanded]: [viewportWidth] − горизонтальные отступы.
+  /// [ScreenSize.compact] / [ScreenSize.medium]: [Breakpoints.desktop] − отступы.
+  /// Не шире [homeSearchModalMaxWidth] и доступной области экрана.
+  double homeSearchModalContentWidth(double viewportWidth) {
+    final inset = horizontalPadding * 2;
+    final stageCap = switch (this) {
+      ScreenSize.expanded => viewportWidth,
+      ScreenSize.compact || ScreenSize.medium => Breakpoints.desktop,
+    };
+    final computed = math.min(stageCap - inset, homeSearchModalMaxWidth);
+    return computed.clamp(0.0, viewportWidth - inset);
+  }
+
   /// Внутренний отступ футера (вертикальный и горизонтальный).
   EdgeInsets get footerPadding => switch (this) {
     ScreenSize.compact => const EdgeInsets.symmetric(
@@ -249,4 +300,13 @@ extension HomeSizes on ScreenSize {
       vertical: 16,
     ),
   };
+
+  /// Ширина карточки проекта в блоке «Портфолио».
+  double get homeProjectCardWidth =>
+      productCardDefaultWidth * HomeSizes.homeProjectCardWidthMultiplier;
+
+  /// Высота горизонтальной карусели портфолио (превью 4:3 + название).
+  double get homeProjectCarouselHeight =>
+      homeProjectCardWidth / HomeSizes.homeProjectCardAspectRatio +
+      HomeSizes.homeProjectCarouselTextExtra;
 }

@@ -22,27 +22,19 @@ class HomeBannerSection extends ConsumerWidget {
     final asyncBanners = ref.watch(HomeDi.homeBannersProvider);
     return asyncBanners.when(
       data: (banners) {
-        if (banners.isEmpty) {
-          return const _PlaceholderBanner(
-            title: 'Кухни элитного класса',
-            subtitle: 'Индивидуальный подход и премиальные материалы',
-          );
-        }
+        if (banners.isEmpty) return const SizedBox.shrink();
         if (banners.length == 1) {
           return _BannerTile(banner: banners.first);
         }
         return _BannerCarousel(banners: banners);
       },
       loading: () => const _BannerSkeleton(),
-      error: (_, __) => const _PlaceholderBanner(
-        title: 'Кухни элитного класса',
-        subtitle: 'Индивидуальный подход и премиальные материалы',
-      ),
+      error: (_, __) => const SizedBox.shrink(),
     );
   }
 }
 
-/// Оболочка баннера: во весь экран, без скруглений и тени.
+/// Оболочка баннера: 16×9 на всю ширину, без скруглений и тени.
 class _BannerChrome extends StatelessWidget {
   const _BannerChrome({required this.child});
 
@@ -50,30 +42,36 @@ class _BannerChrome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewportHeight = MediaQuery.sizeOf(context).height;
-    return SizedBox(
-      height: viewportHeight,
-      width: double.infinity,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          child,
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: 1,
-              color: AppColors.white.withValues(alpha: 0.24),
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final height = width / HomeSizes.homePromoAspectRatio;
+
+        return SizedBox(
+          width: width,
+          height: height,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              child,
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  height: 1,
+                  color: AppColors.white.withValues(alpha: 0.24),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 1,
+                  color: AppColors.neutralBlack.withValues(alpha: 0.32),
+                ),
+              ),
+            ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 1,
-              color: AppColors.neutralBlack.withValues(alpha: 0.32),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -105,16 +103,33 @@ Widget _buildBannerTitle(BuildContext context, Banner banner) {
           resetWhenLeavingViewport: true,
           child: Text(
             banner.title,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: AppColors.graphite,
-              fontWeight: FontWeight.w600,
-              fontSize: s.headlineMediumSize * 1.5,
-            ),
+            style: _bannerTitleStyle(context),
           ),
         ),
       ),
     ),
   );
+}
+
+const _bannerTitleShadows = [
+  Shadow(color: Color(0x99000000), blurRadius: 10, offset: Offset(0, 2)),
+  Shadow(color: Color(0x66000000), blurRadius: 4, offset: Offset(0, 1)),
+];
+
+TextStyle _bannerTitleStyle(BuildContext context) {
+  final s = context.screenSize;
+  return Theme.of(context).textTheme.headlineMedium?.copyWith(
+        color: AppColors.white,
+        fontWeight: FontWeight.w600,
+        fontSize: s.headlineMediumSize * 1.5,
+        shadows: _bannerTitleShadows,
+      ) ??
+      TextStyle(
+        color: AppColors.white,
+        fontWeight: FontWeight.w600,
+        fontSize: s.headlineMediumSize * 1.5,
+        shadows: _bannerTitleShadows,
+      );
 }
 
 Widget _buildBannerForeground(BuildContext context, Banner banner) =>
@@ -289,63 +304,6 @@ class _BannerPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => _buildBannerForeground(context, banner);
-}
-
-class _PlaceholderBanner extends StatelessWidget {
-  const _PlaceholderBanner({required this.title, required this.subtitle});
-
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return _BannerChrome(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [AppColors.primary, AppColors.primaryVariant],
-          ),
-        ),
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: EdgeInsets.all(context.screenSize.bannerPadding),
-            child: RevealWrap(
-              key: const ValueKey('placeholder-banner-title'),
-              variant: RevealEntranceVariant.fadeSlideFromTop,
-              resetWhenLeavingViewport: true,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: AppColors.graphite,
-                      fontWeight: FontWeight.w600,
-                      fontSize: context.screenSize.headlineMediumSize * 1.5,
-                    ),
-                  ),
-                  SizedBox(
-                    height: context.screenSize.sectionTitleBottomSpacing * 0.5,
-                  ),
-                  Text(
-                    subtitle,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.white.withValues(alpha: 0.9),
-                      fontSize: context.screenSize.bodyLargeSize,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class _BannerSkeleton extends StatelessWidget {

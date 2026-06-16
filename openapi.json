@@ -8191,6 +8191,17 @@
                         "format": "date-time",
                         "title": "Created At"
                     },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Image"
+                    },
                     "message": {
                         "anyOf": [
                             {

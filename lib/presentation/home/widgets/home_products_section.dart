@@ -10,6 +10,7 @@ import '../../../core/widgets/horizontal_scroll/horizontal_loop_carousel.dart';
 import '../../../core/widgets/reveal/reveal_wrap.dart';
 import '../../../domain/models/product/product_list_item.dart';
 import 'home_section_backdrop.dart';
+import 'home_section_more_button.dart';
 
 export 'home_section_backdrop.dart';
 
@@ -20,6 +21,8 @@ class HomeProductsSection extends ConsumerWidget {
     required this.productList,
     super.key,
     this.onSeeAll,
+    this.moreLabel,
+    this.onMoreTap,
     this.onProductTap,
     this.onFavoriteTap,
     this.backdropStyle = HomeSectionBackdropStyle.none,
@@ -28,6 +31,10 @@ class HomeProductsSection extends ConsumerWidget {
   final String title;
   final List<ProductListItem> productList;
   final VoidCallback? onSeeAll;
+
+  /// Подпись кнопки справа от заголовка (например «Ещё больше кухонь»).
+  final String? moreLabel;
+  final VoidCallback? onMoreTap;
   final void Function(ProductListItem)? onProductTap;
   final void Function(ProductListItem)? onFavoriteTap;
   final HomeSectionBackdropStyle backdropStyle;
@@ -54,14 +61,14 @@ class HomeProductsSection extends ConsumerWidget {
           padding: EdgeInsets.symmetric(
             horizontal: screenSize.horizontalPadding,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RevealWrap(
-                key: ValueKey('products-title-$title'),
-                variant: RevealEntranceVariant.fadeSlideFromTop,
-                resetWhenLeavingViewport: true,
-                child: Text(
+          child: RevealWrap(
+            key: ValueKey('products-header-$title'),
+            variant: RevealEntranceVariant.fadeSlideFromTop,
+            resetWhenLeavingViewport: true,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
                   title,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: AppColors.graphite,
@@ -69,19 +76,36 @@ class HomeProductsSection extends ConsumerWidget {
                     fontSize: screenSize.headlineMediumSize,
                   ),
                 ),
-              ),
-              if (onSeeAll != null)
-                TextButton(
-                  onPressed: onSeeAll,
-                  child: Text(
-                    'Смотреть все',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColors.accentLight,
-                      fontSize: screenSize.labelLargeSize,
+                if (moreLabel != null)
+                  HomeSectionMoreButton(
+                    label: moreLabel!,
+                    onPressed: onMoreTap,
+                    iconSize: screenSize.labelLargeSize,
+                    style:
+                        Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: AppColors.graphite,
+                          fontWeight: FontWeight.w500,
+                          fontSize: screenSize.labelLargeSize + 4,
+                        ) ??
+                        TextStyle(
+                          color: AppColors.graphite,
+                          fontWeight: FontWeight.w500,
+                          fontSize: screenSize.labelLargeSize + 4,
+                        ),
+                  )
+                else if (onSeeAll != null)
+                  TextButton(
+                    onPressed: onSeeAll,
+                    child: Text(
+                      'Смотреть все',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: AppColors.accentLight,
+                        fontSize: screenSize.labelLargeSize,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
         SizedBox(height: screenSize.sectionTitleBottomSpacing),

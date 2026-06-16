@@ -10,15 +10,24 @@ import '../../../core/constants/app_images.dart';
 import '../../../core/constants/home_sizes.dart';
 import '../../../core/constants/screen_size.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/widgets/cards/home_glass_panel.dart';
+import '../../../domain/models/category_type/category_type.dart';
+import '../../../domain/models/product/product_catalog.dart';
+import '../../../domain/models/project/project_catalog.dart';
 import '../providers/home_di.dart';
+import '../widgets/home_about_section.dart';
+import '../widgets/home_advantages_section.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/home_banner_section.dart';
 import '../widgets/home_campaigns_section.dart';
+import '../widgets/home_categories_section.dart';
 import '../widgets/home_design_request_section.dart';
 import '../widgets/home_footer.dart';
 import '../widgets/home_furniture_section.dart';
 import '../widgets/home_kitchens_section.dart';
-import '../widgets/home_search_bar.dart';
+import '../widgets/home_portfolio_section.dart';
+import '../widgets/home_search_modal.dart';
+import '../widgets/home_welcome_section.dart';
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
@@ -32,8 +41,17 @@ class _HomePageState extends ConsumerState<HomePage>
     with SingleTickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _scrollController = ScrollController();
-  final _searchSectionKey = GlobalKey();
-  final _furnitureSectionKey = GlobalKey();
+  final _advantagesSectionKey = GlobalKey();
+  final _kitchenCatalogKey = GlobalKey();
+  final _popularKitchensKey = GlobalKey();
+  final _newKitchensKey = GlobalKey();
+  final _furnitureCatalogKey = GlobalKey();
+  final _popularFurnitureKey = GlobalKey();
+  final _newFurnitureKey = GlobalKey();
+  final _portfolioSectionKey = GlobalKey();
+  final _campaignsSectionKey = GlobalKey();
+  final _designRequestKey = GlobalKey();
+  final _aboutSectionKey = GlobalKey();
 
   int _selectedNavIndex = 0;
 
@@ -94,18 +112,8 @@ class _HomePageState extends ConsumerState<HomePage>
     _lastScrollPixels = offset;
   }
 
-  void _scrollToSearch() {
-    final ctx = _searchSectionKey.currentContext;
-    if (ctx != null) {
-      unawaited(
-        Scrollable.ensureVisible(
-          ctx,
-          duration: const Duration(milliseconds: 450),
-          curve: Curves.easeOutCubic,
-          alignment: 0.12,
-        ),
-      );
-    }
+  void _openSearch() {
+    unawaited(HomeSearchModal.show(context));
   }
 
   void _scrollToTop() {
@@ -119,19 +127,37 @@ class _HomePageState extends ConsumerState<HomePage>
     );
   }
 
-  void _scrollToFurniture() {
-    final ctx = _furnitureSectionKey.currentContext;
+  void _scrollToSection(GlobalKey key, {double alignment = 0.00}) {
+    final ctx = key.currentContext;
     if (ctx != null) {
       unawaited(
         Scrollable.ensureVisible(
           ctx,
-          duration: const Duration(milliseconds: 450),
-          curve: Curves.easeOutCubic,
-          alignment: 0.08,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeInOut,
+          alignment: alignment,
         ),
       );
     }
   }
+
+  void _scrollToFurniture() {
+    if (_popularFurnitureKey.currentContext != null) {
+      _scrollToSection(_popularFurnitureKey);
+      return;
+    }
+    _scrollToSection(_furnitureCatalogKey);
+  }
+
+  bool _catalogHasProducts(AsyncValue<ProductCatalog> async) => async.maybeWhen(
+    data: (catalog) => catalog.items.isNotEmpty,
+    orElse: () => false,
+  );
+
+  bool _catalogHasProjects(AsyncValue<ProjectCatalog> async) => async.maybeWhen(
+    data: (catalog) => catalog.items.isNotEmpty,
+    orElse: () => false,
+  );
 
   void _onNavSelect(int index) {
     setState(() => _selectedNavIndex = index);
@@ -157,26 +183,105 @@ class _HomePageState extends ConsumerState<HomePage>
       orElse: () => const <String>[],
     );
 
+    final hitsKitchensAsync = ref.watch(HomeDi.homeHitsKitchensProvider);
+    final newKitchensAsync = ref.watch(HomeDi.homeNewKitchensProvider);
+    final hitsFurnitureAsync = ref.watch(HomeDi.homeHitsFurnitureProvider);
+    final newFurnitureAsync = ref.watch(HomeDi.homeNewFurnitureProvider);
+    final portfolioAsync = ref.watch(HomeDi.homePortfolioProvider);
+
+    final welcomeNavItems = [
+      HomeWelcomeNavItem(
+        label: 'Каталог кухонь',
+        onTap: () => _scrollToSection(_kitchenCatalogKey),
+      ),
+      if (_catalogHasProducts(hitsKitchensAsync))
+        HomeWelcomeNavItem(
+          label: 'Популярные кухни',
+          onTap: () => _scrollToSection(_popularKitchensKey),
+        ),
+      if (_catalogHasProducts(newKitchensAsync))
+        HomeWelcomeNavItem(
+          label: 'Новинки кухонь',
+          onTap: () => _scrollToSection(_newKitchensKey),
+        ),
+      HomeWelcomeNavItem(
+        label: 'Каталог мебели',
+        onTap: () => _scrollToSection(_furnitureCatalogKey),
+      ),
+      if (_catalogHasProducts(hitsFurnitureAsync))
+        HomeWelcomeNavItem(
+          label: 'Популярная мебель',
+          onTap: () => _scrollToSection(_popularFurnitureKey),
+        ),
+      if (_catalogHasProducts(newFurnitureAsync))
+        HomeWelcomeNavItem(
+          label: 'Новинки мебели',
+          onTap: () => _scrollToSection(_newFurnitureKey),
+        ),
+      if (_catalogHasProjects(portfolioAsync))
+        HomeWelcomeNavItem(
+          label: 'Портфолио',
+          onTap: () => _scrollToSection(_portfolioSectionKey),
+        ),
+      HomeWelcomeNavItem(
+        label: 'Акции',
+        onTap: () => _scrollToSection(_campaignsSectionKey),
+      ),
+      HomeWelcomeNavItem(
+        label: 'Заказать проект',
+        onTap: () => _scrollToSection(_designRequestKey),
+      ),
+      HomeWelcomeNavItem(
+        label: 'О компании',
+        onTap: () => _scrollToSection(_aboutSectionKey),
+      ),
+    ];
+
     final bodySliver = SliverToBoxAdapter(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          KeyedSubtree(key: _searchSectionKey, child: const HomeSearchBar()),
+          HomeWelcomeSection(navItems: welcomeNavItems),
           SizedBox(height: screenSize.sectionSpacing),
           const HomeBannerSection(),
-          SizedBox(height: screenSize.sectionSpacing),
-          const HomeKitchensSection(),
           KeyedSubtree(
-            key: _furnitureSectionKey,
-            child: const HomeFurnitureSection(),
+            key: _kitchenCatalogKey,
+            child: const HomeCategoriesSection(
+              title: 'Каталог кухонь',
+              categoryType: CategoryType.kitchen,
+            ),
           ),
-          const HomeCampaignsSection(),
-          const HomeDesignRequestSection(),
-          SizedBox(height: screenSize.sectionSpacing),
+          HomeKitchensSection(
+            popularSectionKey: _popularKitchensKey,
+            newSectionKey: _newKitchensKey,
+          ),
+          KeyedSubtree(
+            key: _furnitureCatalogKey,
+            child: const HomeCategoriesSection(
+              title: 'Каталог мебели',
+              categoryType: CategoryType.furniture,
+            ),
+          ),
+          HomeFurnitureSection(
+            popularSectionKey: _popularFurnitureKey,
+            newSectionKey: _newFurnitureKey,
+          ),
+          HomePortfolioSection(sectionKey: _portfolioSectionKey),
+          KeyedSubtree(
+            key: _campaignsSectionKey,
+            child: const HomeCampaignsSection(),
+          ),
+          KeyedSubtree(
+            key: _designRequestKey,
+            child: const HomeDesignRequestSection(),
+          ),
+          KeyedSubtree(
+            key: _advantagesSectionKey,
+            child: const HomeAdvantagesSection(),
+          ),
+          KeyedSubtree(key: _aboutSectionKey, child: const HomeAboutSection()),
           const HomeFooter(),
-          SizedBox(height: screenSize.sectionSpacing),
           const _ThemeToggle(),
-          SizedBox(height: screenSize.sectionSpacing),
         ],
       ),
     );
@@ -185,6 +290,7 @@ class _HomePageState extends ConsumerState<HomePage>
       key: _scaffoldKey,
       backgroundColor: AppColors.homePageBackground,
       extendBodyBehindAppBar: true,
+      drawerScrimColor: Colors.transparent,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(appBarHeight),
         child: SlideTransition(
@@ -195,19 +301,21 @@ class _HomePageState extends ConsumerState<HomePage>
           child: HomeAppBar(
             toolbarInnerHeight: screenSize.homeAppBarHeight,
             selectedNavIndex: _selectedNavIndex,
-            onSearchTap: _scrollToSearch,
+            onSearchTap: _openSearch,
             onFavoritesTap: _onFavoritesTap,
             onOpenDrawer: screenSize.isExpanded
                 ? null
-                : () => _scaffoldKey.currentState?.openDrawer(),
+                : () => _scaffoldKey.currentState?.openEndDrawer(),
             onNavItemTap: _onNavSelect,
           ),
         ),
       ),
-      drawer: screenSize.isExpanded
+      endDrawer: screenSize.isExpanded
           ? null
           : Drawer(
-              child: _HomeDrawerContent(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              child: _HomeSideMenuContent(
                 selectedIndex: _selectedNavIndex,
                 onSelect: (index) {
                   Navigator.of(context).pop();
@@ -343,69 +451,85 @@ class _AnimatedBackgroundFramesState extends State<_AnimatedBackgroundFrames> {
   );
 }
 
-class _HomeDrawerContent extends StatelessWidget {
-  const _HomeDrawerContent({
+class _HomeSideMenuContent extends StatelessWidget {
+  const _HomeSideMenuContent({
     required this.selectedIndex,
     required this.onSelect,
   });
 
   final int selectedIndex;
-  final void Function(int index) onSelect;
+  final ValueChanged<int> onSelect;
 
   @override
   Widget build(BuildContext context) {
     final s = context.screenSize;
-    return ColoredBox(
-      color: AppColors.surface,
+    final itemPadding = EdgeInsets.symmetric(
+      horizontal: s.horizontalPadding * 0.25,
+      vertical: s.horizontalPadding * 0.15,
+    );
+    final itemSpacing = s.homeSideMenuNavItemSpacing;
+
+    return HomeGlassPanel(
+      border: HomeGlassPanel.sideSheetBorderFromRight(),
       child: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.symmetric(
-            vertical: s.horizontalPadding,
-            horizontal: s.horizontalPadding * 0.75,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            s.horizontalPadding,
+            s.horizontalPadding * 0.5,
+            s.horizontalPadding,
+            s.horizontalPadding,
           ),
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: s.horizontalPadding * 0.25,
-                bottom: s.sectionSpacing * 0.5,
-              ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Image.asset(
-                  AppImages.logo,
-                  height: s.homeAppBarLogoHeight + 8,
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => Icon(
-                    Icons.image_not_supported_outlined,
-                    size: s.homeAppBarLogoHeight + 8,
-                    color: AppColors.onSurfaceTertiary,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: s.horizontalPadding * 0.25,
+                  bottom: s.sectionSpacing * 0.5,
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    AppImages.logo,
+                    height: s.homeAppBarLogoHeight + 8,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) => Icon(
+                      Icons.image_not_supported_outlined,
+                      size: s.homeAppBarLogoHeight + 8,
+                      color: AppColors.onSurface,
+                    ),
                   ),
                 ),
               ),
-            ),
-            for (var i = 0; i < HomeAppBar.navLabels.length; i++)
-              ListTile(
-                selected: i == selectedIndex,
-                selectedTileColor: AppColors.accent.withValues(alpha: 0.08),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: s.horizontalPadding,
-                  vertical: s.horizontalPadding * 0.15,
-                ),
-                title: Text(
-                  HomeAppBar.navLabels[i],
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: i == selectedIndex
-                        ? AppColors.accent
-                        : AppColors.onSurface,
-                    fontWeight: i == selectedIndex
-                        ? FontWeight.w600
-                        : FontWeight.w500,
-                    fontSize: s.bodyLargeSize,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (var i = 0; i < HomeAppBar.navLabels.length; i++) ...[
+                        if (i > 0) SizedBox(height: itemSpacing),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: HomeAppBarNavButton(
+                            key: ValueKey('home-side-nav-$i'),
+                            label: HomeAppBar.navLabels[i],
+                            screenSize: s,
+                            selected: i == selectedIndex,
+                            padding: itemPadding,
+                            fontSize: ScreenSize.expanded.homeAppBarNavTextSize,
+                            showSelectedUnderline: true,
+                            underlineHeight:
+                                ScreenSize.expanded.homeAppBarUnderlineHeight,
+                            onPressed: () => onSelect(i),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
                 ),
-                onTap: () => onSelect(i),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );

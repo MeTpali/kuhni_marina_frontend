@@ -11,6 +11,7 @@ class ProjectResponseDto with _$ProjectResponseDto {
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'description') String? description,
     @JsonKey(name: 'location') String? location,
+    @JsonKey(name: 'image') String? image,
     @JsonKey(name: 'message') String? message,
   }) = _ProjectResponseDto;
 

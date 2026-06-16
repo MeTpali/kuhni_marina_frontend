@@ -22,6 +22,7 @@ mixin _$Project {
   String get createdAt => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
   List<ProjectImage> get images => throw _privateConstructorUsedError;
   List<int> get productIds => throw _privateConstructorUsedError;
 
@@ -42,6 +43,7 @@ abstract class $ProjectCopyWith<$Res> {
     String createdAt,
     String? description,
     String? location,
+    String? image,
     List<ProjectImage> images,
     List<int> productIds,
   });
@@ -67,6 +69,7 @@ class _$ProjectCopyWithImpl<$Res, $Val extends Project>
     Object? createdAt = null,
     Object? description = freezed,
     Object? location = freezed,
+    Object? image = freezed,
     Object? images = null,
     Object? productIds = null,
   }) {
@@ -91,6 +94,10 @@ class _$ProjectCopyWithImpl<$Res, $Val extends Project>
             location: freezed == location
                 ? _value.location
                 : location // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            image: freezed == image
+                ? _value.image
+                : image // ignore: cast_nullable_to_non_nullable
                       as String?,
             images: null == images
                 ? _value.images
@@ -120,6 +127,7 @@ abstract class _$$ProjectImplCopyWith<$Res> implements $ProjectCopyWith<$Res> {
     String createdAt,
     String? description,
     String? location,
+    String? image,
     List<ProjectImage> images,
     List<int> productIds,
   });
@@ -144,6 +152,7 @@ class __$$ProjectImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? description = freezed,
     Object? location = freezed,
+    Object? image = freezed,
     Object? images = null,
     Object? productIds = null,
   }) {
@@ -169,6 +178,10 @@ class __$$ProjectImplCopyWithImpl<$Res>
             ? _value.location
             : location // ignore: cast_nullable_to_non_nullable
                   as String?,
+        image: freezed == image
+            ? _value.image
+            : image // ignore: cast_nullable_to_non_nullable
+                  as String?,
         images: null == images
             ? _value._images
             : images // ignore: cast_nullable_to_non_nullable
@@ -191,6 +204,7 @@ class _$ProjectImpl implements _Project {
     required this.createdAt,
     this.description,
     this.location,
+    this.image,
     final List<ProjectImage> images = const [],
     final List<int> productIds = const [],
   }) : _images = images,
@@ -206,6 +220,8 @@ class _$ProjectImpl implements _Project {
   final String? description;
   @override
   final String? location;
+  @override
+  final String? image;
   final List<ProjectImage> _images;
   @override
   @JsonKey()
@@ -226,7 +242,7 @@ class _$ProjectImpl implements _Project {
 
   @override
   String toString() {
-    return 'Project(id: $id, name: $name, createdAt: $createdAt, description: $description, location: $location, images: $images, productIds: $productIds)';
+    return 'Project(id: $id, name: $name, createdAt: $createdAt, description: $description, location: $location, image: $image, images: $images, productIds: $productIds)';
   }
 
   @override
@@ -242,6 +258,7 @@ class _$ProjectImpl implements _Project {
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.image, image) || other.image == image) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality().equals(
               other._productIds,
@@ -257,6 +274,7 @@ class _$ProjectImpl implements _Project {
     createdAt,
     description,
     location,
+    image,
     const DeepCollectionEquality().hash(_images),
     const DeepCollectionEquality().hash(_productIds),
   );
@@ -277,6 +295,7 @@ abstract class _Project implements Project {
     required final String createdAt,
     final String? description,
     final String? location,
+    final String? image,
     final List<ProjectImage> images,
     final List<int> productIds,
   }) = _$ProjectImpl;
@@ -291,6 +310,8 @@ abstract class _Project implements Project {
   String? get description;
   @override
   String? get location;
+  @override
+  String? get image;
   @override
   List<ProjectImage> get images;
   @override

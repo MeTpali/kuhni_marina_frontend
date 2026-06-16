@@ -308,7 +308,7 @@ class _HomeExpandedNavStripState extends State<_HomeExpandedNavStrip> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 for (var i = 0; i < HomeAppBar.navLabels.length; i++)
-                  _NavTextButton(
+                  HomeAppBarNavButton(
                     key: _itemKeys[i],
                     label: HomeAppBar.navLabels[i],
                     screenSize: s,
@@ -345,12 +345,17 @@ class _HomeExpandedNavStripState extends State<_HomeExpandedNavStrip> {
   }
 }
 
-class _NavTextButton extends StatefulWidget {
-  const _NavTextButton({
+/// Текстовая кнопка навигации app bar (uppercase, accent при hover/выборе).
+class HomeAppBarNavButton extends StatefulWidget {
+  const HomeAppBarNavButton({
     required this.label,
     required this.screenSize,
     required this.selected,
     required this.onPressed,
+    this.padding,
+    this.fontSize,
+    this.showSelectedUnderline = false,
+    this.underlineHeight,
     super.key,
   });
 
@@ -358,12 +363,18 @@ class _NavTextButton extends StatefulWidget {
   final ScreenSize screenSize;
   final bool selected;
   final VoidCallback onPressed;
+  final EdgeInsetsGeometry? padding;
+  final double? fontSize;
+  final bool showSelectedUnderline;
+  final double? underlineHeight;
 
   @override
-  State<_NavTextButton> createState() => _NavTextButtonState();
+  State<HomeAppBarNavButton> createState() => _HomeAppBarNavButtonState();
 }
 
-class _NavTextButtonState extends State<_NavTextButton> {
+class _HomeAppBarNavButtonState extends State<HomeAppBarNavButton> {
+  static const double _underlineTopGap = 2;
+
   bool _hover = false;
 
   @override
@@ -373,33 +384,68 @@ class _NavTextButtonState extends State<_NavTextButton> {
         ? AppColors.accent
         : AppColors.onSurface;
     final base = Theme.of(context).textTheme.labelMedium ?? const TextStyle();
-    final fontWeight = widget.selected ? FontWeight.w700 : FontWeight.w700;
+    final underlineH =
+        widget.underlineHeight ?? s.homeAppBarUnderlineHeight;
+
+    final button = TextButton(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.transparent,
+        padding:
+            widget.padding ??
+            EdgeInsets.symmetric(horizontal: s.homeAppBarNavButtonPaddingH),
+        minimumSize: Size.zero,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        splashFactory: NoSplash.splashFactory,
+      ).copyWith(overlayColor: WidgetStateProperty.all(Colors.transparent)),
+      onPressed: widget.onPressed,
+      child: AnimatedDefaultTextStyle(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeInOut,
+        style: base.copyWith(
+          color: color,
+          fontSize: widget.fontSize ?? s.homeAppBarNavTextSize,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 0.6,
+        ),
+        child: Text(widget.label.toUpperCase()),
+      ),
+    );
+
+    if (!widget.showSelectedUnderline) {
+      return MouseRegion(
+        onEnter: (_) => setState(() => _hover = true),
+        onExit: (_) => setState(() => _hover = false),
+        cursor: SystemMouseCursors.click,
+        child: button,
+      );
+    }
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       cursor: SystemMouseCursors.click,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          foregroundColor: Colors.transparent,
-          padding: EdgeInsets.symmetric(
-            horizontal: s.homeAppBarNavButtonPaddingH,
-          ),
-          minimumSize: Size.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          splashFactory: NoSplash.splashFactory,
-        ).copyWith(overlayColor: WidgetStateProperty.all(Colors.transparent)),
-        onPressed: widget.onPressed,
-        child: AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 220),
-          curve: Curves.easeInOut,
-          style: base.copyWith(
-            color: color,
-            fontSize: s.homeAppBarNavTextSize,
-            fontWeight: fontWeight,
-            letterSpacing: 0.6,
-          ),
-          child: Text(widget.label.toUpperCase()),
+      child: IntrinsicWidth(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            button,
+            SizedBox(height: _underlineTopGap),
+            AnimatedOpacity(
+              opacity: widget.selected ? 1 : 0,
+              duration: const Duration(milliseconds: 160),
+              curve: Curves.easeOutCubic,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 280),
+                curve: Curves.easeOutCubic,
+                height: underlineH,
+                decoration: BoxDecoration(
+                  color: AppColors.accent,
+                  borderRadius: BorderRadius.circular(underlineH * 0.5),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

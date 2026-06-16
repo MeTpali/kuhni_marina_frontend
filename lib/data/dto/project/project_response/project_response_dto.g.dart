@@ -14,6 +14,7 @@ _$ProjectResponseDtoImpl _$$ProjectResponseDtoImplFromJson(
   createdAt: DateTime.parse(json['created_at'] as String),
   description: json['description'] as String?,
   location: json['location'] as String?,
+  image: json['image'] as String?,
   message: json['message'] as String?,
 );
 
@@ -25,5 +26,6 @@ Map<String, dynamic> _$$ProjectResponseDtoImplToJson(
   'created_at': instance.createdAt.toIso8601String(),
   'description': instance.description,
   'location': instance.location,
+  'image': instance.image,
   'message': instance.message,
 };

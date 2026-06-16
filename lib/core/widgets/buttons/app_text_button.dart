@@ -41,7 +41,17 @@ class _AppTextButtonState extends State<AppTextButton> {
       child: GestureDetector(
         onTap: widget.onPressed,
         behavior: HitTestBehavior.opaque,
-        child: Text(widget.label, style: effectiveStyle),
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 280),
+          curve: Curves.easeOutCubic,
+          style: effectiveStyle,
+          child: Text(
+            widget.label,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }

@@ -111,10 +111,16 @@ class ProductsTestService {
   Future<ResponseResult<ProductSearchSuggestionsResponseDto>>
   getSearchSuggestions({required String text, String? type, int? limit}) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
-    final count = (limit ?? 10).clamp(0, _mockSuggestionItems.length);
+    final query = text.trim().toLowerCase();
+    final filtered = query.isEmpty
+        ? _mockSuggestionItems
+        : _mockSuggestionItems
+            .where((e) => e.name.toLowerCase().contains(query))
+            .toList();
+    final count = (limit ?? 10).clamp(0, filtered.length);
     return ResponseResult.success(
       ProductSearchSuggestionsResponseDto(
-        items: _mockSuggestionItems.take(count).toList(),
+        items: filtered.take(count).toList(),
         message: null,
       ),
     );

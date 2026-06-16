@@ -19,6 +19,7 @@ class ProjectsTestService {
       createdAt: DateTime(2024, 1, 15, 10, 0),
       description: 'Светлая кухня с островом',
       location: 'Москва',
+      image: 'https://example.com/projects/project1.jpg',
       message: null,
     ),
     ProjectResponseDto(
@@ -27,6 +28,7 @@ class ProjectsTestService {
       createdAt: DateTime(2024, 2, 1, 12, 0),
       description: null,
       location: null,
+      image: null,
       message: null,
     ),
   ];
@@ -99,14 +101,17 @@ class ProjectsTestService {
     required ProjectCreateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
-    return ResponseResult.success(ProjectResponseDto(
-      id: 99,
-      name: request.name,
-      createdAt: DateTime.now(),
-      description: request.description,
-      location: request.location,
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProjectResponseDto(
+        id: 99,
+        name: request.name,
+        createdAt: DateTime.now(),
+        description: request.description,
+        location: request.location,
+        image: null,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProjectResponseDto>> updateProject({
@@ -114,14 +119,17 @@ class ProjectsTestService {
     required ProjectUpdateRequestDto request,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 350));
-    return ResponseResult.success(ProjectResponseDto(
-      id: projectId,
-      name: request.name ?? 'Проект $projectId',
-      createdAt: DateTime.now(),
-      description: request.description,
-      location: request.location,
-      message: null,
-    ));
+    return ResponseResult.success(
+      ProjectResponseDto(
+        id: projectId,
+        name: request.name ?? 'Проект $projectId',
+        createdAt: DateTime.now(),
+        description: request.description,
+        location: request.location,
+        image: null,
+        message: null,
+      ),
+    );
   }
 
   Future<ResponseResult<ProjectDeleteResponseDto>> deleteProject({

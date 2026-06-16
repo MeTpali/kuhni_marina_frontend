@@ -31,6 +31,8 @@ mixin _$ProjectResponseDto {
   String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'location')
   String? get location => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image')
+  String? get image => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
   String? get message => throw _privateConstructorUsedError;
 
@@ -57,6 +59,7 @@ abstract class $ProjectResponseDtoCopyWith<$Res> {
     @JsonKey(name: 'created_at') DateTime createdAt,
     @JsonKey(name: 'description') String? description,
     @JsonKey(name: 'location') String? location,
+    @JsonKey(name: 'image') String? image,
     @JsonKey(name: 'message') String? message,
   });
 }
@@ -81,6 +84,7 @@ class _$ProjectResponseDtoCopyWithImpl<$Res, $Val extends ProjectResponseDto>
     Object? createdAt = null,
     Object? description = freezed,
     Object? location = freezed,
+    Object? image = freezed,
     Object? message = freezed,
   }) {
     return _then(
@@ -104,6 +108,10 @@ class _$ProjectResponseDtoCopyWithImpl<$Res, $Val extends ProjectResponseDto>
             location: freezed == location
                 ? _value.location
                 : location // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            image: freezed == image
+                ? _value.image
+                : image // ignore: cast_nullable_to_non_nullable
                       as String?,
             message: freezed == message
                 ? _value.message
@@ -130,6 +138,7 @@ abstract class _$$ProjectResponseDtoImplCopyWith<$Res>
     @JsonKey(name: 'created_at') DateTime createdAt,
     @JsonKey(name: 'description') String? description,
     @JsonKey(name: 'location') String? location,
+    @JsonKey(name: 'image') String? image,
     @JsonKey(name: 'message') String? message,
   });
 }
@@ -153,6 +162,7 @@ class __$$ProjectResponseDtoImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? description = freezed,
     Object? location = freezed,
+    Object? image = freezed,
     Object? message = freezed,
   }) {
     return _then(
@@ -177,6 +187,10 @@ class __$$ProjectResponseDtoImplCopyWithImpl<$Res>
             ? _value.location
             : location // ignore: cast_nullable_to_non_nullable
                   as String?,
+        image: freezed == image
+            ? _value.image
+            : image // ignore: cast_nullable_to_non_nullable
+                  as String?,
         message: freezed == message
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
@@ -195,6 +209,7 @@ class _$ProjectResponseDtoImpl implements _ProjectResponseDto {
     @JsonKey(name: 'created_at') required this.createdAt,
     @JsonKey(name: 'description') this.description,
     @JsonKey(name: 'location') this.location,
+    @JsonKey(name: 'image') this.image,
     @JsonKey(name: 'message') this.message,
   });
 
@@ -217,12 +232,15 @@ class _$ProjectResponseDtoImpl implements _ProjectResponseDto {
   @JsonKey(name: 'location')
   final String? location;
   @override
+  @JsonKey(name: 'image')
+  final String? image;
+  @override
   @JsonKey(name: 'message')
   final String? message;
 
   @override
   String toString() {
-    return 'ProjectResponseDto(id: $id, name: $name, createdAt: $createdAt, description: $description, location: $location, message: $message)';
+    return 'ProjectResponseDto(id: $id, name: $name, createdAt: $createdAt, description: $description, location: $location, image: $image, message: $message)';
   }
 
   @override
@@ -238,6 +256,7 @@ class _$ProjectResponseDtoImpl implements _ProjectResponseDto {
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.image, image) || other.image == image) &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -250,6 +269,7 @@ class _$ProjectResponseDtoImpl implements _ProjectResponseDto {
     createdAt,
     description,
     location,
+    image,
     message,
   );
 
@@ -277,6 +297,7 @@ abstract class _ProjectResponseDto implements ProjectResponseDto {
     @JsonKey(name: 'created_at') required final DateTime createdAt,
     @JsonKey(name: 'description') final String? description,
     @JsonKey(name: 'location') final String? location,
+    @JsonKey(name: 'image') final String? image,
     @JsonKey(name: 'message') final String? message,
   }) = _$ProjectResponseDtoImpl;
 
@@ -298,6 +319,9 @@ abstract class _ProjectResponseDto implements ProjectResponseDto {
   @override
   @JsonKey(name: 'location')
   String? get location;
+  @override
+  @JsonKey(name: 'image')
+  String? get image;
   @override
   @JsonKey(name: 'message')
   String? get message;

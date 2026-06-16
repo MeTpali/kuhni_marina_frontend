@@ -12,6 +12,7 @@ class Project with _$Project {
     required String createdAt,
     String? description,
     String? location,
+    String? image,
     @Default([]) List<ProjectImage> images,
     @Default([]) List<int> productIds,
   }) = _Project;

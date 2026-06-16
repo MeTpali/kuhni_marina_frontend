@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
+import '../../constants/home_sizes.dart';
 import '../../constants/product_card_sizes.dart';
 import '../images/app_image.dart';
 import 'glass_favorite_icon_button.dart';
@@ -23,6 +24,7 @@ class HomeProductSmoothCard extends StatefulWidget {
   final ScreenSize screenSize;
   final String name;
   final List<String> images;
+
   /// Часть цены без префикса «Цена от» и без «₽» (как у полной карточки каталога).
   final String price;
   final double imageSize;
@@ -36,20 +38,18 @@ class HomeProductSmoothCard extends StatefulWidget {
 
 class _HomeProductSmoothCardState extends State<HomeProductSmoothCard> {
   static const Duration _fadeDuration = Duration(milliseconds: 420);
-  static const double _nameFontSize = 31;
 
   int _imagePosition = 0;
   int? _lastHoverSegment;
 
-  List<String> get _images =>
-      widget.images.isEmpty ? [''] : widget.images;
+  List<String> get _images => widget.images.isEmpty ? [''] : widget.images;
 
   void _onImageAreaHover(Offset local, Size stackSize) {
     if (_images.length <= 1 || stackSize.width <= 0) return;
     final segment = (local.dx / stackSize.width * _images.length).floor().clamp(
-          0,
-          _images.length - 1,
-        );
+      0,
+      _images.length - 1,
+    );
     if (segment == _lastHoverSegment || segment == _imagePosition) return;
     _lastHoverSegment = segment;
     setState(() => _imagePosition = segment);
@@ -64,16 +64,17 @@ class _HomeProductSmoothCardState extends State<HomeProductSmoothCard> {
   @override
   Widget build(BuildContext context) {
     final s = widget.screenSize;
+    final nameFontSize = s.headlineSmallSize;
     final nameStyle = Theme.of(context).textTheme.headlineSmall?.copyWith(
-          color: AppColors.base100,
-          fontWeight: FontWeight.w600,
-          fontSize: _nameFontSize,
-        );
+      color: AppColors.base100,
+      fontWeight: FontWeight.w600,
+      fontSize: nameFontSize,
+    );
     final priceStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: AppColors.base60,
-          fontWeight: FontWeight.w400,
-          fontSize: 14,
-        );
+      color: AppColors.base60,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+    );
 
     final cardWidth = widget.imageSize;
 
@@ -143,7 +144,7 @@ class _HomeProductSmoothCardState extends State<HomeProductSmoothCard> {
             onTap: widget.onTap,
             child: Text(
               widget.name,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: nameStyle,
             ),

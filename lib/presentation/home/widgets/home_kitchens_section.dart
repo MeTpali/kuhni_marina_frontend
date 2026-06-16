@@ -8,21 +8,31 @@ import '../../../core/constants/screen_size.dart';
 import '../providers/home_di.dart';
 import 'home_products_section.dart';
 
-/// Секция «Кухни» на главной: заголовок, популярные кухни (хиты), новинки.
+/// Секция «Кухни» на главной: популярные кухни и новинки кухонь.
 class HomeKitchensSection extends ConsumerWidget {
-  const HomeKitchensSection({super.key});
+  const HomeKitchensSection({
+    super.key,
+    this.popularSectionKey,
+    this.newSectionKey,
+  });
+
+  final Key? popularSectionKey;
+  final Key? newSectionKey;
+
+  static Widget _keyedSection({required Key? key, required Widget child}) =>
+      key != null ? KeyedSubtree(key: key, child: child) : child;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final hitsAsync = ref.watch(HomeDi.homeHitsKitchensProvider);
     final newAsync = ref.watch(HomeDi.homeNewKitchensProvider);
 
-    final hitsHasProducts =
-        hitsAsync.valueOrNull?.items.isNotEmpty ?? false;
-    final newHasProducts =
-        newAsync.valueOrNull?.items.isNotEmpty ?? false;
-    if (!hitsHasProducts && !newHasProducts &&
-        hitsAsync.hasValue && newAsync.hasValue) {
+    final hitsHasProducts = hitsAsync.valueOrNull?.items.isNotEmpty ?? false;
+    final newHasProducts = newAsync.valueOrNull?.items.isNotEmpty ?? false;
+    if (!hitsHasProducts &&
+        !newHasProducts &&
+        hitsAsync.hasValue &&
+        newAsync.hasValue) {
       return const SizedBox.shrink();
     }
 
@@ -33,10 +43,14 @@ class HomeKitchensSection extends ConsumerWidget {
         hitsAsync.when(
           data: (catalog) => catalog.items.isEmpty
               ? const SizedBox.shrink()
-              : HomeProductsSection(
-                  title: 'Популярные кухни',
-                  productList: catalog.items,
-                  backdropStyle: HomeSectionBackdropStyle.glassLight,
+              : _keyedSection(
+                  key: popularSectionKey,
+                  child: HomeProductsSection(
+                    title: 'Популярные кухни',
+                    productList: catalog.items,
+                    moreLabel: 'Ещё больше кухонь',
+                    backdropStyle: HomeSectionBackdropStyle.glassLight,
+                  ),
                 ),
           loading: () => const _SectionPlaceholder(title: 'Популярные кухни'),
           error: (_, __) => const SizedBox.shrink(),
@@ -44,12 +58,16 @@ class HomeKitchensSection extends ConsumerWidget {
         newAsync.when(
           data: (catalog) => catalog.items.isEmpty
               ? const SizedBox.shrink()
-              : HomeProductsSection(
-                  title: 'Новинки',
-                  productList: catalog.items,
-                  backdropStyle: HomeSectionBackdropStyle.glassHeavy,
+              : _keyedSection(
+                  key: newSectionKey,
+                  child: HomeProductsSection(
+                    title: 'Новинки кухонь',
+                    productList: catalog.items,
+                    moreLabel: 'Ещё больше кухонь',
+                    backdropStyle: HomeSectionBackdropStyle.glassHeavy,
+                  ),
                 ),
-          loading: () => const _SectionPlaceholder(title: 'Новинки'),
+          loading: () => const _SectionPlaceholder(title: 'Новинки кухонь'),
           error: (_, __) => const SizedBox.shrink(),
         ),
       ],

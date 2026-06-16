@@ -85,6 +85,13 @@ abstract class AppIcons {
   static const String globe = '$_base/globe.svg';
   static const String alarm = '$_base/alarm.svg';
   static const String venera = '$_base/venera.svg';
+  static const String arrowRightLucid = '$_base/arrow_right_lucid.svg';
+  static const String freeDesignProject = '$_base/free_design_project.svg';
+  static const String yourSize = '$_base/your_size.svg';
+  static const String noHiddenSurcharges = '$_base/no_hidden_surcharges.svg';
+  static const String exactDates = '$_base/exact_dates.svg';
+  static const String turnkeyInstallation = '$_base/turnkey_installation.svg';
+  static const String qualityAssurance = '$_base/quality_assurance.svg';
 
   /// PNG icons
   static const String lock = '$_base/lock.png';
