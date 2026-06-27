@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../core/utils/extensions/num_extension.dart';
-import '../../../core/widgets/horizontal_scroll/horizontal_scroll_edge_hover_zone.dart';
-import '../../../core/widgets/images/app_image.dart';
-import '../../../core/widgets/reveal/reveal_wrap.dart';
-import '../../../domain/models/banner/banner.dart';
-import '../providers/banners/home_banner_providers.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../core/utils/extensions/num_extension.dart';
+import '../../../../core/widgets/horizontal_scroll/horizontal_scroll_edge_hover_zone.dart';
+import '../../../../core/widgets/images/app_image.dart';
+import '../../../../core/widgets/reveal/reveal_wrap.dart';
+import '../../../../domain/models/banner/banner.dart';
+import '../../providers/banners/home_banner_providers.dart';
 
 /// Секция баннеров на главной: карусель или один баннер.
 class HomeBannerSection extends ConsumerWidget {

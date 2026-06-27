@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/product_card_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../domain/models/product_type/product_type.dart';
-import '../providers/products/home_product_catalog_providers.dart';
-import '../../shared/section/products_carousel_section.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/product_card_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../domain/models/product_type/product_type.dart';
+import '../../providers/products/home_product_catalog_providers.dart';
+import '../../../shared/section/products_carousel_section.dart';
 
 extension on ProductType {
   String get _popularTitle => switch (this) {

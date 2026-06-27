@@ -7,17 +7,17 @@ import '../../../core/constants/screen_size.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../domain/models/category_type/category_type.dart';
 import '../../../domain/models/product_type/product_type.dart';
-import '../home_section_keys.dart';
-import 'home_about_section.dart';
-import 'home_advantages_section.dart';
-import 'home_banner_section.dart';
-import 'home_campaigns_section.dart';
-import 'home_categories_section.dart';
-import 'home_design_request_section.dart';
-import 'home_footer.dart';
-import 'home_portfolio_section.dart';
-import 'home_product_type_section.dart';
-import 'home_welcome_section.dart';
+import 'home_section_keys.dart';
+import '../welcome/home_welcome_section.dart';
+import 'about/home_about_section.dart';
+import 'advantages/home_advantages_section.dart';
+import 'banner/home_banner_section.dart';
+import 'campaigns/home_campaigns_section.dart';
+import 'categories/home_categories_section.dart';
+import 'design_request/home_design_request_section.dart';
+import 'footer/home_footer.dart';
+import 'portfolio/home_portfolio_section.dart';
+import 'products/home_product_type_section.dart';
 
 /// Колонка секций главной страницы.
 class HomeSectionsColumn extends StatelessWidget {
@@ -65,19 +65,13 @@ class HomeSectionsColumn extends StatelessWidget {
           newSectionKey: keys.newFurniture,
         ),
         HomePortfolioSection(sectionKey: keys.portfolio),
-        KeyedSubtree(
-          key: keys.campaigns,
-          child: const HomeCampaignsSection(),
-        ),
+        KeyedSubtree(key: keys.campaigns, child: const HomeCampaignsSection()),
         KeyedSubtree(
           key: keys.designRequest,
           child: const HomeDesignRequestSection(),
         ),
         const HomeAdvantagesSection(),
-        KeyedSubtree(
-          key: keys.about,
-          child: const HomeAboutSection(),
-        ),
+        KeyedSubtree(key: keys.about, child: const HomeAboutSection()),
         const HomeFooter(),
         const HomeThemeToggle(),
       ],

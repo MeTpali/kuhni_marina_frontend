@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../shared/design_request/widgets/design_request_section.dart';
+import '../../../shared/design_request/widgets/design_request_section.dart';
 
 /// Секция заявки на дизайн-проект на главной.
 class HomeDesignRequestSection extends StatelessWidget {

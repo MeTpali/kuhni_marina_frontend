@@ -5,9 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../shell/main_shell_scope.dart';
 import '../background/home_animated_background.dart';
-import '../home_section_keys.dart';
+import '../sections/home_section_keys.dart';
 import '../providers/background/home_background_providers.dart';
-import '../widgets/home_sections_column.dart';
+import '../sections/home_sections_column.dart';
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {

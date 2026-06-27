@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_spacing.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/product_card_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../core/widgets/cards/home_project_smooth_card.dart';
-import '../../../core/widgets/horizontal_scroll/horizontal_loop_carousel.dart';
-import '../../../core/widgets/reveal/reveal_wrap.dart';
-import '../../../domain/models/project/project.dart';
-import '../providers/portfolio/home_portfolio_providers.dart';
-import '../../shared/section/section_backdrop.dart';
-import '../../shared/section/section_more_button.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/product_card_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../core/widgets/cards/home_project_smooth_card.dart';
+import '../../../../core/widgets/horizontal_scroll/horizontal_loop_carousel.dart';
+import '../../../../core/widgets/reveal/reveal_wrap.dart';
+import '../../../../domain/models/project/project.dart';
+import '../../providers/portfolio/home_portfolio_providers.dart';
+import '../../../shared/section/section_backdrop.dart';
+import '../../../shared/section/section_more_button.dart';
 
 /// Секция «Портфолио»: заголовок и горизонтальный список карточек проектов.
 class HomePortfolioSection extends ConsumerWidget {

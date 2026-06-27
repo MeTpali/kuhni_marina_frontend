@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/models/product/product_catalog.dart';
 import '../../../../domain/models/product_type/product_type.dart';
 import '../../../../domain/models/project/project_catalog.dart';
-import 'providers/portfolio/home_portfolio_providers.dart';
-import 'providers/products/home_product_catalog_providers.dart';
-import 'welcome/home_welcome_nav_panel.dart';
+import '../providers/portfolio/home_portfolio_providers.dart';
+import '../providers/products/home_product_catalog_providers.dart';
+import '../welcome/home_welcome_nav_panel.dart';
 
 /// Ключи секций главной для scroll-to-section навигации.
 class HomeSectionKeys {

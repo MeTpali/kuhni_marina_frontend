@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/product_card_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../core/widgets/cards/home_glass_card.dart';
-import '../../../core/widgets/images/app_image.dart';
-import '../../../domain/models/campaign/campaign.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/product_card_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../core/widgets/cards/home_glass_card.dart';
+import '../../../../core/widgets/images/app_image.dart';
+import '../../../../domain/models/campaign/campaign.dart';
 
 /// Карточка акции: 16×9, при hover — liquid glass с названием и описанием.
 class HomeCampaignCard extends StatefulWidget {

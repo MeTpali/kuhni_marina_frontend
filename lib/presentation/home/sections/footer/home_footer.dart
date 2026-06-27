@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/screen_size.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
 
 /// Футер главной: общая информация о компании.
 class HomeFooter extends StatelessWidget {

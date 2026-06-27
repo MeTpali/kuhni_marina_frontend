@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../core/utils/extensions/num_extension.dart';
-import '../../../core/widgets/horizontal_scroll/horizontal_scroll_edge_hover_zone.dart';
-import '../../../core/widgets/reveal/reveal_wrap.dart';
-import '../../../domain/models/campaign/campaign.dart';
-import '../providers/campaigns/home_campaign_providers.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../core/utils/extensions/num_extension.dart';
+import '../../../../core/widgets/horizontal_scroll/horizontal_scroll_edge_hover_zone.dart';
+import '../../../../core/widgets/reveal/reveal_wrap.dart';
+import '../../../../domain/models/campaign/campaign.dart';
+import '../../providers/campaigns/home_campaign_providers.dart';
 import 'home_campaign_card.dart';
-import '../../shared/section/section_backdrop.dart';
+import '../../../shared/section/section_backdrop.dart';
 
 /// Секция «Акции»: заголовок и карусель 16×9 (как баннеры).
 class HomeCampaignsSection extends ConsumerWidget {

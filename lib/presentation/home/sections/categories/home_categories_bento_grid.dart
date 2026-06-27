@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../domain/models/category/category_tree_node.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../domain/models/category/category_tree_node.dart';
 import 'home_category_card.dart';
 
 /// Плитка bento-сетки: позиция и размер в ячейках сетки.

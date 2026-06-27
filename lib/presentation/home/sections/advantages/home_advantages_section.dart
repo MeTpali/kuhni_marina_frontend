@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_icons.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../core/parsers/icon_color_mapper.dart';
-import '../../../core/widgets/cards/home_glass_card.dart';
-import '../../../core/widgets/reveal/reveal_wrap.dart';
-import '../../shared/section/section_backdrop.dart';
-import '../../shared/section/section_split_layout.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../core/parsers/icon_color_mapper.dart';
+import '../../../../core/widgets/cards/home_glass_card.dart';
+import '../../../../core/widgets/reveal/reveal_wrap.dart';
+import '../../../shared/section/section_backdrop.dart';
+import '../../../shared/section/section_split_layout.dart';
 
 class _AdvantageItem {
   const _AdvantageItem({required this.iconAsset, required this.label});

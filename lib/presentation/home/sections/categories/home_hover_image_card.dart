@@ -2,13 +2,13 @@ import 'dart:ui' show ImageFilter, lerpDouble;
 
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/product_card_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../core/widgets/buttons/app_text_button.dart';
-import '../../../core/widgets/images/app_image.dart';
-import '../../../core/widgets/reveal/reveal_wrap.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/product_card_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../core/widgets/buttons/app_text_button.dart';
+import '../../../../core/widgets/images/app_image.dart';
+import '../../../../core/widgets/reveal/reveal_wrap.dart';
 
 /// Карточка с фоновым изображением: заголовок сверху слева, hover — blur и CTA.
 class HomeHoverImageCard extends StatefulWidget {

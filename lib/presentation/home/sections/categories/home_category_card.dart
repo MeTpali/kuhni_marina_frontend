@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/screen_size.dart';
-import '../../../domain/models/category/category_tree_node.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../domain/models/category/category_tree_node.dart';
 import 'home_hover_image_card.dart';
 
 /// Карточка категории в bento-сетке.

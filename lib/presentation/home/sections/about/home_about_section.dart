@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/home_sizes.dart';
-import '../../../core/constants/screen_size.dart';
-import '../../../core/widgets/reveal/reveal_wrap.dart';
-import '../../shared/section/section_backdrop.dart';
-import '../../shared/section/section_split_layout.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/home_sizes.dart';
+import '../../../../core/constants/screen_size.dart';
+import '../../../../core/widgets/reveal/reveal_wrap.dart';
+import '../../../shared/section/section_backdrop.dart';
+import '../../../shared/section/section_split_layout.dart';
 
 class _AboutStep {
   const _AboutStep({required this.title, required this.body});
