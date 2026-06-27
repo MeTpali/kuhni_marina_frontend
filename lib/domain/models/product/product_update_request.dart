@@ -13,6 +13,7 @@ class ProductUpdateRequest with _$ProductUpdateRequest {
     ProductType? type,
     String? slug,
     String? description,
+    String? contentMarkdown,
     Object? price,
     bool? isNew,
     bool? isHit,

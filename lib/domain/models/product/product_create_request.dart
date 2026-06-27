@@ -13,6 +13,7 @@ class ProductCreateRequest with _$ProductCreateRequest {
     required ProductType type,
     String? slug,
     String? description,
+    String? contentMarkdown,
     Object? price,
     @Default(false) bool isNew,
     @Default(false) bool isHit,

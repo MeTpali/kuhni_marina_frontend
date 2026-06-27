@@ -25,6 +25,7 @@ mixin _$Product {
   String get createdAt => throw _privateConstructorUsedError;
   String? get slug => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get contentMarkdown => throw _privateConstructorUsedError;
   String? get price => throw _privateConstructorUsedError;
   bool get isNew => throw _privateConstructorUsedError;
   bool get isHit => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ abstract class $ProductCopyWith<$Res> {
     String createdAt,
     String? slug,
     String? description,
+    String? contentMarkdown,
     String? price,
     bool isNew,
     bool isHit,
@@ -95,6 +97,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? createdAt = null,
     Object? slug = freezed,
     Object? description = freezed,
+    Object? contentMarkdown = freezed,
     Object? price = freezed,
     Object? isNew = null,
     Object? isHit = null,
@@ -139,6 +142,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
             description: freezed == description
                 ? _value.description
                 : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            contentMarkdown: freezed == contentMarkdown
+                ? _value.contentMarkdown
+                : contentMarkdown // ignore: cast_nullable_to_non_nullable
                       as String?,
             price: freezed == price
                 ? _value.price
@@ -227,6 +234,7 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
     String createdAt,
     String? slug,
     String? description,
+    String? contentMarkdown,
     String? price,
     bool isNew,
     bool isHit,
@@ -267,6 +275,7 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? slug = freezed,
     Object? description = freezed,
+    Object? contentMarkdown = freezed,
     Object? price = freezed,
     Object? isNew = null,
     Object? isHit = null,
@@ -311,6 +320,10 @@ class __$$ProductImplCopyWithImpl<$Res>
         description: freezed == description
             ? _value.description
             : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        contentMarkdown: freezed == contentMarkdown
+            ? _value.contentMarkdown
+            : contentMarkdown // ignore: cast_nullable_to_non_nullable
                   as String?,
         price: freezed == price
             ? _value.price
@@ -369,6 +382,7 @@ class _$ProductImpl implements _Product {
     required this.createdAt,
     this.slug,
     this.description,
+    this.contentMarkdown,
     this.price,
     this.isNew = false,
     this.isHit = false,
@@ -398,6 +412,8 @@ class _$ProductImpl implements _Product {
   final String? slug;
   @override
   final String? description;
+  @override
+  final String? contentMarkdown;
   @override
   final String? price;
   @override
@@ -440,7 +456,7 @@ class _$ProductImpl implements _Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount, rating: $rating, reviewsCount: $reviewsCount)';
+    return 'Product(id: $id, name: $name, categoryId: $categoryId, type: $type, category: $category, createdAt: $createdAt, slug: $slug, description: $description, contentMarkdown: $contentMarkdown, price: $price, isNew: $isNew, isHit: $isHit, isActive: $isActive, attributes: $attributes, images: $images, updatedAt: $updatedAt, discount: $discount, rating: $rating, reviewsCount: $reviewsCount)';
   }
 
   @override
@@ -460,6 +476,8 @@ class _$ProductImpl implements _Product {
             (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.contentMarkdown, contentMarkdown) ||
+                other.contentMarkdown == contentMarkdown) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.isNew, isNew) || other.isNew == isNew) &&
             (identical(other.isHit, isHit) || other.isHit == isHit) &&
@@ -480,7 +498,7 @@ class _$ProductImpl implements _Product {
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     runtimeType,
     id,
     name,
@@ -490,6 +508,7 @@ class _$ProductImpl implements _Product {
     createdAt,
     slug,
     description,
+    contentMarkdown,
     price,
     isNew,
     isHit,
@@ -500,7 +519,7 @@ class _$ProductImpl implements _Product {
     discount,
     rating,
     reviewsCount,
-  );
+  ]);
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.
@@ -521,6 +540,7 @@ abstract class _Product implements Product {
     required final String createdAt,
     final String? slug,
     final String? description,
+    final String? contentMarkdown,
     final String? price,
     final bool isNew,
     final bool isHit,
@@ -549,6 +569,8 @@ abstract class _Product implements Product {
   String? get slug;
   @override
   String? get description;
+  @override
+  String? get contentMarkdown;
   @override
   String? get price;
   @override

@@ -33,6 +33,8 @@ mixin _$ProductCreateRequestDto {
   String? get slug => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'content_markdown')
+  String? get contentMarkdown => throw _privateConstructorUsedError;
   @JsonKey(name: 'price')
   Object? get price => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_new')
@@ -68,6 +70,7 @@ abstract class $ProductCreateRequestDtoCopyWith<$Res> {
     @JsonKey(name: 'type') ProductTypeDto type,
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'description') String? description,
+    @JsonKey(name: 'content_markdown') String? contentMarkdown,
     @JsonKey(name: 'price') Object? price,
     @JsonKey(name: 'is_new') bool isNew,
     @JsonKey(name: 'is_hit') bool isHit,
@@ -99,6 +102,7 @@ class _$ProductCreateRequestDtoCopyWithImpl<
     Object? type = null,
     Object? slug = freezed,
     Object? description = freezed,
+    Object? contentMarkdown = freezed,
     Object? price = freezed,
     Object? isNew = null,
     Object? isHit = null,
@@ -126,6 +130,10 @@ class _$ProductCreateRequestDtoCopyWithImpl<
             description: freezed == description
                 ? _value.description
                 : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            contentMarkdown: freezed == contentMarkdown
+                ? _value.contentMarkdown
+                : contentMarkdown // ignore: cast_nullable_to_non_nullable
                       as String?,
             price: freezed == price ? _value.price : price,
             isNew: null == isNew
@@ -165,6 +173,7 @@ abstract class _$$ProductCreateRequestDtoImplCopyWith<$Res>
     @JsonKey(name: 'type') ProductTypeDto type,
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'description') String? description,
+    @JsonKey(name: 'content_markdown') String? contentMarkdown,
     @JsonKey(name: 'price') Object? price,
     @JsonKey(name: 'is_new') bool isNew,
     @JsonKey(name: 'is_hit') bool isHit,
@@ -196,6 +205,7 @@ class __$$ProductCreateRequestDtoImplCopyWithImpl<$Res>
     Object? type = null,
     Object? slug = freezed,
     Object? description = freezed,
+    Object? contentMarkdown = freezed,
     Object? price = freezed,
     Object? isNew = null,
     Object? isHit = null,
@@ -223,6 +233,10 @@ class __$$ProductCreateRequestDtoImplCopyWithImpl<$Res>
         description: freezed == description
             ? _value.description
             : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        contentMarkdown: freezed == contentMarkdown
+            ? _value.contentMarkdown
+            : contentMarkdown // ignore: cast_nullable_to_non_nullable
                   as String?,
         price: freezed == price ? _value.price : price,
         isNew: null == isNew
@@ -255,6 +269,7 @@ class _$ProductCreateRequestDtoImpl implements _ProductCreateRequestDto {
     @JsonKey(name: 'type') required this.type,
     @JsonKey(name: 'slug') this.slug,
     @JsonKey(name: 'description') this.description,
+    @JsonKey(name: 'content_markdown') this.contentMarkdown,
     @JsonKey(name: 'price') this.price,
     @JsonKey(name: 'is_new') this.isNew = false,
     @JsonKey(name: 'is_hit') this.isHit = false,
@@ -282,6 +297,9 @@ class _$ProductCreateRequestDtoImpl implements _ProductCreateRequestDto {
   @override
   @JsonKey(name: 'description')
   final String? description;
+  @override
+  @JsonKey(name: 'content_markdown')
+  final String? contentMarkdown;
   @override
   @JsonKey(name: 'price')
   final Object? price;
@@ -311,7 +329,7 @@ class _$ProductCreateRequestDtoImpl implements _ProductCreateRequestDto {
 
   @override
   String toString() {
-    return 'ProductCreateRequestDto(name: $name, categoryId: $categoryId, type: $type, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, attributes: $attributes, images: $images)';
+    return 'ProductCreateRequestDto(name: $name, categoryId: $categoryId, type: $type, slug: $slug, description: $description, contentMarkdown: $contentMarkdown, price: $price, isNew: $isNew, isHit: $isHit, attributes: $attributes, images: $images)';
   }
 
   @override
@@ -326,6 +344,8 @@ class _$ProductCreateRequestDtoImpl implements _ProductCreateRequestDto {
             (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.contentMarkdown, contentMarkdown) ||
+                other.contentMarkdown == contentMarkdown) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             (identical(other.isNew, isNew) || other.isNew == isNew) &&
             (identical(other.isHit, isHit) || other.isHit == isHit) &&
@@ -345,6 +365,7 @@ class _$ProductCreateRequestDtoImpl implements _ProductCreateRequestDto {
     type,
     slug,
     description,
+    contentMarkdown,
     const DeepCollectionEquality().hash(price),
     isNew,
     isHit,
@@ -376,6 +397,7 @@ abstract class _ProductCreateRequestDto implements ProductCreateRequestDto {
     @JsonKey(name: 'type') required final ProductTypeDto type,
     @JsonKey(name: 'slug') final String? slug,
     @JsonKey(name: 'description') final String? description,
+    @JsonKey(name: 'content_markdown') final String? contentMarkdown,
     @JsonKey(name: 'price') final Object? price,
     @JsonKey(name: 'is_new') final bool isNew,
     @JsonKey(name: 'is_hit') final bool isHit,
@@ -401,6 +423,9 @@ abstract class _ProductCreateRequestDto implements ProductCreateRequestDto {
   @override
   @JsonKey(name: 'description')
   String? get description;
+  @override
+  @JsonKey(name: 'content_markdown')
+  String? get contentMarkdown;
   @override
   @JsonKey(name: 'price')
   Object? get price;

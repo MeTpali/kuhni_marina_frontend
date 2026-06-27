@@ -85,6 +85,48 @@ class CampaignsRemoteService {
     }
   }
 
+  Future<ResponseResult<CampaignResponseDto>> getCampaignBySlug({
+    required String campaignSlug,
+  }) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$_path/slug/${Uri.encodeComponent(campaignSlug)}',
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          CampaignResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<CampaignResponseDto>(e);
+    }
+  }
+
+  Future<ResponseResult<CampaignListResponseDto>> getCampaignsByProductId({
+    required int productId,
+  }) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$_path/product/$productId',
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          CampaignListResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<CampaignListResponseDto>(e);
+    }
+  }
+
   Future<ResponseResult<CampaignResponseDto>> updateCampaign({
     required int campaignId,
     required CampaignUpdateRequestDto request,

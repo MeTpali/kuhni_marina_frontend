@@ -55,6 +55,26 @@ class CampaignsRemoteRepository implements ICampaignsRepository {
   }
 
   @override
+  Future<Result<Campaign>> getCampaignBySlug(String campaignSlug) async {
+    final response =
+        await _service.getCampaignBySlug(campaignSlug: campaignSlug);
+    return response.when(
+      success: (data) => Result.success(_mapper.map(data)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<CampaignCatalog>> getCampaignsByProductId(int productId) async {
+    final response =
+        await _service.getCampaignsByProductId(productId: productId);
+    return response.when(
+      success: (dto) => Result.success(_catalogMapper.map(dto)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
   Future<Result<Campaign>> updateCampaign(
     int campaignId,
     CampaignUpdateRequest request,

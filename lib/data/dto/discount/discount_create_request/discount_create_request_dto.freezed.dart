@@ -32,9 +32,9 @@ mixin _$DiscountCreateRequestDto {
   @JsonKey(name: 'scope')
   DiscountScopeDto get scope => throw _privateConstructorUsedError;
   @JsonKey(name: 'start_date')
-  String get startDate => throw _privateConstructorUsedError;
+  String? get startDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'end_date')
-  String get endDate => throw _privateConstructorUsedError;
+  String? get endDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'product_id')
   int? get productId => throw _privateConstructorUsedError;
   @JsonKey(name: 'category_id')
@@ -68,8 +68,8 @@ abstract class $DiscountCreateRequestDtoCopyWith<$Res> {
     @JsonKey(name: 'discount_type') DiscountTypeDto discountType,
     @JsonKey(name: 'value') num value,
     @JsonKey(name: 'scope') DiscountScopeDto scope,
-    @JsonKey(name: 'start_date') String startDate,
-    @JsonKey(name: 'end_date') String endDate,
+    @JsonKey(name: 'start_date') String? startDate,
+    @JsonKey(name: 'end_date') String? endDate,
     @JsonKey(name: 'product_id') int? productId,
     @JsonKey(name: 'category_id') int? categoryId,
     @JsonKey(name: 'product_type') ProductTypeDto? productType,
@@ -100,8 +100,8 @@ class _$DiscountCreateRequestDtoCopyWithImpl<
     Object? discountType = null,
     Object? value = null,
     Object? scope = null,
-    Object? startDate = null,
-    Object? endDate = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
     Object? productId = freezed,
     Object? categoryId = freezed,
     Object? productType = freezed,
@@ -126,14 +126,14 @@ class _$DiscountCreateRequestDtoCopyWithImpl<
                 ? _value.scope
                 : scope // ignore: cast_nullable_to_non_nullable
                       as DiscountScopeDto,
-            startDate: null == startDate
+            startDate: freezed == startDate
                 ? _value.startDate
                 : startDate // ignore: cast_nullable_to_non_nullable
-                      as String,
-            endDate: null == endDate
+                      as String?,
+            endDate: freezed == endDate
                 ? _value.endDate
                 : endDate // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as String?,
             productId: freezed == productId
                 ? _value.productId
                 : productId // ignore: cast_nullable_to_non_nullable
@@ -174,8 +174,8 @@ abstract class _$$DiscountCreateRequestDtoImplCopyWith<$Res>
     @JsonKey(name: 'discount_type') DiscountTypeDto discountType,
     @JsonKey(name: 'value') num value,
     @JsonKey(name: 'scope') DiscountScopeDto scope,
-    @JsonKey(name: 'start_date') String startDate,
-    @JsonKey(name: 'end_date') String endDate,
+    @JsonKey(name: 'start_date') String? startDate,
+    @JsonKey(name: 'end_date') String? endDate,
     @JsonKey(name: 'product_id') int? productId,
     @JsonKey(name: 'category_id') int? categoryId,
     @JsonKey(name: 'product_type') ProductTypeDto? productType,
@@ -206,8 +206,8 @@ class __$$DiscountCreateRequestDtoImplCopyWithImpl<$Res>
     Object? discountType = null,
     Object? value = null,
     Object? scope = null,
-    Object? startDate = null,
-    Object? endDate = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
     Object? productId = freezed,
     Object? categoryId = freezed,
     Object? productType = freezed,
@@ -232,14 +232,14 @@ class __$$DiscountCreateRequestDtoImplCopyWithImpl<$Res>
             ? _value.scope
             : scope // ignore: cast_nullable_to_non_nullable
                   as DiscountScopeDto,
-        startDate: null == startDate
+        startDate: freezed == startDate
             ? _value.startDate
             : startDate // ignore: cast_nullable_to_non_nullable
-                  as String,
-        endDate: null == endDate
+                  as String?,
+        endDate: freezed == endDate
             ? _value.endDate
             : endDate // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as String?,
         productId: freezed == productId
             ? _value.productId
             : productId // ignore: cast_nullable_to_non_nullable
@@ -273,8 +273,8 @@ class _$DiscountCreateRequestDtoImpl implements _DiscountCreateRequestDto {
     @JsonKey(name: 'discount_type') required this.discountType,
     @JsonKey(name: 'value') required this.value,
     @JsonKey(name: 'scope') required this.scope,
-    @JsonKey(name: 'start_date') required this.startDate,
-    @JsonKey(name: 'end_date') required this.endDate,
+    @JsonKey(name: 'start_date') this.startDate,
+    @JsonKey(name: 'end_date') this.endDate,
     @JsonKey(name: 'product_id') this.productId,
     @JsonKey(name: 'category_id') this.categoryId,
     @JsonKey(name: 'product_type') this.productType,
@@ -299,10 +299,10 @@ class _$DiscountCreateRequestDtoImpl implements _DiscountCreateRequestDto {
   final DiscountScopeDto scope;
   @override
   @JsonKey(name: 'start_date')
-  final String startDate;
+  final String? startDate;
   @override
   @JsonKey(name: 'end_date')
-  final String endDate;
+  final String? endDate;
   @override
   @JsonKey(name: 'product_id')
   final int? productId;
@@ -389,8 +389,8 @@ abstract class _DiscountCreateRequestDto implements DiscountCreateRequestDto {
     @JsonKey(name: 'discount_type') required final DiscountTypeDto discountType,
     @JsonKey(name: 'value') required final num value,
     @JsonKey(name: 'scope') required final DiscountScopeDto scope,
-    @JsonKey(name: 'start_date') required final String startDate,
-    @JsonKey(name: 'end_date') required final String endDate,
+    @JsonKey(name: 'start_date') final String? startDate,
+    @JsonKey(name: 'end_date') final String? endDate,
     @JsonKey(name: 'product_id') final int? productId,
     @JsonKey(name: 'category_id') final int? categoryId,
     @JsonKey(name: 'product_type') final ProductTypeDto? productType,
@@ -415,10 +415,10 @@ abstract class _DiscountCreateRequestDto implements DiscountCreateRequestDto {
   DiscountScopeDto get scope;
   @override
   @JsonKey(name: 'start_date')
-  String get startDate;
+  String? get startDate;
   @override
   @JsonKey(name: 'end_date')
-  String get endDate;
+  String? get endDate;
   @override
   @JsonKey(name: 'product_id')
   int? get productId;

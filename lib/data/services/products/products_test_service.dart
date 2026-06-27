@@ -7,6 +7,7 @@ import '../../dto/product/product_delete_response/product_delete_response_dto.da
 import '../../dto/product/product_favorite_mutation_response/product_favorite_mutation_response_dto.dart';
 import '../../dto/product/product_id_list_response/product_id_list_response_dto.dart';
 import '../../dto/product/product_list_item_response/product_list_item_response_dto.dart';
+import '../../dto/product/product_detail_response/product_detail_response_dto.dart';
 import '../../dto/product/product_response/product_response_dto.dart';
 import '../../dto/product/product_search_suggestions_response/product_search_suggestions_response_dto.dart';
 import '../../dto/product/product_suggestion_item_response/product_suggestion_item_response_dto.dart';
@@ -187,12 +188,12 @@ class ProductsTestService {
     return const ResponseResult.success(_mockIdList);
   }
 
-  Future<ResponseResult<ProductResponseDto>> getProductById({
+  Future<ResponseResult<ProductDetailResponseDto>> getProductById({
     required int productId,
   }) async {
     if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));
     return ResponseResult.success(
-      ProductResponseDto(
+      ProductDetailResponseDto(
         id: productId,
         name: 'Товар $productId',
         categoryId: 1,
@@ -201,10 +202,40 @@ class ProductsTestService {
         createdAt: '2024-01-15T10:00:00Z',
         slug: 'product-$productId',
         description: null,
+        contentMarkdown: '## Описание товара $productId',
         price: '0',
         isNew: false,
         isHit: false,
         isActive: true,
+        attributes: const [],
+        images: const [],
+        updatedAt: null,
+        message: null,
+      ),
+    );
+  }
+
+  Future<ResponseResult<ProductResponseDto>> getProductBySlug({
+    required String productSlug,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 250));
+    final listItem = _mockListItems
+        .where((item) => item.slug == productSlug)
+        .firstOrNull;
+    return ResponseResult.success(
+      ProductResponseDto(
+        id: listItem?.id ?? 1,
+        name: listItem?.name ?? 'Товар $productSlug',
+        categoryId: listItem?.categoryId ?? 1,
+        type: listItem?.type ?? ProductTypeDto.KITCHEN,
+        category: _mockCategory,
+        createdAt: '2024-01-15T10:00:00Z',
+        slug: productSlug,
+        description: null,
+        price: listItem?.price ?? '0',
+        isNew: listItem?.isNew ?? false,
+        isHit: listItem?.isHit ?? false,
+        isActive: listItem?.isActive ?? true,
         attributes: const [],
         images: const [],
         updatedAt: null,

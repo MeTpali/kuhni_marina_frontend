@@ -7,6 +7,7 @@ import '../../dto/product/product_create_request/product_create_request_dto.dart
 import '../../dto/product/product_delete_response/product_delete_response_dto.dart';
 import '../../dto/product/product_favorite_mutation_response/product_favorite_mutation_response_dto.dart';
 import '../../dto/product/product_id_list_response/product_id_list_response_dto.dart';
+import '../../dto/product/product_detail_response/product_detail_response_dto.dart';
 import '../../dto/product/product_response/product_response_dto.dart';
 import '../../dto/product/product_search_suggestions_response/product_search_suggestions_response_dto.dart';
 import '../../dto/product/product_update_request/product_update_request_dto.dart';
@@ -165,11 +166,32 @@ class ProductsRemoteService {
     }
   }
 
-  Future<ResponseResult<ProductResponseDto>> getProductById({
+  Future<ResponseResult<ProductDetailResponseDto>> getProductById({
     required int productId,
   }) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>('$_path/$productId');
+
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseResult.success(
+          ProductDetailResponseDto.fromJson(response.data!),
+        );
+      }
+      return ResponseResult.error(
+        ResponseError.server('Server error', response.statusCode),
+      );
+    } on DioException catch (e) {
+      return DioUtils.handleDioException<ProductDetailResponseDto>(e);
+    }
+  }
+
+  Future<ResponseResult<ProductResponseDto>> getProductBySlug({
+    required String productSlug,
+  }) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$_path/slug/${Uri.encodeComponent(productSlug)}',
+      );
 
       if (response.statusCode == 200 && response.data != null) {
         return ResponseResult.success(

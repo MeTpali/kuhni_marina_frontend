@@ -1496,13 +1496,64 @@
                 ]
             }
         },
+        "/api/v1/products/slug/{product_slug}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Получить продукт по slug",
+                "description": "Возвращает продукт с категорией, атрибутами и изображениями по slug",
+                "operationId": "get_product_by_slug_api_v1_products_slug__product_slug__get",
+                "parameters": [
+                    {
+                        "name": "product_slug",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Product Slug"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Продукт найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Продукт не найден"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/products/{product_id}": {
             "get": {
                 "tags": [
                     "products"
                 ],
                 "summary": "Получить продукт по ID",
-                "description": "Возвращает продукт с категорией, атрибутами и изображениями",
+                "description": "Возвращает продукт с категорией, атрибутами, изображениями и content_markdown",
                 "operationId": "get_product_by_id_api_v1_products__product_id__get",
                 "parameters": [
                     {
@@ -1521,7 +1572,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProductResponse"
+                                    "$ref": "#/components/schemas/ProductDetailResponse"
                                 }
                             }
                         }
@@ -4336,6 +4387,108 @@
                 ]
             }
         },
+        "/api/v1/campaigns/slug/{campaign_slug}": {
+            "get": {
+                "tags": [
+                    "campaigns"
+                ],
+                "summary": "Получить акцию по slug",
+                "description": "Возвращает акцию с указанным slug",
+                "operationId": "get_campaign_by_slug_api_v1_campaigns_slug__campaign_slug__get",
+                "parameters": [
+                    {
+                        "name": "campaign_slug",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Campaign Slug"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Акция найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CampaignResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Акция не найдена"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/campaigns/product/{product_id}": {
+            "get": {
+                "tags": [
+                    "campaigns"
+                ],
+                "summary": "Получить акции по идентификатору продукта",
+                "description": "Возвращает список акций, в которых участвует указанный продукт",
+                "operationId": "get_campaigns_by_product_id_api_v1_campaigns_product__product_id__get",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Акции найдены",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CampaignListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Продукт не найден"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/campaigns/{campaign_id}": {
             "get": {
                 "tags": [
@@ -6218,24 +6371,38 @@
                         ]
                     },
                     "start_date": {
-                        "type": "string",
-                        "format": "date-time",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Start Date"
                     },
                     "end_date": {
-                        "type": "string",
-                        "format": "date-time",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "End Date"
-                    },
-                    "priority": {
-                        "type": "integer",
-                        "title": "Priority",
-                        "default": 0
                     },
                     "is_active": {
                         "type": "boolean",
                         "title": "Is Active",
                         "default": true
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "title": "Priority",
+                        "default": 0
                     }
                 },
                 "type": "object",
@@ -6243,9 +6410,7 @@
                     "name",
                     "discount_type",
                     "value",
-                    "scope",
-                    "start_date",
-                    "end_date"
+                    "scope"
                 ],
                 "title": "DiscountCreateRequest"
             },
@@ -7066,6 +7231,17 @@
                     "type": {
                         "$ref": "#/components/schemas/ProductType"
                     },
+                    "content_markdown": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Content Markdown"
+                    },
                     "attributes": {
                         "items": {
                             "type": "object"
@@ -7112,6 +7288,148 @@
                     "product_id"
                 ],
                 "title": "ProductDeleteResponse"
+            },
+            "ProductDetailResponse": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "slug": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Slug"
+                    },
+                    "category_id": {
+                        "type": "integer",
+                        "title": "Category Id"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "price": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Price"
+                    },
+                    "is_new": {
+                        "type": "boolean",
+                        "title": "Is New",
+                        "default": false
+                    },
+                    "is_hit": {
+                        "type": "boolean",
+                        "title": "Is Hit",
+                        "default": false
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/ProductType"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/CategoryResponse"
+                    },
+                    "attributes": {
+                        "items": {
+                            "$ref": "#/components/schemas/core__schemas__products__ProductAttributeResponse"
+                        },
+                        "type": "array",
+                        "title": "Attributes"
+                    },
+                    "images": {
+                        "items": {
+                            "$ref": "#/components/schemas/core__schemas__products__ProductImageResponse"
+                        },
+                        "type": "array",
+                        "title": "Images"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active",
+                        "default": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "title": "Created At"
+                    },
+                    "updated_at": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated At"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    },
+                    "discount": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ProductDiscountInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "content_markdown": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Content Markdown"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category_id",
+                    "type",
+                    "id",
+                    "category",
+                    "created_at"
+                ],
+                "title": "ProductDetailResponse",
+                "description": "Полная карточка продукта; content_markdown только в GET /products/{product_id}."
             },
             "ProductDiscountInfo": {
                 "properties": {
@@ -7696,6 +8014,17 @@
                             }
                         ],
                         "title": "Description"
+                    },
+                    "content_markdown": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Content Markdown"
                     },
                     "price": {
                         "anyOf": [

@@ -11,7 +11,7 @@ import '../../../core/widgets/horizontal_scroll/horizontal_scroll_edge_hover_zon
 import '../../../core/widgets/images/app_image.dart';
 import '../../../core/widgets/reveal/reveal_wrap.dart';
 import '../../../domain/models/banner/banner.dart';
-import '../providers/home_di.dart';
+import '../providers/banners/home_banner_providers.dart';
 
 /// Секция баннеров на главной: карусель или один баннер.
 class HomeBannerSection extends ConsumerWidget {
@@ -19,7 +19,7 @@ class HomeBannerSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncBanners = ref.watch(HomeDi.homeBannersProvider);
+    final asyncBanners = ref.watch(homeBannersProvider);
     return asyncBanners.when(
       data: (banners) {
         if (banners.isEmpty) return const SizedBox.shrink();

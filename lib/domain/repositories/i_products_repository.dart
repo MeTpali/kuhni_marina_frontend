@@ -66,6 +66,9 @@ abstract class IProductsRepository {
   /// Товар по id.
   Future<Result<Product>> getProductById(int productId);
 
+  /// Товар по slug.
+  Future<Result<Product>> getProductBySlug(String productSlug);
+
   /// Создать товар.
   Future<Result<Product>> createProduct(ProductCreateRequest request);
 

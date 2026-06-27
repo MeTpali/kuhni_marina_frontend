@@ -9,6 +9,7 @@ import '../../../domain/models/product_type/product_type.dart';
 import '../../../domain/repositories/i_products_repository.dart';
 import '../../mappers/products/product_catalog_mapper.dart';
 import '../../mappers/products/product_favorite_mutation_mapper.dart';
+import '../../mappers/products/product_detail_mapper.dart';
 import '../../mappers/products/product_mapper.dart';
 import '../../mappers/products/product_request_mappers.dart';
 import '../../mappers/products/product_suggestion_item_mapper.dart';
@@ -22,6 +23,7 @@ class ProductsTestRepository implements IProductsRepository {
 
   final ProductsTestService _service;
   final ProductMapper _productMapper = ProductMapper();
+  final ProductDetailMapper _productDetailMapper = ProductDetailMapper();
   final ProductCatalogMapper _catalogMapper = ProductCatalogMapper();
   final ProductSuggestionItemMapper _suggestionMapper =
       ProductSuggestionItemMapper();
@@ -158,6 +160,15 @@ class ProductsTestRepository implements IProductsRepository {
   @override
   Future<Result<Product>> getProductById(int productId) async {
     final response = await _service.getProductById(productId: productId);
+    return response.when(
+      success: (data) => Result.success(_productDetailMapper.map(data)),
+      error: (e) => Result.error(responseErrorToMessage(e)),
+    );
+  }
+
+  @override
+  Future<Result<Product>> getProductBySlug(String productSlug) async {
+    final response = await _service.getProductBySlug(productSlug: productSlug);
     return response.when(
       success: (data) => Result.success(_productMapper.map(data)),
       error: (e) => Result.error(responseErrorToMessage(e)),

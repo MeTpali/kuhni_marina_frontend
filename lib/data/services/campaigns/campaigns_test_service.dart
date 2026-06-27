@@ -115,6 +115,40 @@ class CampaignsTestService {
     );
   }
 
+  Future<ResponseResult<CampaignResponseDto>> getCampaignBySlug({
+    required String campaignSlug,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
+    final found =
+        _mockItems.where((item) => item.slug == campaignSlug).firstOrNull;
+    return ResponseResult.success(
+      found ??
+          CampaignResponseDto(
+            id: 1,
+            name: 'Акция $campaignSlug',
+            slug: campaignSlug,
+            description: null,
+            bannerImageUrl: null,
+            landingUrl: null,
+            badgeText: null,
+            startDate: '2024-01-01T00:00:00Z',
+            endDate: '2024-12-31T23:59:59Z',
+            isActive: true,
+            priority: 0,
+            createdAt: '2024-01-01T10:00:00Z',
+            updatedAt: null,
+            message: null,
+          ),
+    );
+  }
+
+  Future<ResponseResult<CampaignListResponseDto>> getCampaignsByProductId({
+    required int productId,
+  }) async {
+    if (addDelay) await Future<void>.delayed(const Duration(milliseconds: 200));
+    return const ResponseResult.success(_mockListResponse);
+  }
+
   Future<ResponseResult<CampaignResponseDto>> updateCampaign({
     required int campaignId,
     required CampaignUpdateRequestDto request,

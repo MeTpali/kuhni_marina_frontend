@@ -4,8 +4,8 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/home_sizes.dart';
 import '../../../core/constants/screen_size.dart';
 import '../../../core/widgets/reveal/reveal_wrap.dart';
-import 'home_section_backdrop.dart';
-import 'home_section_split_layout.dart';
+import '../../shared/section/section_backdrop.dart';
+import '../../shared/section/section_split_layout.dart';
 
 class _AboutStep {
   const _AboutStep({required this.title, required this.body});
@@ -68,7 +68,7 @@ class HomeAboutSection extends StatelessWidget {
     Shadow(color: Color(0x73000000), blurRadius: 8, offset: Offset(0, 1)),
   ];
 
-  static const _backdropStyle = HomeSectionBackdropStyle.glassDark;
+  static const _backdropStyle = SectionBackdropStyle.glassDark;
   static const _contentMaxWidth = 1100.0;
   static const _bodyMaxWidth = 640.0;
 
@@ -187,7 +187,7 @@ class HomeAboutSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         SizedBox(height: glassVerticalEdge),
-        HomeSectionSplitLayout(
+        SectionSplitLayout(
           horizontalPadding: horizontalPad,
           columnGap: screenSize.sectionTitleBottomSpacing * 1.25,
           sideBySide: useSideBySide,
@@ -206,7 +206,7 @@ class HomeAboutSection extends StatelessWidget {
           body: stepsBody,
         ),
         SizedBox(height: screenSize.sectionSpacing * 1.5),
-        HomeSectionSplitLayout(
+        SectionSplitLayout(
           horizontalPadding: horizontalPad,
           columnGap: screenSize.sectionTitleBottomSpacing * 1.25,
           sideBySide: useSideBySide,
@@ -228,6 +228,6 @@ class HomeAboutSection extends StatelessWidget {
       ],
     );
 
-    return HomeSectionBackdrop(style: _backdropStyle, child: content);
+    return SectionBackdrop(style: _backdropStyle, child: content);
   }
 }

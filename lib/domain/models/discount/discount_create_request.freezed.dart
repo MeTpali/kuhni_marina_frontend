@@ -21,8 +21,8 @@ mixin _$DiscountCreateRequest {
   DiscountType get discountType => throw _privateConstructorUsedError;
   num get value => throw _privateConstructorUsedError;
   DiscountScope get scope => throw _privateConstructorUsedError;
-  String get startDate => throw _privateConstructorUsedError;
-  String get endDate => throw _privateConstructorUsedError;
+  String? get startDate => throw _privateConstructorUsedError;
+  String? get endDate => throw _privateConstructorUsedError;
   int? get productId => throw _privateConstructorUsedError;
   int? get categoryId => throw _privateConstructorUsedError;
   ProductType? get productType => throw _privateConstructorUsedError;
@@ -48,8 +48,8 @@ abstract class $DiscountCreateRequestCopyWith<$Res> {
     DiscountType discountType,
     num value,
     DiscountScope scope,
-    String startDate,
-    String endDate,
+    String? startDate,
+    String? endDate,
     int? productId,
     int? categoryId,
     ProductType? productType,
@@ -80,8 +80,8 @@ class _$DiscountCreateRequestCopyWithImpl<
     Object? discountType = null,
     Object? value = null,
     Object? scope = null,
-    Object? startDate = null,
-    Object? endDate = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
     Object? productId = freezed,
     Object? categoryId = freezed,
     Object? productType = freezed,
@@ -106,14 +106,14 @@ class _$DiscountCreateRequestCopyWithImpl<
                 ? _value.scope
                 : scope // ignore: cast_nullable_to_non_nullable
                       as DiscountScope,
-            startDate: null == startDate
+            startDate: freezed == startDate
                 ? _value.startDate
                 : startDate // ignore: cast_nullable_to_non_nullable
-                      as String,
-            endDate: null == endDate
+                      as String?,
+            endDate: freezed == endDate
                 ? _value.endDate
                 : endDate // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as String?,
             productId: freezed == productId
                 ? _value.productId
                 : productId // ignore: cast_nullable_to_non_nullable
@@ -154,8 +154,8 @@ abstract class _$$DiscountCreateRequestImplCopyWith<$Res>
     DiscountType discountType,
     num value,
     DiscountScope scope,
-    String startDate,
-    String endDate,
+    String? startDate,
+    String? endDate,
     int? productId,
     int? categoryId,
     ProductType? productType,
@@ -183,8 +183,8 @@ class __$$DiscountCreateRequestImplCopyWithImpl<$Res>
     Object? discountType = null,
     Object? value = null,
     Object? scope = null,
-    Object? startDate = null,
-    Object? endDate = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
     Object? productId = freezed,
     Object? categoryId = freezed,
     Object? productType = freezed,
@@ -209,14 +209,14 @@ class __$$DiscountCreateRequestImplCopyWithImpl<$Res>
             ? _value.scope
             : scope // ignore: cast_nullable_to_non_nullable
                   as DiscountScope,
-        startDate: null == startDate
+        startDate: freezed == startDate
             ? _value.startDate
             : startDate // ignore: cast_nullable_to_non_nullable
-                  as String,
-        endDate: null == endDate
+                  as String?,
+        endDate: freezed == endDate
             ? _value.endDate
             : endDate // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as String?,
         productId: freezed == productId
             ? _value.productId
             : productId // ignore: cast_nullable_to_non_nullable
@@ -250,8 +250,8 @@ class _$DiscountCreateRequestImpl implements _DiscountCreateRequest {
     required this.discountType,
     required this.value,
     required this.scope,
-    required this.startDate,
-    required this.endDate,
+    this.startDate,
+    this.endDate,
     this.productId,
     this.categoryId,
     this.productType,
@@ -268,9 +268,9 @@ class _$DiscountCreateRequestImpl implements _DiscountCreateRequest {
   @override
   final DiscountScope scope;
   @override
-  final String startDate;
+  final String? startDate;
   @override
-  final String endDate;
+  final String? endDate;
   @override
   final int? productId;
   @override
@@ -349,8 +349,8 @@ abstract class _DiscountCreateRequest implements DiscountCreateRequest {
     required final DiscountType discountType,
     required final num value,
     required final DiscountScope scope,
-    required final String startDate,
-    required final String endDate,
+    final String? startDate,
+    final String? endDate,
     final int? productId,
     final int? categoryId,
     final ProductType? productType,
@@ -367,9 +367,9 @@ abstract class _DiscountCreateRequest implements DiscountCreateRequest {
   @override
   DiscountScope get scope;
   @override
-  String get startDate;
+  String? get startDate;
   @override
-  String get endDate;
+  String? get endDate;
   @override
   int? get productId;
   @override

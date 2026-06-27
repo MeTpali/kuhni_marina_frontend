@@ -12,6 +12,7 @@ class ProductCreateRequestDto with _$ProductCreateRequestDto {
     @JsonKey(name: 'type') required ProductTypeDto type,
     @JsonKey(name: 'slug') String? slug,
     @JsonKey(name: 'description') String? description,
+    @JsonKey(name: 'content_markdown') String? contentMarkdown,
     @JsonKey(name: 'price') Object? price,
     @Default(false) @JsonKey(name: 'is_new') bool isNew,
     @Default(false) @JsonKey(name: 'is_hit') bool isHit,

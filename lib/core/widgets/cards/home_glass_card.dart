@@ -7,7 +7,7 @@ import '../../constants/home_sizes.dart';
 import '../../constants/screen_size.dart';
 import '../liquid_glass/liquid_glass.dart';
 
-/// Карточка в стиле [HomeAppBar]: тот же blur и то же светлое затенение (белый 0.2),
+/// Карточка в стиле [ShellAppBar]: тот же blur и то же светлое затенение (белый 0.2),
 /// плюс обводка по контуру карточки.
 /// Поддерживает hover-анимацию (радиус/внутренние отступы) и tap через InkWell.
 class HomeGlassCard extends StatefulWidget {

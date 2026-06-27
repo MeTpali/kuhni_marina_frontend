@@ -13,8 +13,8 @@ _$DiscountCreateRequestDtoImpl _$$DiscountCreateRequestDtoImplFromJson(
   discountType: $enumDecode(_$DiscountTypeDtoEnumMap, json['discount_type']),
   value: json['value'] as num,
   scope: $enumDecode(_$DiscountScopeDtoEnumMap, json['scope']),
-  startDate: json['start_date'] as String,
-  endDate: json['end_date'] as String,
+  startDate: json['start_date'] as String?,
+  endDate: json['end_date'] as String?,
   productId: (json['product_id'] as num?)?.toInt(),
   categoryId: (json['category_id'] as num?)?.toInt(),
   productType: $enumDecodeNullable(

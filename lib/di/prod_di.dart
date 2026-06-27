@@ -47,7 +47,7 @@ Talker _setupTalker() => TalkerFlutter.init(settings: TalkerSettings());
 Dio _setupDio(Talker talker) {
   final dio = Dio(
     BaseOptions(
-      baseUrl: 'http://192.168.1.37:8000',
+      baseUrl: 'http://192.168.1.43:8000',
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 10),
     ),

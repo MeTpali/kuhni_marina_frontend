@@ -12,9 +12,9 @@ import '../../../core/utils/extensions/num_extension.dart';
 import '../../../core/widgets/horizontal_scroll/horizontal_scroll_edge_hover_zone.dart';
 import '../../../core/widgets/reveal/reveal_wrap.dart';
 import '../../../domain/models/campaign/campaign.dart';
-import '../providers/home_di.dart';
+import '../providers/campaigns/home_campaign_providers.dart';
 import 'home_campaign_card.dart';
-import 'home_section_backdrop.dart';
+import '../../shared/section/section_backdrop.dart';
 
 /// Секция «Акции»: заголовок и карусель 16×9 (как баннеры).
 class HomeCampaignsSection extends ConsumerWidget {
@@ -39,12 +39,12 @@ class HomeCampaignsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final campaignsAsync = ref.watch(HomeDi.homeCampaignsProvider);
+    final campaignsAsync = ref.watch(homeCampaignsProvider);
     final screenSize = context.screenSize;
     final viewportWidth = MediaQuery.sizeOf(context).width;
     final cardWidth = _campaignCardWidth(viewportWidth, screenSize);
     final listHeight = HomeCampaignCard.cardHeightForWidth(cardWidth);
-    const backdropStyle = HomeSectionBackdropStyle.glassLight;
+    const backdropStyle = SectionBackdropStyle.glassLight;
     final glassVerticalEdge = screenSize.sectionGlassBlockVerticalMargin;
 
     return campaignsAsync.when(
@@ -93,7 +93,7 @@ class HomeCampaignsSection extends ConsumerWidget {
           ],
         );
 
-        return HomeSectionBackdrop(style: backdropStyle, child: content);
+        return SectionBackdrop(style: backdropStyle, child: content);
       },
       loading: () => _CampaignsLoadingPlaceholder(
         screenSize: screenSize,
@@ -333,8 +333,8 @@ class _CampaignsLoadingPlaceholder extends StatelessWidget {
     final listHeight = HomeCampaignCard.cardHeightForWidth(cardWidth);
     final edge = screenSize.sectionGlassBlockVerticalMargin;
 
-    return HomeSectionBackdrop(
-      style: HomeSectionBackdropStyle.glassLight,
+    return SectionBackdrop(
+      style: SectionBackdropStyle.glassLight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

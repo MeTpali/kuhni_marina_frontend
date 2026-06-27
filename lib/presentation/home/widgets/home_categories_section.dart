@@ -7,9 +7,9 @@ import '../../../core/constants/product_card_sizes.dart';
 import '../../../core/constants/screen_size.dart';
 import '../../../core/widgets/reveal/reveal_wrap.dart';
 import '../../../domain/models/category_type/category_type.dart';
-import '../providers/home_di.dart';
+import '../providers/categories/home_categories_providers.dart';
 import 'home_categories_bento_grid.dart';
-import 'home_section_backdrop.dart';
+import '../../shared/section/section_backdrop.dart';
 
 /// Bento-сетка категорий каталога (кухни или мебель).
 class HomeCategoriesSection extends ConsumerWidget {
@@ -22,11 +22,11 @@ class HomeCategoriesSection extends ConsumerWidget {
   final String title;
   final CategoryType categoryType;
 
-  static const _backdropStyle = HomeSectionBackdropStyle.glassHeavy;
+  static const _backdropStyle = SectionBackdropStyle.glassHeavy;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HomeDi.categoriesProvider(categoryType));
+    final state = ref.watch(homeCategoriesProvider(categoryType));
     final screenSize = context.screenSize;
     final glassVerticalEdge = screenSize.sectionGlassBlockVerticalMargin;
 
@@ -77,7 +77,7 @@ class HomeCategoriesSection extends ConsumerWidget {
       ],
     );
 
-    return HomeSectionBackdrop(style: _backdropStyle, child: content);
+    return SectionBackdrop(style: _backdropStyle, child: content);
   }
 }
 

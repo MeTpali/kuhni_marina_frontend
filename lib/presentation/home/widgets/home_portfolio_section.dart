@@ -10,9 +10,9 @@ import '../../../core/widgets/cards/home_project_smooth_card.dart';
 import '../../../core/widgets/horizontal_scroll/horizontal_loop_carousel.dart';
 import '../../../core/widgets/reveal/reveal_wrap.dart';
 import '../../../domain/models/project/project.dart';
-import '../providers/home_di.dart';
-import 'home_section_backdrop.dart';
-import 'home_section_more_button.dart';
+import '../providers/portfolio/home_portfolio_providers.dart';
+import '../../shared/section/section_backdrop.dart';
+import '../../shared/section/section_more_button.dart';
 
 /// Секция «Портфолио»: заголовок и горизонтальный список карточек проектов.
 class HomePortfolioSection extends ConsumerWidget {
@@ -29,7 +29,7 @@ class HomePortfolioSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final projectsAsync = ref.watch(HomeDi.homePortfolioProvider);
+    final projectsAsync = ref.watch(homePortfolioProvider);
 
     return projectsAsync.when(
       data: (catalog) {
@@ -62,7 +62,7 @@ class _PortfolioContent extends StatelessWidget {
     final cardWidth = screenSize.homeProjectCardWidth;
     final listHeight = screenSize.homeProjectCarouselHeight;
     final gap = screenSize.horizontalPadding;
-    const backdropStyle = HomeSectionBackdropStyle.glassLight;
+    const backdropStyle = SectionBackdropStyle.glassLight;
     final glassVerticalEdge = screenSize.sectionGlassBlockVerticalMargin;
 
     final content = Column(
@@ -88,7 +88,7 @@ class _PortfolioContent extends StatelessWidget {
                     fontSize: screenSize.headlineMediumSize,
                   ),
                 ),
-                HomeSectionMoreButton(
+                SectionMoreButton(
                   label: _moreLabel,
                   onPressed: onMoreTap,
                   iconSize: screenSize.labelLargeSize,
@@ -136,7 +136,7 @@ class _PortfolioContent extends StatelessWidget {
       ],
     );
 
-    return HomeSectionBackdrop(style: backdropStyle, child: content);
+    return SectionBackdrop(style: backdropStyle, child: content);
   }
 }
 

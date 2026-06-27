@@ -8,8 +8,8 @@ import '../../../core/constants/screen_size.dart';
 import '../../../core/parsers/icon_color_mapper.dart';
 import '../../../core/widgets/cards/home_glass_card.dart';
 import '../../../core/widgets/reveal/reveal_wrap.dart';
-import 'home_section_backdrop.dart';
-import 'home_section_split_layout.dart';
+import '../../shared/section/section_backdrop.dart';
+import '../../shared/section/section_split_layout.dart';
 
 class _AdvantageItem {
   const _AdvantageItem({required this.iconAsset, required this.label});
@@ -153,7 +153,7 @@ class HomeAdvantagesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         SizedBox(height: glassVerticalEdge),
-        HomeSectionSplitLayout(
+        SectionSplitLayout(
           horizontalPadding: horizontalPad,
           columnGap: screenSize.sectionTitleBottomSpacing * 1.25,
           sideBySide: useSideBySide,
@@ -175,8 +175,8 @@ class HomeAdvantagesSection extends StatelessWidget {
       ],
     );
 
-    return HomeSectionBackdrop(
-      style: HomeSectionBackdropStyle.glassDark,
+    return SectionBackdrop(
+      style: SectionBackdropStyle.glassDark,
       child: content,
     );
   }

@@ -20,6 +20,7 @@ class Product with _$Product {
     required String createdAt,
     String? slug,
     String? description,
+    String? contentMarkdown,
     String? price,
     @Default(false) bool isNew,
     @Default(false) bool isHit,

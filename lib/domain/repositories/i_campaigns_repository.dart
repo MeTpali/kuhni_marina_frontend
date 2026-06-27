@@ -19,6 +19,12 @@ abstract class ICampaignsRepository {
   /// Акция по id.
   Future<Result<Campaign>> getCampaignById(int campaignId);
 
+  /// Акция по slug.
+  Future<Result<Campaign>> getCampaignBySlug(String campaignSlug);
+
+  /// Акции, в которых участвует продукт.
+  Future<Result<CampaignCatalog>> getCampaignsByProductId(int productId);
+
   /// Обновить акцию.
   Future<Result<Campaign>> updateCampaign(
     int campaignId,

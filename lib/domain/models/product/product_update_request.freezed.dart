@@ -22,6 +22,7 @@ mixin _$ProductUpdateRequest {
   ProductType? get type => throw _privateConstructorUsedError;
   String? get slug => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get contentMarkdown => throw _privateConstructorUsedError;
   Object? get price => throw _privateConstructorUsedError;
   bool? get isNew => throw _privateConstructorUsedError;
   bool? get isHit => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $ProductUpdateRequestCopyWith<$Res> {
     ProductType? type,
     String? slug,
     String? description,
+    String? contentMarkdown,
     Object? price,
     bool? isNew,
     bool? isHit,
@@ -80,6 +82,7 @@ class _$ProductUpdateRequestCopyWithImpl<
     Object? type = freezed,
     Object? slug = freezed,
     Object? description = freezed,
+    Object? contentMarkdown = freezed,
     Object? price = freezed,
     Object? isNew = freezed,
     Object? isHit = freezed,
@@ -107,6 +110,10 @@ class _$ProductUpdateRequestCopyWithImpl<
             description: freezed == description
                 ? _value.description
                 : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            contentMarkdown: freezed == contentMarkdown
+                ? _value.contentMarkdown
+                : contentMarkdown // ignore: cast_nullable_to_non_nullable
                       as String?,
             price: freezed == price ? _value.price : price,
             isNew: freezed == isNew
@@ -146,6 +153,7 @@ abstract class _$$ProductUpdateRequestImplCopyWith<$Res>
     ProductType? type,
     String? slug,
     String? description,
+    String? contentMarkdown,
     Object? price,
     bool? isNew,
     bool? isHit,
@@ -173,6 +181,7 @@ class __$$ProductUpdateRequestImplCopyWithImpl<$Res>
     Object? type = freezed,
     Object? slug = freezed,
     Object? description = freezed,
+    Object? contentMarkdown = freezed,
     Object? price = freezed,
     Object? isNew = freezed,
     Object? isHit = freezed,
@@ -200,6 +209,10 @@ class __$$ProductUpdateRequestImplCopyWithImpl<$Res>
         description: freezed == description
             ? _value.description
             : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        contentMarkdown: freezed == contentMarkdown
+            ? _value.contentMarkdown
+            : contentMarkdown // ignore: cast_nullable_to_non_nullable
                   as String?,
         price: freezed == price ? _value.price : price,
         isNew: freezed == isNew
@@ -232,6 +245,7 @@ class _$ProductUpdateRequestImpl implements _ProductUpdateRequest {
     this.type,
     this.slug,
     this.description,
+    this.contentMarkdown,
     this.price,
     this.isNew,
     this.isHit,
@@ -250,6 +264,8 @@ class _$ProductUpdateRequestImpl implements _ProductUpdateRequest {
   final String? slug;
   @override
   final String? description;
+  @override
+  final String? contentMarkdown;
   @override
   final Object? price;
   @override
@@ -278,7 +294,7 @@ class _$ProductUpdateRequestImpl implements _ProductUpdateRequest {
 
   @override
   String toString() {
-    return 'ProductUpdateRequest(name: $name, categoryId: $categoryId, type: $type, slug: $slug, description: $description, price: $price, isNew: $isNew, isHit: $isHit, attributes: $attributes, images: $images)';
+    return 'ProductUpdateRequest(name: $name, categoryId: $categoryId, type: $type, slug: $slug, description: $description, contentMarkdown: $contentMarkdown, price: $price, isNew: $isNew, isHit: $isHit, attributes: $attributes, images: $images)';
   }
 
   @override
@@ -293,6 +309,8 @@ class _$ProductUpdateRequestImpl implements _ProductUpdateRequest {
             (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.contentMarkdown, contentMarkdown) ||
+                other.contentMarkdown == contentMarkdown) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             (identical(other.isNew, isNew) || other.isNew == isNew) &&
             (identical(other.isHit, isHit) || other.isHit == isHit) &&
@@ -311,6 +329,7 @@ class _$ProductUpdateRequestImpl implements _ProductUpdateRequest {
     type,
     slug,
     description,
+    contentMarkdown,
     const DeepCollectionEquality().hash(price),
     isNew,
     isHit,
@@ -338,6 +357,7 @@ abstract class _ProductUpdateRequest implements ProductUpdateRequest {
     final ProductType? type,
     final String? slug,
     final String? description,
+    final String? contentMarkdown,
     final Object? price,
     final bool? isNew,
     final bool? isHit,
@@ -355,6 +375,8 @@ abstract class _ProductUpdateRequest implements ProductUpdateRequest {
   String? get slug;
   @override
   String? get description;
+  @override
+  String? get contentMarkdown;
   @override
   Object? get price;
   @override
